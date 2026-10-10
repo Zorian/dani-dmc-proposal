@@ -445,7 +445,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       <button class="fstep" aria-pressed="true" data-i="0"><span class="n">1</span><span class="tier">Start</span><span class="t">Your content</span></button>
       <button class="fstep" aria-pressed="false" data-i="1"><span class="n">2</span><span class="tier">Free</span><span class="t">Free community and live workshop</span></button>
       <button class="fstep" aria-pressed="false" data-i="2"><span class="n">3</span><span class="tier">Low</span><span class="t">Confidence Club</span></button>
-      <button class="fstep" aria-pressed="false" data-i="3"><span class="n">4</span><span class="tier">Mid</span><span class="t">Rebirth Workshop™</span></button>
+      <button class="fstep" aria-pressed="false" data-i="3"><span class="n">4</span><span class="tier">Mid</span><span class="t">Rebirth Course</span></button>
       <button class="fstep" aria-pressed="false" data-i="4"><span class="n">5</span><span class="tier">High</span><span class="t">Rebirth Circle</span></button>
       <button class="fstep" aria-pressed="false" data-i="5"><span class="n">6</span><span class="tier">Super high</span><span class="t">Big Sis VIP</span></button>
       <button class="fstep later" aria-pressed="false" data-i="6"><span class="n">7</span><span class="tier">Later</span><span class="t">Live events</span></button>
@@ -528,8 +528,8 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     <div class="ladder">
       <div class="rung free"><span class="lvl">Free</span><div><h4>Monthly live workshop</h4><p>Workshop and 7 day replay. Announcements only.</p></div><span class="price">Free</span><span class="status now">Build now</span></div>
       <div class="rung"><span class="lvl">Low</span><div><h4>The Confidence Club</h4><p>The real community. Live chat, 2 calls a month, challenges.</p></div><span class="price">$33/mo</span><span class="status now">Build now</span></div>
-      <div class="rung"><span class="lvl">Mid</span><div><h4>The Confidence Rebirth Workshop™</h4><p>7 days live. Includes a month of the Club.</p></div><span class="price">$888</span><span class="status hers">Existing</span></div>
-      <div class="rung"><span class="lvl">High</span><div><h4>The Rebirth Circle</h4><p>8 weeks. Max 20 women. Weekly group call.</p></div><span class="price">$3,333</span><span class="status next">New</span></div>
+      <div class="rung"><span class="lvl">Mid</span><div><h4>The Confidence Rebirth Course</h4><p>Recorded once, sold forever. Includes 3 months of the Club.</p></div><span class="price">$888</span><span class="status next">New</span></div>
+      <div class="rung"><span class="lvl">High</span><div><h4>The Rebirth Circle</h4><p>8 weeks. Weekly live group call. Max 100 women.</p></div><span class="price">$3,333</span><span class="status next">New</span></div>
       <div class="rung"><span class="lvl">Super high</span><div><h4>Big Sis VIP</h4><p>12 weeks with you. 1:1 calls and a VIP day in person.</p></div><span class="price">$8,888</span><span class="status next">New</span></div>
       <div class="rung"><span class="lvl">Later</span><div><h4>Live events and world tour</h4><p>London first, then the world.</p></div><span class="price">TBC</span><span class="status next">Later</span></div>
     </div>
@@ -590,10 +590,10 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
         <div class="grp">Confidence Club, $33/mo</div>
         <div class="field"><label for="join">Signups who join the Club <output for="join"></output></label><input type="range" id="join" min="0" max="15" step="0.5"></div>
         <div class="field"><label for="churn">Members who cancel each month <output for="churn"></output></label><input type="range" id="churn" min="2" max="25" step="1"></div>
-        <div class="grp">Rebirth Workshop, $888</div>
-        <div class="field"><label for="wbuy">Buyers per month <output for="wbuy"></output></label><input type="range" id="wbuy" min="0" max="100" step="1"></div>
+        <div class="grp">Rebirth Course, $888</div>
+        <div class="field"><label for="wbuy">Course sales per month <output for="wbuy"></output></label><input type="range" id="wbuy" min="0" max="200" step="1"></div>
         <div class="grp">High ticket</div>
-        <div class="field"><label for="circle">Rebirth Circle sales per month <output for="circle"></output></label><input type="range" id="circle" min="0" max="20" step="1"></div>
+        <div class="field"><label for="circle">Rebirth Circle sales per month <output for="circle"></output></label><input type="range" id="circle" min="0" max="50" step="1"></div>
         <div class="field"><label for="vip">Big Sis VIP sales per month <output for="vip"></output></label><input type="range" id="vip" min="0" max="5" step="1"></div>
       </form>
 
@@ -613,7 +613,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
             <h4>Revenue by month</h4>
             <div class="legend">
               <span><i style="background:var(--cherry)"></i>Club</span>
-              <span><i style="background:var(--plum)"></i>Workshop</span>
+              <span><i style="background:var(--plum)"></i>Course</span>
               <span><i style="background:var(--gold)"></i>High ticket</span>
             </div>
             <button type="button" class="viewtoggle" id="viewtoggle" aria-pressed="false">Show table</button>
@@ -697,7 +697,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     <div class="road">
       <div class="stop"><span class="when">Month 1</span><h4>Foundations</h4><p>Agreement and tech.</p></div>
       <div class="stop"><span class="when">Months 2 to 3</span><h4>Free workshops</h4><p>Community grows monthly.</p></div>
-      <div class="stop"><span class="when">Months 3 to 6</span><h4>Paid offers</h4><p>Club, workshop, Circle, VIP.</p></div>
+      <div class="stop"><span class="when">Months 3 to 6</span><h4>Paid offers</h4><p>Club, course, Circle, VIP.</p></div>
       <div class="stop"><span class="when">Months 6 to 9</span><h4>London live</h4><p>First in person event.</p></div>
       <div class="stop goal"><span class="when">Year 2</span><h4>World tour</h4><p>Where the community is.</p></div>
     </div>
@@ -764,8 +764,8 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     {tag:'Start',h:'Your content',p:'You post: "Join my free workshop."',l:['Stories and posts','Comment to join','Podcast mentions'],o:['DM replies']},
     {tag:'Free',h:'Free community and live workshop',p:'Join free, then you go live once a month.',l:['Name, email, number captured','Announcements only','Replay for 7 days'],o:['Emails captured','Attendance']},
     {tag:'Low · $33/mo',h:'Confidence Club',p:'The real community.',l:['Live chat with the community','2 live calls a month','Challenges and full replays','$33 a month'],o:['Paid members']},
-    {tag:'Mid · $888',h:'Rebirth Workshop™',p:'7 days live with you.',l:['A confidence pillar each day','A month of the Club included'],o:['Buyers']},
-    {tag:'High · $3,333',h:'Rebirth Circle',p:'8 weeks. Max 20 women.',l:['Weekly group call','Sold on a call by our team'],o:['Applications','Sales']},
+    {tag:'Mid · $888',h:'Rebirth Course',p:'Recorded once. Sells while you sleep.',l:['Video lessons on every area of confidence','Workbooks','3 months of the Club included'],o:['Course sales']},
+    {tag:'High · $3,333',h:'Rebirth Circle',p:'8 weeks live with you.',l:['Weekly group call','Max 100 women','Sold on a call by our team'],o:['Applications','Sales']},
     {tag:'Super high · $8,888',h:'Big Sis VIP',p:'12 weeks with you.',l:['1:1 calls','VIP day in person'],o:['Sales']},
     {tag:'Later',tbc:true,h:'Live events',p:'London first, then the world.',l:['London pilot','World tour'],o:['Tickets sold']}
   ];
@@ -781,8 +781,8 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
   /* calculator */
   var S={
     low:{signups:500,join:2,churn:12,wbuy:5,circle:2,vip:0},
-    base:{signups:1000,join:3,churn:10,wbuy:12,circle:5,vip:1},
-    high:{signups:2500,join:4,churn:8,wbuy:30,circle:10,vip:2}
+    base:{signups:1000,join:3,churn:10,wbuy:15,circle:5,vip:1},
+    high:{signups:2500,join:4,churn:8,wbuy:40,circle:15,vip:2}
   };
   var ids=['signups','join','churn','wbuy','circle','vip'];
   function pc(v){return v+'%'}
@@ -844,7 +844,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     [].slice.call(chart.querySelectorAll('.hit')).forEach(function(r){
       r.addEventListener('mousemove',function(e){
         var d=data[+r.dataset.i],box=chart.parentNode.getBoundingClientRect();
-        tip.innerHTML='<b>Month '+d.m+': '+usd(d.t)+'</b>'+row('Club',d.prog,C.prog)+row('Workshop',d.mem,C.mem)+row('High ticket',d.oo,C.oo);
+        tip.innerHTML='<b>Month '+d.m+': '+usd(d.t)+'</b>'+row('Club',d.prog,C.prog)+row('Course',d.mem,C.mem)+row('High ticket',d.oo,C.oo);
         var x=e.clientX-box.left+14;if(x+190>box.width)x=e.clientX-box.left-200;
         tip.style.left=x+'px';tip.style.top=(e.clientY-box.top-20)+'px';tip.style.opacity=1;
       });
@@ -853,7 +853,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
   }
   function row(n,v,c){return '<div class="r"><span><i style="background:'+c+'"></i>'+n+'</span><span>'+usd(v)+'</span></div>'}
   function table(){
-    var h='<table><thead><tr><th>Month</th><th>Club</th><th>Workshop</th><th>High ticket</th><th>Total</th><th>You 70%</th><th>Us 30%</th></tr></thead><tbody>';
+    var h='<table><thead><tr><th>Month</th><th>Club</th><th>Course</th><th>High ticket</th><th>Total</th><th>You 70%</th><th>Us 30%</th></tr></thead><tbody>';
     data.forEach(function(d){h+='<tr><td>M'+d.m+'</td><td>'+usd(d.prog)+'</td><td>'+usd(d.mem)+'</td><td>'+usd(d.oo)+'</td><td>'+usd(d.t)+'</td><td>'+usd(d.t*.7)+'</td><td>'+usd(d.t*.3)+'</td></tr>'});
     document.getElementById('tableview').innerHTML=h+'</tbody></table>';
   }
