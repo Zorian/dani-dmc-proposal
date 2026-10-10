@@ -253,7 +253,7 @@ section.block{padding:88px 0;border-top:1px solid var(--line)}
 .results .big div{padding:16px 16px 18px 0}
 .results .big span{font-size:14px;color:var(--ink-2)}
 .results .big b{display:block;font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(28px,3.4vw,42px);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.results .big .z b{color:var(--ink)}
+.results .big .hot b{color:var(--cherry)}
 @media (max-width:560px){.results .big{grid-template-columns:1fr}}
 .chartcard{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:24px;position:relative}
 .charthead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
@@ -609,12 +609,12 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
 
       <div class="results">
         <div class="big">
-          <div><span>12 month revenue</span><b id="rTotal">$0</b></div>
-          <div><span>You, 70%</span><b id="rDani">$0</b></div>
-          <div class="z"><span>Us, 30%</span><b id="rZ">$0</b></div>
+          <div class="hot"><span>12 month revenue</span><b id="rTotal">$0</b></div>
+          <div><span>Women coached in 12 months</span><b id="rDani">0</b></div>
+          <div><span>Your hours per week, fully booked</span><b id="rZ">11.5</b></div>
         </div>
         <div class="big">
-          <div><span>Revenue per month</span><b id="rM12">$0</b></div>
+          <div class="hot"><span>Revenue per month</span><b id="rM12">$0</b></div>
           <div><span>Emails captured per month</span><b id="rComm">0</b></div>
           <div><span>New Club members per month</span><b id="rMem">0</b></div>
         </div>
@@ -818,8 +818,8 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       data.push({m:m,prog:club,mem:ws,oo:ht,t:t});
     }
     document.getElementById('rTotal').textContent=money(tot);
-    document.getElementById('rDani').textContent=money(tot*.7);
-    document.getElementById('rZ').textContent=money(tot*.3);
+    document.getElementById('rDani').textContent=Math.round(12*(v.signups*v.join/100+v.wbuy+v.circle+v.vip)).toLocaleString();
+    
     document.getElementById('rM12').textContent=money(tot/12);
     document.getElementById('rComm').textContent=Math.round(v.signups).toLocaleString();
     document.getElementById('rMem').textContent=Math.round(v.signups*v.join/100).toLocaleString();
