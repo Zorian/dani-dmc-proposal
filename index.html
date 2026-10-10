@@ -114,6 +114,23 @@ section.block{padding:88px 0;border-top:1px solid var(--line)}
 .rules b{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
 @media (max-width:760px){.rules{grid-template-columns:1fr}}
 
+
+/* how it works */
+.steps{width:100%;border-collapse:collapse;font-size:16px}
+.steps th,.steps td{padding:16px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.steps th{font-size:14px;font-weight:600;color:var(--ink-2)}
+.steps td.n{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:22px;color:var(--cherry);width:56px}
+.steps td.t{white-space:nowrap}
+.chip{display:inline-block;font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;margin:0 4px 4px 0;background:var(--paper-2);color:var(--ink)}
+.chip.sk{background:#ECE6F7;color:var(--plum)}
+.chip.mc{background:var(--rose);color:var(--cherry-deep)}
+.chip.st{background:#FBEFD6;color:#7A5306}
+.chip.ig{background:var(--ink);color:var(--paper)}
+.whyrow{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.whyrow div{font-size:15px;color:var(--ink-2)}
+.whyrow b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+@media (max-width:760px){.whyrow{grid-template-columns:1fr}.steps td.t{white-space:normal}}
+
 /* framework tabs */
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
 .tab{font:inherit;font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(26px,4vw,40px);letter-spacing:-.03em;background:none;border:0;color:var(--muted);padding:4px 14px 8px 0;cursor:pointer;border-bottom:4px solid transparent}
@@ -300,6 +317,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       <a href="#brand">Brand</a>
       <a href="#framework">Framework</a>
       <a href="#funnel">Funnel</a>
+      <a href="#flow">How it works</a>
       <a href="#community">Community</a>
       <a href="#offers">Offers</a>
       <a href="#partnership">Partnership</a>
@@ -431,6 +449,35 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
   </div>
 </section>
 
+<section class="block" id="flow">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>How it works, step by step</h2>
+      <p>Exactly what happens from the moment you post to the moment someone pays, and the tool doing the work at each step.</p>
+    </div>
+    <div class="tablewrap">
+      <table class="steps">
+        <thead><tr><th>Step</th><th>What happens</th><th>Tool</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td>You post: "Comment WORKSHOP to join my free workshop."</td><td class="t"><span class="chip ig">Instagram</span></td></tr>
+          <tr><td class="n">2</td><td>Everyone who comments gets the join link straight to their DMs.</td><td class="t"><span class="chip mc">ManyChat</span></td></tr>
+          <tr><td class="n">3</td><td>They join the free community and answer a few questions: phone number and where they want more confidence. Name and email come with their account.</td><td class="t"><span class="chip sk">Skool</span></td></tr>
+          <tr><td class="n">4</td><td>The workshop sits in the community calendar, with reminders sent through the app.</td><td class="t"><span class="chip sk">Skool</span></td></tr>
+          <tr><td class="n">5</td><td>An Instagram DM reminder lands an hour before you go live.</td><td class="t"><span class="chip mc">ManyChat</span></td></tr>
+          <tr><td class="n">6</td><td>You go live inside the community. The replay goes into the free classroom.</td><td class="t"><span class="chip sk">Skool</span></td></tr>
+          <tr><td class="n">7</td><td>At the end: "Join the Confidence Club, first month $1."</td><td class="t"><span class="chip sk">Skool paid tier</span></td></tr>
+          <tr><td class="n">8</td><td>The Rebirth Circle and Big Sis VIP are sold by application and a call with our team, paid by secure link, then access is unlocked.</td><td class="t"><span class="chip sk">Skool</span><span class="chip st">Stripe</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="whyrow">
+      <div><b>Nothing lands in spam</b>The link arrives by Instagram DM and reminders come through the app, so women see them straight away.</div>
+      <div><b>Your data, every time</b>Every signup gives you a name, email, number and what she wants help with. You can export the full list whenever you want.</div>
+      <div><b>One home for everything</b>Free and paid members live in the same community, so every free member can see what the next step looks like.</div>
+    </div>
+  </div>
+</section>
+
 <section class="block" id="rhythm">
   <div class="wrap">
     <div class="sec-head">
@@ -456,14 +503,14 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       <table class="plat">
         <thead><tr><th>Platform</th><th>Live events</th><th>Courses</th><th>Payments</th><th>Mobile app</th><th>Fit</th></tr></thead>
         <tbody>
-          <tr class="pick"><td>Skool</td><td class="yes">Built in calendar</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Simple, proven with coaches, free and paid groups side by side. Our recommendation.</td></tr>
+          <tr class="pick"><td>Skool</td><td class="yes">Built in calendar</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Free and paid tiers in one community, live sessions built in. Our recommendation.</td></tr>
           <tr><td>Circle</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Branded app option</td><td>More polished and fully branded, but costs more and takes longer to set up.</td></tr>
           <tr><td>WhatsApp community</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td>Fast and familiar, but gets noisy at scale and we can't sell or deliver inside it.</td></tr>
           <tr><td>Instagram broadcast channel</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td>Keep it for announcements. Instagram owns that audience, not you.</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="pickline">Recommendation: <b>Skool</b> for launch, with the option to move to a branded Circle app once membership passes a few thousand.</p>
+    <p class="pickline">Recommendation: <b>Skool</b> for everything. Free members and paying members live in one community, on different tiers.</p>
   </div>
 </section>
 
@@ -627,14 +674,14 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
   <div class="wrap">
     <div class="sec-head">
       <h2>What we build</h2>
-      <p>The tools behind the scenes. You only ever need to open the community app and Zoom.</p>
+      <p>Three core tools to start, all set up and run by us. You only ever need to open the community app.</p>
     </div>
     <div class="stack">
-      <div><em>Community</em><b>Skool</b><p>Free and paid groups, calendar, replays and courses.</p></div>
-      <div><em>Live calls</em><b>Zoom</b><p>Webinar for the free workshop, meetings for coaching.</p></div>
-      <div><em>CRM and email</em><b>GoHighLevel</b><p>Signup pages, email, pipelines and reporting.</p></div>
-      <div><em>DM automation</em><b>ManyChat</b><p>Comment to join on Instagram and TikTok.</p></div>
-      <div><em>Payments</em><b>Stripe</b><p>In your name, with reporting access for us.</p></div>
+      <div><em>Community and live calls</em><b>Skool</b><p>Free and paid tiers, calendar, live sessions, replays and courses in one app.</p></div>
+      <div><em>DM automation</em><b>ManyChat</b><p>Comment to join on Instagram and TikTok, plus DM reminders.</p></div>
+      <div><em>Payments</em><b>Stripe</b><p>For the Circle and VIP. In your name, with reporting access for us.</p></div>
+      <div><em>Email, later</em><b>Kit</b><p>Added once the list is big, for newsletters and launches.</p></div>
+      <div><em>Backup calls</em><b>Zoom</b><p>Only if a session needs features the community app lacks.</p></div>
       <div><em>Support</em><b>AI assistant plus our team</b><p>Answers common questions, escalates the rest.</p></div>
     </div>
   </div>
