@@ -346,10 +346,9 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     <div class="links">
       <a href="#brand">Brand</a>
       <a href="#framework">Framework</a>
-      <a href="#funnel">Funnel</a>
+      <a href="#offers">Offer ladder</a>
       <a href="#flow">How it works</a>
       <a href="#community">Community</a>
-      <a href="#offers">Offers</a>
       <a href="#partnership">Partnership</a>
       <a href="#roi">ROI</a>
       <a href="#launch">Go to market</a>
@@ -461,22 +460,39 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
   </div>
 </section>
 
-<section class="block" id="funnel">
+<section class="block" id="offers">
   <div class="wrap">
     <div class="sec-head">
-      <h2>The funnel</h2>
-      <p>Free first, paid next. Tap a step.</p>
+      <h2>The offer ladder / funnel</h2>
+      <p>Free gets them in. Everything worth staying for is paid.</p>
     </div>
-    <div class="funnel" role="group" aria-label="Funnel steps">
-      <button class="fstep" aria-pressed="true" data-i="0"><span class="n">1</span><span class="tier">Start</span><span class="t">Your content</span></button>
-      <button class="fstep" aria-pressed="false" data-i="1"><span class="n">2</span><span class="tier">Free</span><span class="t">Free community and live workshop</span></button>
-      <button class="fstep" aria-pressed="false" data-i="2"><span class="n">3</span><span class="tier">Low</span><span class="t">Confidence Club</span></button>
-      <button class="fstep" aria-pressed="false" data-i="3"><span class="n">4</span><span class="tier">Mid</span><span class="t">Rebirth Course</span></button>
-      <button class="fstep" aria-pressed="false" data-i="4"><span class="n">5</span><span class="tier">High</span><span class="t">Rebirth Circle</span></button>
-      <button class="fstep" aria-pressed="false" data-i="5"><span class="n">6</span><span class="tier">Super high</span><span class="t">Big Sis VIP</span></button>
-      <button class="fstep later" aria-pressed="false" data-i="6"><span class="n">7</span><span class="tier">Later</span><span class="t">Live events</span></button>
+    <div class="tablewrap">
+      <table class="offers">
+        <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Length</th><th>What they get</th><th>Your time</th></tr></thead>
+        <tbody>
+          <tr class="o-free"><td class="tier">Free</td><td class="name">Monthly live workshop</td><td class="pr">Free</td><td>Monthly</td><td>60 minute live workshop, 7 day replay, announcements only</td><td class="time">1 hour a month</td></tr>
+          <tr><td class="tier">Low</td><td class="name">The Confidence Club</td><td class="pr">$33/mo</td><td>Ongoing</td><td>Live community chat, plus one 1 hour members only call a month going deeper into each topic</td><td class="time">1 hour a month</td></tr>
+          <tr><td class="tier">Mid</td><td class="name">The Confidence Rebirth Course</td><td class="pr">$888</td><td>Self paced</td><td>Recorded lessons, workbooks, 3 months of the Club</td><td class="time">Record once</td></tr>
+          <tr><td class="tier">High</td><td class="name">The Rebirth Circle</td><td class="pr">$3,333</td><td>8 weeks</td><td>1 hour live group call every week, max 100 women</td><td class="time">1 hour a week</td></tr>
+          <tr><td class="tier">Super high</td><td class="name">Big Sis VIP</td><td class="pr">$8,888</td><td>12 weeks</td><td>1 hour 1:1 call every week, voice note access, VIP day in person. Max 10 women</td><td class="time">1 hour a week per client</td></tr>
+          <tr class="o-later"><td class="tier">Later</td><td class="name">Live events and world tour</td><td class="pr">TBC</td><td></td><td>London first, then the world</td><td class="time"></td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="fdetail" id="fdetail" aria-live="polite"></div>
+    <div class="capacity">
+      <div class="cap-head"><h3>Your time, fully booked</h3><span class="ok">Very sustainable</span></div>
+      <div class="cap-grid">
+        <div><span>Free workshop</span><b>1h</b><em>a month</em></div>
+        <div><span>Confidence Club</span><b>1h</b><em>a month</em></div>
+        <div><span>Rebirth Circle</span><b>1h</b><em>a week</em></div>
+        <div><span>Big Sis VIP, 10 clients</span><b>10h</b><em>a week</em></div>
+      </div>
+      <div class="cap-total">
+        <div><span>Per week</span><b>11.5 hours</b></div>
+        <div><span>Per month</span><b>46 hours</b></div>
+      </div>
+      <p class="cap-note">Every offer full, including 10 VIP clients. Plus VIP days in person.</p>
+    </div>
   </div>
 </section>
 
@@ -542,42 +558,6 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       </table>
     </div>
     <p class="pickline">Our pick: <b>Skool</b>. Free tier for the workshop. <b>The Club</b> for the real community.</p>
-  </div>
-</section>
-
-<section class="block" id="offers">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>The offer ladder</h2>
-      <p>Free gets them in. Everything worth staying for is paid.</p>
-    </div>
-    <div class="tablewrap">
-      <table class="offers">
-        <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Length</th><th>What they get</th><th>Your time</th></tr></thead>
-        <tbody>
-          <tr class="o-free"><td class="tier">Free</td><td class="name">Monthly live workshop</td><td class="pr">Free</td><td>Monthly</td><td>60 minute live workshop, 7 day replay, announcements only</td><td class="time">1 hour a month</td></tr>
-          <tr><td class="tier">Low</td><td class="name">The Confidence Club</td><td class="pr">$33/mo</td><td>Ongoing</td><td>Live community chat, plus one 1 hour members only call a month going deeper into each topic</td><td class="time">1 hour a month</td></tr>
-          <tr><td class="tier">Mid</td><td class="name">The Confidence Rebirth Course</td><td class="pr">$888</td><td>Self paced</td><td>Recorded lessons, workbooks, 3 months of the Club</td><td class="time">Record once</td></tr>
-          <tr><td class="tier">High</td><td class="name">The Rebirth Circle</td><td class="pr">$3,333</td><td>8 weeks</td><td>1 hour live group call every week, max 100 women</td><td class="time">1 hour a week</td></tr>
-          <tr><td class="tier">Super high</td><td class="name">Big Sis VIP</td><td class="pr">$8,888</td><td>12 weeks</td><td>1 hour 1:1 call every week, voice note access, VIP day in person. Max 10 women</td><td class="time">1 hour a week per client</td></tr>
-          <tr class="o-later"><td class="tier">Later</td><td class="name">Live events and world tour</td><td class="pr">TBC</td><td></td><td>London first, then the world</td><td class="time"></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="capacity">
-      <div class="cap-head"><h3>Your time, fully booked</h3><span class="ok">Very sustainable</span></div>
-      <div class="cap-grid">
-        <div><span>Free workshop</span><b>1h</b><em>a month</em></div>
-        <div><span>Confidence Club</span><b>1h</b><em>a month</em></div>
-        <div><span>Rebirth Circle</span><b>1h</b><em>a week</em></div>
-        <div><span>Big Sis VIP, 10 clients</span><b>10h</b><em>a week</em></div>
-      </div>
-      <div class="cap-total">
-        <div><span>Per week</span><b>11.5 hours</b></div>
-        <div><span>Per month</span><b>46 hours</b></div>
-      </div>
-      <p class="cap-note">Every offer full, including 10 VIP clients. Plus VIP days in person.</p>
-    </div>
   </div>
 </section>
 
@@ -804,24 +784,6 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     });
   });
 
-  /* funnel */
-  var F=[
-    {tag:'Start',h:'Your content',p:'You post: "Join my free workshop."',l:['Stories and posts','Comment to join','Podcast mentions'],o:['DM replies']},
-    {tag:'Free',h:'Free community and live workshop',p:'Join free, then you go live once a month.',l:['Name, email, number captured','Announcements only','Replay for 7 days'],o:['Emails captured','Attendance']},
-    {tag:'Low · $33/mo',h:'Confidence Club',p:'The real community.',l:['Live chat with the community','One 1 hour members only call a month, going deeper into each topic','Challenges and full replays','$33 a month'],o:['Paid members']},
-    {tag:'Mid · $888',h:'Rebirth Course',p:'Recorded once. Sells while you sleep.',l:['Video lessons on every area of confidence','Workbooks','3 months of the Club included'],o:['Course sales']},
-    {tag:'High · $3,333',h:'Rebirth Circle',p:'8 weeks live with you.',l:['Weekly group call','Max 100 women','Sold on a call by our team'],o:['Applications','Sales']},
-    {tag:'Super high · $8,888',h:'Big Sis VIP',p:'12 weeks, 1:1 with you.',l:['1 hour 1:1 call every week','Voice note access','VIP day in person'],o:['Sales']},
-    {tag:'Later',tbc:true,h:'Live events',p:'London first, then the world.',l:['London pilot','World tour'],o:['Tickets sold']}
-  ];
-  var fsteps=[].slice.call(document.querySelectorAll('.fstep')),fd=document.getElementById('fdetail');
-  function showF(i){
-    var f=F[i];
-    fsteps.forEach(function(b,j){b.setAttribute('aria-pressed',j===i)});
-    fd.innerHTML='<div><span class="tag'+(f.tbc?' tbc':'')+'">'+f.tag+'</span><h3>'+f.h+'</h3><p style="color:var(--ink-2)">'+f.p+'</p></div><div><b style="display:block;margin-bottom:8px">What happens</b><ul>'+f.l.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><b style="display:block;margin:14px 0 8px">What we track</b><ul>'+f.o.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>';
-  }
-  fsteps.forEach(function(b,i){b.addEventListener('click',function(){showF(i)})});
-  showF(0);
 
   /* calculator */
   var S={
