@@ -598,7 +598,6 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
         <div class="field"><label for="signups">Signups per month <output for="signups"></output></label><input type="range" id="signups" min="100" max="5000" step="50"></div>
         <div class="grp">Confidence Club, $33/mo</div>
         <div class="field"><label for="join">Signups who join the Club <output for="join"></output></label><input type="range" id="join" min="0" max="15" step="0.5"></div>
-        <div class="field"><label for="churn">Members who cancel each month <output for="churn"></output></label><input type="range" id="churn" min="2" max="25" step="1"></div>
         <div class="grp">Rebirth Course, $888</div>
         <div class="field"><label for="wbuy">Course sales per month <output for="wbuy"></output></label><input type="range" id="wbuy" min="0" max="200" step="1"></div>
         <div class="grp">Mid ticket: Rebirth Circle, $3,333</div>
@@ -791,11 +790,11 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     base:{signups:1000,join:3,churn:10,wbuy:15,circle:5,vip:1},
     high:{signups:2500,join:4,churn:8,wbuy:40,circle:15,vip:2}
   };
-  var ids=['signups','join','churn','wbuy','circle','vip'];
+  var ids=['signups','join','wbuy','circle','vip'];
   function pc(v){return v+'%'}
   function usd(v){return '$'+Math.round(v).toLocaleString()}
   function money(v){return v>=1e6?'$'+(v/1e6).toFixed(2)+'M':v>=1e4?'$'+Math.round(v/1e3)+'K':usd(v)}
-  var fmt={signups:function(v){return v.toLocaleString()},join:pc,churn:pc,wbuy:function(v){return v},circle:function(v){return v},vip:function(v){return v}};
+  var fmt={signups:function(v){return v.toLocaleString()},join:pc,wbuy:function(v){return v},circle:function(v){return v},vip:function(v){return v}};
   var el={};ids.forEach(function(k){el[k]=document.getElementById(k)});
   var scenBtns=[].slice.call(document.querySelectorAll('.scen button'));
   function setScen(s){
@@ -812,7 +811,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     var mem=0,tot=0,emails=0;data=[];
     for(var m=1;m<=12;m++){
       emails+=v.signups;
-      mem=mem*(1-v.churn/100)+v.signups*v.join/100;
+      mem=mem*0.9+v.signups*v.join/100;
       var club=mem*33, ws=v.wbuy*888, ht=v.circle*3333+v.vip*8888;
       var t=club+ws+ht;tot+=t;
       data.push({m:m,prog:club,mem:ws,oo:ht,t:t});
