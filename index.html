@@ -131,6 +131,32 @@ section.block{padding:88px 0;border-top:1px solid var(--line)}
 .whyrow b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
 @media (max-width:760px){.whyrow{grid-template-columns:1fr}.steps td.t{white-space:normal}}
 
+
+/* offers table */
+.offers{width:100%;border-collapse:collapse;font-size:16px;min-width:760px}
+.offers th,.offers td{padding:16px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.offers th{font-size:14px;font-weight:600;color:var(--ink-2);background:var(--paper-2)}
+.offers td.tier{font-size:14px;font-weight:600;color:var(--cherry);white-space:nowrap}
+.offers td.name{font-weight:700;font-family:"Bricolage Grotesque",sans-serif;font-size:18px;line-height:1.25}
+.offers td.pr{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:20px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.offers td.time{font-weight:600;white-space:nowrap}
+.offers tr.o-free td{background:#fff}
+.offers tr.o-later td{color:var(--muted)}
+.offers tr:last-child td{border-bottom:0}
+.capacity{margin-top:24px;background:var(--ink);color:var(--paper);border-radius:var(--radius-lg);padding:28px}
+.cap-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.cap-head h3{font-size:24px}
+.ok{background:#DDF1E5;color:#1F6B42;font-weight:700;font-size:14px;padding:6px 14px;border-radius:999px}
+.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-bottom:20px;border-bottom:1px solid rgba(251,244,242,.18)}
+.cap-grid span{display:block;font-size:14px;color:#D9C8CF}
+.cap-grid b{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:34px;letter-spacing:-.02em}
+.cap-grid em{font-style:normal;font-size:14px;color:#D9C8CF;margin-left:6px}
+.cap-total{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:20px}
+.cap-total span{display:block;font-size:14px;color:var(--rose)}
+.cap-total b{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(36px,5vw,52px);letter-spacing:-.03em}
+.cap-note{font-size:14px;color:#D9C8CF;margin:14px 0 0}
+@media (max-width:760px){.cap-grid{grid-template-columns:1fr 1fr}.capacity{padding:22px}}
+
 /* framework tabs */
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
 .tab{font:inherit;font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(26px,4vw,40px);letter-spacing:-.03em;background:none;border:0;color:var(--muted);padding:4px 14px 8px 0;cursor:pointer;border-bottom:4px solid transparent}
@@ -525,13 +551,32 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       <h2>The offer ladder</h2>
       <p>Free gets them in. Everything worth staying for is paid.</p>
     </div>
-    <div class="ladder">
-      <div class="rung free"><span class="lvl">Free</span><div><h4>Monthly live workshop</h4><p>Workshop and 7 day replay. Announcements only.</p></div><span class="price">Free</span><span class="status now">Build now</span></div>
-      <div class="rung"><span class="lvl">Low</span><div><h4>The Confidence Club</h4><p>The real community. Live chat and one 1 hour call a month, exclusive to members, going deeper into each topic.</p></div><span class="price">$33/mo</span><span class="status now">Build now</span></div>
-      <div class="rung"><span class="lvl">Mid</span><div><h4>The Confidence Rebirth Course</h4><p>Recorded once, sold forever. Includes 3 months of the Club.</p></div><span class="price">$888</span><span class="status next">New</span></div>
-      <div class="rung"><span class="lvl">High</span><div><h4>The Rebirth Circle</h4><p>8 weeks. Weekly live group call. Max 100 women.</p></div><span class="price">$3,333</span><span class="status next">New</span></div>
-      <div class="rung"><span class="lvl">Super high</span><div><h4>Big Sis VIP</h4><p>12 weeks. A 1 hour 1:1 call with you every week. VIP day in person.</p></div><span class="price">$8,888</span><span class="status next">New</span></div>
-      <div class="rung"><span class="lvl">Later</span><div><h4>Live events and world tour</h4><p>London first, then the world.</p></div><span class="price">TBC</span><span class="status next">Later</span></div>
+    <div class="tablewrap">
+      <table class="offers">
+        <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Length</th><th>What they get</th><th>Your time</th></tr></thead>
+        <tbody>
+          <tr class="o-free"><td class="tier">Free</td><td class="name">Monthly live workshop</td><td class="pr">Free</td><td>Monthly</td><td>60 minute live workshop, 7 day replay, announcements only</td><td class="time">1 hour a month</td></tr>
+          <tr><td class="tier">Low</td><td class="name">The Confidence Club</td><td class="pr">$33/mo</td><td>Ongoing</td><td>Live community chat, plus one 1 hour members only call a month going deeper into each topic</td><td class="time">1 hour a month</td></tr>
+          <tr><td class="tier">Mid</td><td class="name">The Confidence Rebirth Course</td><td class="pr">$888</td><td>Self paced</td><td>Recorded lessons, workbooks, 3 months of the Club</td><td class="time">Record once</td></tr>
+          <tr><td class="tier">High</td><td class="name">The Rebirth Circle</td><td class="pr">$3,333</td><td>8 weeks</td><td>1 hour live group call every week, max 100 women</td><td class="time">1 hour a week</td></tr>
+          <tr><td class="tier">Super high</td><td class="name">Big Sis VIP</td><td class="pr">$8,888</td><td>12 weeks</td><td>1 hour 1:1 call every week, voice note access, VIP day in person. Max 10 women</td><td class="time">1 hour a week per client</td></tr>
+          <tr class="o-later"><td class="tier">Later</td><td class="name">Live events and world tour</td><td class="pr">TBC</td><td></td><td>London first, then the world</td><td class="time"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="capacity">
+      <div class="cap-head"><h3>Your time, fully booked</h3><span class="ok">Very sustainable</span></div>
+      <div class="cap-grid">
+        <div><span>Free workshop</span><b>1h</b><em>a month</em></div>
+        <div><span>Confidence Club</span><b>1h</b><em>a month</em></div>
+        <div><span>Rebirth Circle</span><b>1h</b><em>a week</em></div>
+        <div><span>Big Sis VIP, 10 clients</span><b>10h</b><em>a week</em></div>
+      </div>
+      <div class="cap-total">
+        <div><span>Per week</span><b>11.5 hours</b></div>
+        <div><span>Per month</span><b>46 hours</b></div>
+      </div>
+      <p class="cap-note">Every offer full, including 10 VIP clients. Plus VIP days in person.</p>
     </div>
   </div>
 </section>
