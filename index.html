@@ -614,9 +614,9 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
           <div class="z"><span>Us, 30%</span><b id="rZ">$0</b></div>
         </div>
         <div class="big">
-          <div><span>Month 12 revenue</span><b id="rM12">$0</b></div>
-          <div><span>Emails captured</span><b id="rComm">0</b></div>
-          <div><span>Club members by month 12</span><b id="rMem">0</b></div>
+          <div><span>Revenue per month</span><b id="rM12">$0</b></div>
+          <div><span>Emails captured per month</span><b id="rComm">0</b></div>
+          <div><span>New Club members per month</span><b id="rMem">0</b></div>
         </div>
         <div class="chartcard">
           <div class="charthead">
@@ -820,9 +820,9 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     document.getElementById('rTotal').textContent=money(tot);
     document.getElementById('rDani').textContent=money(tot*.7);
     document.getElementById('rZ').textContent=money(tot*.3);
-    document.getElementById('rM12').textContent=money(data[11].t);
-    document.getElementById('rComm').textContent=Math.round(emails).toLocaleString();
-    document.getElementById('rMem').textContent=Math.round(mem).toLocaleString();
+    document.getElementById('rM12').textContent=money(tot/12);
+    document.getElementById('rComm').textContent=Math.round(v.signups).toLocaleString();
+    document.getElementById('rMem').textContent=Math.round(v.signups*v.join/100).toLocaleString();
     draw();table();
   }
 
