@@ -160,6 +160,18 @@ section.block{padding:88px 0;border-top:1px solid var(--line)}
 
 .opt{display:inline-block;vertical-align:middle;font-family:"Instrument Sans",sans-serif;font-size:15px;font-weight:600;letter-spacing:0;padding:6px 14px;border-radius:999px;background:#ECE6F7;color:var(--plum);margin-left:10px}
 .plat.dm td:first-child{font-weight:600;color:var(--ink-2);white-space:nowrap}
+.cstats{display:flex;gap:40px;flex-wrap:wrap;margin-bottom:24px}
+.cstats b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(34px,5vw,48px);letter-spacing:-.03em;line-height:1;color:var(--cherry)}
+.cstats span{font-size:14px;color:var(--ink-2)}
+.mods{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.mods div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}
+.mods .mn{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:15px;color:var(--cherry)}
+.mods h4{font-size:19px;margin:4px 0 6px}
+.mods p{font-size:14px;color:var(--ink-2);margin:0 0 10px}
+.mods em{font-style:normal;font-size:13px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--paper-2)}
+.cnote{margin-top:20px;color:var(--ink-2)}
+@media (max-width:820px){.mods{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.mods{grid-template-columns:1fr}}
 /* framework tabs */
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
 .tab{font:inherit;font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(26px,4vw,40px);letter-spacing:-.03em;background:none;border:0;color:var(--muted);padding:4px 14px 8px 0;cursor:pointer;border-bottom:4px solid transparent}
@@ -350,6 +362,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     <div class="links">
       <a href="#brand">Brand</a>
       <a href="#offers">Funnel</a>
+      <a href="#course">Course</a>
       <a href="#flow">How it works</a>
       <a href="#community">Community</a>
       <a href="#partnership">Partnership</a>
@@ -440,6 +453,27 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       </div>
       <p class="cap-note">Every offer full, including 10 VIP clients. Plus VIP days in person.</p>
     </div>
+  </div>
+</section>
+
+<section class="block" id="course">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The course <span class="opt">Example</span></h2>
+      <p>A starting point. You shape the final content.</p>
+    </div>
+    <div class="cstats"><div><b>8</b><span>modules</span></div><div><b>28</b><span>videos</span></div><div><b>~4.5h</b><span>of content</span></div></div>
+    <div class="mods">
+      <div><span class="mn">0</span><h4>Welcome</h4><p>Your story and your confidence score</p><em>3 videos</em></div>
+      <div><span class="mn">1</span><h4>The root</h4><p>Where confidence breaks</p><em>3 videos</em></div>
+      <div><span class="mn">2</span><h4>Body</h4><p>Mirror work, style, being seen</p><em>4 videos</em></div>
+      <div><span class="mn">3</span><h4>Voice</h4><p>Speaking up, saying no, handling hate</p><em>4 videos</em></div>
+      <div><span class="mn">4</span><h4>Work and money</h4><p>Asking for more, owning your worth</p><em>4 videos</em></div>
+      <div><span class="mn">5</span><h4>Love and boundaries</h4><p>Standards, dating, friendships</p><em>4 videos</em></div>
+      <div><span class="mn">6</span><h4>Solo life</h4><p>Your own company, travelling alone</p><em>3 videos</em></div>
+      <div><span class="mn">7</span><h4>Your rebirth plan</h4><p>Habits and your 90 day plan</p><em>3 videos</em></div>
+    </div>
+    <p class="cnote">Every lesson: your story, the lesson, one exercise. A workbook with each module.</p>
   </div>
 </section>
 
