@@ -357,6 +357,109 @@ footer{padding:56px 0 72px;border-top:2px solid var(--ink);margin-top:40px}
 footer .sig{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(30px,5vw,54px);letter-spacing:-.03em;line-height:1}
 footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
 .draft{display:inline-block;font-size:13px;font-weight:600;background:#ECE6F7;color:var(--plum);padding:4px 10px;border-radius:999px;margin-left:8px;vertical-align:middle}
+
+/* ===== mobile ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{overflow-x:hidden}
+@media (max-width:700px){
+  body{font-size:16px}
+  html{scroll-padding-top:60px}
+  nav.top .wrap{height:52px;padding:0}
+  nav.top .mark{display:none}
+  nav.top .links{margin-left:0;width:100%;padding:0 12px;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 28px),transparent)}
+  nav.top .links a{padding:10px 12px;scroll-snap-align:start}
+  nav.top .links a.on{background:var(--ink);color:var(--paper)}
+
+  .hero{padding:40px 0 36px}
+  .hero h1{font-size:clamp(44px,13vw,60px);letter-spacing:-.04em}
+  .hero .bigsis{margin-top:18px}
+  .reach{margin-top:36px}
+
+  section.block{padding:56px 0}
+  .sec-head{margin-bottom:28px}
+  h2{font-size:clamp(32px,9vw,40px)}
+  .opt{font-size:13px;padding:4px 10px;margin-left:6px}
+
+  /* tables become stacked cards */
+  .tablewrap.cards{border:0;background:none;overflow:visible;border-radius:0}
+  .cards table,.cards tbody,.cards tr,.cards td{display:block;width:100%}
+  .cards table{min-width:0}
+  .cards thead{display:none}
+  .cards tr{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-bottom:12px}
+  .cards td{border:0;padding:6px 0;display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:baseline;white-space:normal!important}
+  .cards td::before{content:attr(data-label);font-size:13px;font-weight:600;color:var(--muted);font-family:"Instrument Sans",sans-serif;letter-spacing:0}
+  .cards td:empty{display:none}
+  .cards td.lead{display:block;padding:0 0 8px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+  .cards td.lead::before{display:none}
+
+  /* offers */
+  .offers tr{position:relative}
+  .offers td.tier{display:block;padding:0 0 2px}
+  .offers td.tier::before{display:none}
+  .offers td.name{font-size:21px;padding-bottom:10px;margin-bottom:6px;border-bottom:1px solid var(--line)}
+  .offers td.name::before{display:none}
+  .offers td.name{display:block}
+  .offers td.pr{position:absolute;top:14px;right:18px;left:auto;width:auto;display:block;padding:0;font-size:22px}
+  .offers td.tier{padding-right:110px}
+  .cstats{gap:24px}
+  .offers td.pr::before{display:none}
+  .offers tr.o-free td{background:none}
+  .offers tr.o-later{background:var(--paper-2)}
+
+  /* platform comparison */
+  .plat tr.pick{border:2px solid var(--cherry)}
+  .plat tr.pick td:first-child{box-shadow:none}
+  .plat tr.pick td{background:none}
+  .plat td:first-child{font-family:"Bricolage Grotesque",sans-serif;font-size:20px;font-weight:800}
+
+  /* step by step stays a list */
+  .steps thead{display:none}
+  .steps td{padding:14px 8px}
+  .steps td.n{width:36px;padding-left:4px}
+  .steps td.t{width:1%;text-align:right}
+  .steps .chip{margin:0 0 4px 4px}
+  .tablewrap:has(.steps){border-radius:16px}
+
+  .capacity{padding:20px}
+  .cap-grid b{font-size:28px}
+  .cap-total b{font-size:30px}
+
+  .split .pct{font-size:72px}
+
+  /* calculator */
+  .inputs{padding:18px}
+  .field input[type=range]{height:32px}
+  .field input[type=range]::-webkit-slider-thumb{width:26px;height:26px}
+  .field input[type=range]::-moz-range-thumb{width:26px;height:26px}
+  .results .big b{font-size:34px}
+  .chartcard{padding:16px;margin-top:12px}
+  .charthead{margin-bottom:6px}
+  .tip{min-width:150px}
+
+  .tracker-cta{padding:20px}
+  .tracker-cta a{width:100%;text-align:center;padding:14px 20px}
+
+  .visionline{margin-top:28px}
+  .poster{margin-top:20px;gap:18px}
+  .poster .card{max-width:none}
+  footer{padding:40px 0 calc(48px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:700px){
+  .plat.dm td{display:block}
+  .plat.dm td::before{display:block;margin-bottom:2px}
+  .plat.dm td.lead{font-size:18px}
+  .plat.dm td:first-child{color:var(--ink)}
+}
+@media (max-width:560px){
+  .results .big{border-top-width:1px}
+  .results .big:first-child{border-top-width:2px}
+  .results .big div{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .results .big div b{order:2;font-size:30px}
+}
+@media (max-width:380px){
+  .cards td{grid-template-columns:80px 1fr}
+  .cap-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -449,7 +552,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       <h2>The funnel and offer ladder</h2>
       <p></p>
     </div>
-    <div class="tablewrap">
+    <div class="tablewrap cards">
       <table class="offers">
         <thead><tr><th>Tier</th><th>Offer</th><th>Price</th><th>Length</th><th>What they get</th><th>Where they go</th><th>Your time</th></tr></thead>
         <tbody>
@@ -539,7 +642,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       <h2>Where the community lives</h2>
       <p>Free is quiet. The Club is the real community.</p>
     </div>
-    <div class="tablewrap">
+    <div class="tablewrap cards">
       <table class="plat">
         <thead><tr><th>Platform</th><th>Live events</th><th>Courses</th><th>Payments</th><th>Mobile app</th><th>Fit</th></tr></thead>
         <tbody>
@@ -702,7 +805,7 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
       <div><em>Growth and reporting</em><b>Your numbers, every month</b><p>What's working, what's next, and where the next sale comes from.</p></div>
     </div>
     <h3 style="margin:48px 0 16px">How your Instagram accounts work</h3>
-    <div class="tablewrap">
+    <div class="tablewrap cards">
       <table class="plat dm">
         <thead><tr><th></th><th>@danidmc (your account)</th><th>@theconfidencerebirth (new account)</th></tr></thead>
         <tbody>
@@ -745,6 +848,32 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
 
 <script>
 (function(){
+  /* mobile: label table cells so tables can stack as cards */
+  [].slice.call(document.querySelectorAll('.cards table')).forEach(function(t){
+    var heads=[].slice.call(t.querySelectorAll('thead th')).map(function(th){return th.textContent.trim()});
+    [].slice.call(t.querySelectorAll('tbody tr')).forEach(function(tr){
+      [].slice.call(tr.children).forEach(function(td,i){td.setAttribute('data-label',heads[i]||'')});
+      if(t.classList.contains('plat'))tr.children[0].classList.add('lead');
+    });
+  });
+
+  /* nav: highlight current section and keep it in view */
+  var navLinks=[].slice.call(document.querySelectorAll('nav.top .links a'));
+  if('IntersectionObserver' in window){
+    var cur=null;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var a=navLinks.filter(function(l){return l.getAttribute('href')==='#'+e.target.id})[0];
+        if(!a||a===cur)return;
+        if(cur)cur.classList.remove('on');
+        a.classList.add('on');cur=a;
+        var box=a.parentNode;box.scrollTo({left:a.offsetLeft-box.clientWidth/2+a.offsetWidth/2,behavior:'smooth'});
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    navLinks.forEach(function(l){var sec=document.querySelector(l.getAttribute('href'));if(sec)io.observe(sec)});
+  }
+
   /* tabs */
   var tabs=[].slice.call(document.querySelectorAll('.tab'));
   function sel(t){
@@ -807,11 +936,12 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
   var C={prog:'#D6264F',mem:'#6B4FB8',oo:'#B97F0A'},chart=document.getElementById('chart'),tip=document.getElementById('tip');
   function nice(x){var p=Math.pow(10,Math.floor(Math.log10(x)));var n=x/p;return (n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10)*p}
   function draw(){
-    var W=720,H=300,pl=56,pr=8,pt=12,pb=30,iw=W-pl-pr,ih=H-pt-pb;
+    var cw=chart.clientWidth||720,narrow=cw<520;
+    var W=narrow?Math.max(cw,280):720,H=narrow?240:300,pl=narrow?44:56,pr=4,pt=12,pb=26,iw=W-pl-pr,ih=H-pt-pb,fs=narrow?11:12;
     var max=nice(Math.max.apply(null,data.map(function(d){return d.t}))||1);
-    var bw=iw/12,barw=Math.min(36,bw*.62);
+    var bw=iw/12,barw=Math.min(36,bw*(narrow?.7:.62));
     var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
-    var nt=(max/1e4)%5===0?5:4;for(var i=0;i<=nt;i++){var y=pt+ih-ih*i/nt;s+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y+'" y2="'+y+'" stroke="#E6D3D4" stroke-width="1"/><text x="'+(pl-10)+'" y="'+(y+4)+'" text-anchor="end" font-size="12" fill="#8A7581">'+money(max*i/nt)+'</text>'}
+    var nt=(max/1e4)%5===0?5:4;for(var i=0;i<=nt;i++){var y=pt+ih-ih*i/nt;s+='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y+'" y2="'+y+'" stroke="#E6D3D4" stroke-width="1"/><text x="'+(pl-10)+'" y="'+(y+4)+'" text-anchor="end" font-size="'+fs+'" fill="#8A7581">'+money(max*i/nt)+'</text>'}
     data.forEach(function(d,i){
       var x=pl+bw*i+(bw-barw)/2,y0=pt+ih,segs=[['oo',d.oo],['mem',d.mem],['prog',d.prog]];
       var vis=segs.filter(function(g){return g[1]>0});
@@ -822,18 +952,21 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
         else s+='<rect x="'+x+'" y="'+(y0-hh)+'" width="'+barw+'" height="'+hh+'" fill="'+C[g[0]]+'"/>';
         y0-=h;
       });
-      s+='<text x="'+(pl+bw*i+bw/2)+'" y="'+(H-8)+'" text-anchor="middle" font-size="12" fill="#8A7581">M'+d.m+'</text>';
+      if(!narrow||i%2===0)s+='<text x="'+(pl+bw*i+bw/2)+'" y="'+(H-8)+'" text-anchor="middle" font-size="'+fs+'" fill="#8A7581">'+(narrow?d.m:'M'+d.m)+'</text>';
       s+='<rect class="hit" data-i="'+i+'" x="'+(pl+bw*i)+'" y="'+pt+'" width="'+bw+'" height="'+ih+'" fill="transparent"/>';
     });
     s+='</svg>';chart.innerHTML=s;
     [].slice.call(chart.querySelectorAll('.hit')).forEach(function(r){
-      r.addEventListener('mousemove',function(e){
+      function show(e){
         var d=data[+r.dataset.i],box=chart.parentNode.getBoundingClientRect();
         tip.innerHTML='<b>Month '+d.m+': '+usd(d.t)+'</b>'+row('Club',d.prog,C.prog)+row('Course',d.mem,C.mem)+row('High ticket',d.oo,C.oo);
-        var x=e.clientX-box.left+14;if(x+190>box.width)x=e.clientX-box.left-200;
-        tip.style.left=x+'px';tip.style.top=(e.clientY-box.top-20)+'px';tip.style.opacity=1;
-      });
-      r.addEventListener('mouseleave',function(){tip.style.opacity=0});
+        var tw=tip.offsetWidth||180,x=e.clientX-box.left+14;if(x+tw>box.width-8)x=e.clientX-box.left-tw-14;if(x<8)x=8;
+        var y=e.clientY-box.top-20;if(e.pointerType==='touch')y=e.clientY-box.top-tip.offsetHeight-24;if(y<8)y=8;
+        tip.style.left=x+'px';tip.style.top=y+'px';tip.style.opacity=1;
+      }
+      r.addEventListener('pointermove',show);
+      r.addEventListener('pointerdown',show);
+      r.addEventListener('pointerleave',function(e){if(e.pointerType!=='touch')tip.style.opacity=0});
     });
   }
   function row(n,v,c){return '<div class="r"><span><i style="background:'+c+'"></i>'+n+'</span><span>'+usd(v)+'</span></div>'}
@@ -848,6 +981,9 @@ footer p{color:var(--ink-2);font-size:15px;margin-top:16px}
     vt.textContent=on?'Show chart':'Show table';
     chart.style.display=on?'none':'block';document.getElementById('tableview').style.display=on?'block':'none';
   });
+  document.addEventListener('pointerdown',function(e){if(!chart.contains(e.target))tip.style.opacity=0});
+  var lastW=chart.clientWidth;
+  window.addEventListener('resize',function(){if(chart.clientWidth!==lastW){lastW=chart.clientWidth;draw()}});
   setScen('base');
 })();
 </script>
