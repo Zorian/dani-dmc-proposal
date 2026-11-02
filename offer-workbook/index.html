@@ -674,7 +674,7 @@ function drawGroups(){
 }
 function drawGStats(){
   const tot=S.groups.reduce((a,b)=>a+b,0),calls=S.groups.filter(Boolean).length;
-  $("#gStats").innerHTML=`<div><b>${tot}</b><span>Women in the Circle</span></div><div><b>${calls}</b><span>Live calls a week</span></div><div><b>${calls} hours</b><span>On calls each week</span></div><div><b>${money(tot*S.price)}</b><span>Every 8 weeks at ${money(S.price)}</span></div>`;
+  $("#gStats").innerHTML=`<div><b>${tot}</b><span>Women in the Circle</span></div><div><b>${calls}</b><span>Live calls a week</span></div><div><b>${calls} ${calls===1?"hour":"hours"}</b><span>On calls each week</span></div><div><b>${money(tot*S.price)}</b><span>Every 8 weeks at ${money(S.price)}</span></div>`;
 }
 $("#groups").addEventListener("input",e=>{const i=e.target.dataset.gi;if(i==null)return;const n=+e.target.value;S.groups[+i]=n;const card=e.target.closest(".note");card.querySelector(".gn").textContent=n;card.querySelectorAll(".seats i").forEach((d,k)=>d.classList.toggle("on",k<n));drawGStats();save()});
 
