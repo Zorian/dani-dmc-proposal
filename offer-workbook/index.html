@@ -313,7 +313,7 @@ function save(){
 
 /* ---------- content data ---------- */
 const GOLDS=[{"label": "Overthinkers who talk themselves out of everything", "who": "overthinkers", "res": "the confidence to trust themselves and act", "wo": "needing to feel ready first", "name": "The Trust Yourself Method", "cat": 0}, {"label": "People pleasers who can't say no without guilt", "who": "people pleasers", "res": "the confidence to say no and mean it", "wo": "feeling guilty", "name": "The Say No Method", "cat": 0}, {"label": "Women who hide, shrink and play small", "who": "women who shrink and play small", "res": "the confidence to be seen and take up space", "wo": "faking a personality", "name": "The Take Up Space Method", "cat": 0}, {"label": "Women who've lost themselves and want to feel like themselves again", "who": "women who've lost themselves", "res": "a version of themselves they recognise and love again", "wo": "becoming someone new", "name": "The Come Back Method", "cat": 1}, {"label": "Women starting over after a big life change", "who": "women starting over", "res": "the confidence to build a life on their own terms", "wo": "rushing to fill the gap", "name": "The Start Again Method", "cat": 1}, {"label": "Women who've outgrown their life and want more", "who": "women who've outgrown their life", "res": "the confidence to go after the life they want", "wo": "feeling ungrateful", "name": "The Bigger Life Method", "cat": 1}, {"label": "Women who want to speak up and be taken seriously at work", "who": "women who want to be taken seriously at work", "res": "the confidence to speak up and ask for more", "wo": "faking a personality", "name": "The Speak Up Method", "cat": 2}, {"label": "Women ready to charge more, ask for more and stop settling", "who": "women ready to ask for more", "res": "the confidence to ask for what they're worth", "wo": "feeling guilty", "name": "The Ask For More Method", "cat": 2}, {"label": "Women who keep settling for less than they deserve in love", "who": "women who keep settling in love", "res": "the confidence to know their worth in love", "wo": "playing games", "name": "The Know Your Worth Method", "cat": 2}];
-const CHAPTERS=["Start","Your 3 methods","Results","Your way","What's inside","How you coach","Finish"];
+const CHAPTERS=["Start","Your client","Your 3 methods","Results","Your way","What's inside","How you coach","Finish"];
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ans=(k,label,ph,one)=>`<div class="ans" data-ans="${k}"><label for="f-${k}">${label}</label>${one?`<input id="f-${k}" data-k="${k}" placeholder="${esc(ph||"Write it here")}" autocomplete="off">`:`<textarea id="f-${k}" data-k="${k}" rows="2" placeholder="${esc(ph||"Write it here")}"></textarea>`}</div>`;
 
@@ -367,7 +367,7 @@ const SL=[
   ${ans("q_pain","Which confidence problem are women most desperate to fix?","In your opinion, what do they struggle with most?")}
  </div>`},
 
-{c:1,n:"One engine",html:`<div class="sec-head"><h2>One engine, <span class="mark sweep">three doors</span></h2><p>Confidence is broad, and one niche is too narrow. So you run one confidence business with three specific ways in.</p></div>
+{c:2,n:"One engine",html:`<div class="sec-head"><h2>One engine, <span class="mark sweep">three doors</span></h2><p>Confidence is broad, and one niche is too narrow. So you run one confidence business with three specific ways in.</p></div>
  <div class="grid3">
   <div class="note stack" style="gap:6px"><h3>Brand and bio</h3><p>“Confidence coaching for women. Get your confidence back. Find your method.”</p></div>
   <div class="note stack" style="gap:6px"><h3>What's different</h3><p>Each method has its own name, promise, personality, testimonials, content series, masterclass group and recorded course.</p></div>
@@ -375,7 +375,7 @@ const SL=[
  </div>
  <figure class="mock"><figcaption><h3>An example of how this could look</h3><p class="small">Your page, your bio and three clear doors. These names are only examples.</p></figcaption><img src="${MOCK}" alt="Example Instagram profile for The Confidence Rebirth with three pinned method posts"></figure>`},
 
-{c:1,n:"Your three methods",html:`<div class="sec-head"><h2>Build <span class="mark sweep">your three methods</span></h2><p>One confidence business, three clear doors. Choose a method, then pick one thing from each section.</p></div>
+{c:2,n:"Your three methods",html:`<div class="sec-head"><h2>Build <span class="mark sweep">your three methods</span></h2><p>One confidence business, three clear doors. Choose a method, then pick one thing from each section.</p></div>
  <div class="tablewrap"><table class="extable"><caption>For example</caption><thead><tr><th>Method</th><th>For women who</th><th>They get</th></tr></thead><tbody>
   <tr><td>The Come Back Method</td><td>have lost themselves</td><td>to feel like themselves again</td></tr>
   <tr><td>The Say No Method</td><td>put everyone else first</td><td>to say no without guilt</td></tr>
@@ -384,7 +384,7 @@ const SL=[
  <div class="mcards"><div id="mCards" class="grid3"></div></div>
  <div class="stack" id="mSecs" style="gap:40px"></div>`},
 
-{c:2,n:"Outcomes",html:`<h2>People don't buy coaching. <span class="mark sweep">They buy outcomes.</span></h2>
+{c:3,n:"Outcomes",html:`<h2>People don't buy coaching. <span class="mark sweep">They buy outcomes.</span></h2>
  <div class="split"><div class="stack">
   <p class="lead">Every buyer has one question: what exactly will I get from working with you?</p>
   <div class="say" id="sharpSay" style="min-height:3.5em"></div>
@@ -398,23 +398,23 @@ const SL=[
   <div class="inkcard"><h3 style="color:var(--hl)">Your clients already said it</h3><p style="margin-top:6px">“It was worth every penny.” “I love the person I am becoming.” What had actually changed for them?</p></div>
  </div></div>`},
 
-{c:3,n:"The stages",html:`<div class="sec-head"><h2>Give each method <span class="mark sweep">three stages</span></h2><p>A method with clear stages feels like a real system, and nobody else can offer it. Three is enough.</p></div>
+{c:4,n:"The stages",html:`<div class="sec-head"><h2>Give each method <span class="mark sweep">three stages</span></h2><p>A method with clear stages feels like a real system, and nobody else can offer it. Three is enough.</p></div>
  <div class="grid3">${[0,1,2].map(i=>`<div class="stack note"><h3 data-mt="${i}">Method ${i+1}</h3>${ans(`m${i}s1`,"Stage one","Where every client starts",1)}${ans(`m${i}s2`,"Stage two","The middle of the work",1)}${ans(`m${i}s3`,"Stage three","How they finish",1)}</div>`).join("")}</div>`},
 
-{c:3,n:"Instead of",html:`<h2>Instead of this, <span class="mark sweep">you say that</span></h2>
+{c:4,n:"Instead of",html:`<h2>Instead of this, <span class="mark sweep">you say that</span></h2>
  <div class="grid3" id="flips"></div><p class="small">Tap a card to turn it over.</p>`},
 
-{c:3,n:"Your promises",html:`<h2>Three offers, <span class="mark sweep">three clear promises</span></h2>
+{c:4,n:"Your promises",html:`<h2>Three offers, <span class="mark sweep">three clear promises</span></h2>
  ${ans("bio","Your bio, the line above all three","Confidence coaching for women. Get your confidence back. Find your method.")}
  <div id="promises" class="stack"></div>
  <div class="row" id="mEditTabs"></div>
  <div class="builder" id="mEdit"></div>`},
 
-{c:4,n:"What they get",html:`<div class="sec-head"><h2>Decide what goes <span class="mark sweep">in each level</span></h2><p>Tap a circle to add it or take it out. This is what makes the price feel obvious.</p></div>
+{c:5,n:"What they get",html:`<div class="sec-head"><h2>Decide what goes <span class="mark sweep">in each level</span></h2><p>Tap a circle to add it or take it out. This is what makes the price feel obvious.</p></div>
  <div class="tablewrap"><table id="matrix"></table></div>
  ${ans("loved","Your past clients mention the workbook. What else did they use the most?","What did they keep coming back to?")}`},
 
-{c:4,n:"The 10x rule",html:`<h2>The <span class="mark sweep">10x rule</span></h2>
+{c:5,n:"The 10x rule",html:`<h2>The <span class="mark sweep">10x rule</span></h2>
  <div class="split"><div class="stack">
   <p>When they can clearly see 10 times the value of the price, the decision gets easy.</p>
   <div><h3>Test price: The 25 woman masterclass</h3><div class="bignum" id="priceOut"></div>
@@ -429,7 +429,7 @@ const SL=[
   <p class="small">These numbers are examples for working out the price. We don't promise them to anyone.</p>
  </div></div>`},
 
-{c:4,n:"Three Circles",html:`<div class="sec-head"><h2>Three groups, <span class="mark sweep">one at a time</span></h2><p>The masterclass runs for 8 weeks with a weekly live call and 25 women max. Each method gets its own group. We fill one, then open the next.</p></div>
+{c:5,n:"Three Circles",html:`<div class="sec-head"><h2>Three groups, <span class="mark sweep">one at a time</span></h2><p>The masterclass runs for 8 weeks with a weekly live call and 25 women max. Each method gets its own group. We fill one, then open the next.</p></div>
  <div class="inkcard stack" style="gap:6px"><h3 style="color:var(--hl)">Show all three, but only sell one</h3><p>The other two appear on the site as coming soon, with a waitlist. Women who aren't right for the first still have somewhere to go, and you can see real demand before you film anything else.</p></div>
  <div class="grid3" id="groups"></div>
  <div class="reach gstats" id="gStats"></div>
@@ -439,29 +439,29 @@ const SL=[
   ${ans("calltimes","When could you run three calls a week?","Days and times that work every week")}
  </div>`},
 
-{c:4,n:"Three courses",html:`<div class="sec-head"><h2>One recorded course <span class="mark sweep">for each method</span></h2><p>You film each one once, and it sells any time. Your three stages become the structure of each course.</p></div>
+{c:5,n:"Three courses",html:`<div class="sec-head"><h2>One recorded course <span class="mark sweep">for each method</span></h2><p>You film each one once, and it sells any time. Your three stages become the structure of each course.</p></div>
  <div class="grid3" id="courses"></div>
  <div class="row"><button class="pill" data-cm="full">A full course each</button><button class="pill" data-cm="core">Shared core, then one track each</button></div>
  <div class="reach gstats" id="cStats"></div>
  <p class="small" id="cNote"></p>
  ${ans("firstcourse","Which course would you film first?","Usually the same method as your first masterclass")}`},
 
-{c:5,n:"What's in their head",html:`<div class="sec-head"><h2>They're asking <span class="mark sweep">three questions</span></h2><p>Clients don't just want advice. They want a solution to their problem.</p></div>
+{c:6,n:"What's in their head",html:`<div class="sec-head"><h2>They're asking <span class="mark sweep">three questions</span></h2><p>Clients don't just want advice. They want a solution to their problem.</p></div>
  <div class="grid3" id="three"></div>
  ${ans("q1proof","What's your strongest proof that you can solve this?","A story, a result, a testimonial")}`},
 
-{c:5,n:"The doctor approach",html:`<h2>A doctor <span class="mark sweep">examines first</span></h2>
+{c:6,n:"The doctor approach",html:`<h2>A doctor <span class="mark sweep">examines first</span></h2>
  <div class="split"><div class="stack">
   <p>Before you prescribe, you ask. Ask yourself these on every check in call.</p>
   <div class="q3"><div>Where are they right now?</div><div>Where do they want to get to?</div><div>What's stopping them?</div></div>
   <div class="stars" id="rpStars" aria-label="Score"></div>
  </div><div class="stack" id="rp"></div></div>`},
 
-{c:5,n:"Call structure",html:`<h2>Every call runs <span class="mark sweep">the same way</span></h2>
+{c:6,n:"Call structure",html:`<h2>Every call runs <span class="mark sweep">the same way</span></h2>
  <div class="timeline" id="tl"></div>
  <div id="tlBody"></div>`},
 
-{c:6,n:"Everything you said",html:`<h2>Here's <span class="mark sweep">your offer</span></h2>
+{c:7,n:"Everything you said",html:`<h2>Here's <span class="mark sweep">your offer</span></h2>
  <div id="bioOut" class="short"></div>
  <div id="promise2" class="stack"></div>
  <div class="reach flowrow"><div><b>Your bio</b><span>Confidence coaching</span></div><div><b>The quiz</b><span>Finds their method</span></div><div><b>Their method</b><span>One clear promise</span></div><div><b>Their level</b><span>Membership, masterclass or 1:1</span></div></div>
@@ -469,7 +469,7 @@ const SL=[
  <div class="row"><button class="pill ink" id="copyAll">Copy all answers</button><span id="copyMsg" class="small" aria-live="polite"></span></div>
  <textarea id="exportBox" readonly hidden aria-label="All answers"></textarea>`},
 
-{c:6,n:"What happens next",html:`<h2>You did the hard part. <span class="mark sweep">Here's what's next.</span></h2>
+{c:7,n:"What happens next",html:`<h2>You did the hard part. <span class="mark sweep">Here's what's next.</span></h2>
  <div class="split"><div class="stack">
   <h3>Decide today</h3>
   ${ans("d_price","Founding member price for the paid membership","Currently $33 a month",1)}
