@@ -287,7 +287,7 @@ const GOLDS=[
 ];
 const goldObj=()=>GOLDS.find(g=>g.label===S.a.gold)||null;
 const eg=()=>goldObj()||GOLDS[3];
-const CHAPTERS=["Start","Your gold dot","A to B","Your way","What's inside","How you coach","Finish"];
+const CHAPTERS=["Start","Your exact client","A to B","Your way","What's inside","How you coach","Finish"];
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ans=(k,label,ph,one)=>`<div class="ans" data-ans="${k}"><label for="f-${k}">${label}</label>${one?`<input id="f-${k}" data-k="${k}" placeholder="${esc(ph||"Write it here")}" autocomplete="off">`:`<textarea id="f-${k}" data-k="${k}" rows="2" placeholder="${esc(ph||"Write it here")}"></textarea>`}</div>`;
 
@@ -311,11 +311,11 @@ const SL=[
 
 {c:1,n:"The dots",html:`<h2>Most confidence coaches <span class="mark sweep">stop at the niche</span></h2>
  <div class="split"><div class="stack">
-   <div class="row"><button class="pill" data-layer="1">Market</button><button class="pill" data-layer="2">Niche</button><button class="pill" data-layer="3">Gold dot</button></div>
+   <div class="row"><button class="pill" data-layer="1">Market</button><button class="pill" data-layer="2">Niche</button><button class="pill" data-layer="3">Your exact client</button></div>
    <div class="layer-out" id="layerOut"></div>
-   <div class="row" id="goldExRow"><button class="pill" id="goldEx">Show another gold dot</button></div>
+   <div class="row" id="goldExRow"><button class="pill" id="goldEx">Show another example</button></div>
  </div><div id="dots" class="dots"></div></div>`,
- note:"Tap Market, Niche, Gold dot in order and let the grid change. Every dot is a person. The gold dots are the Unique Value Zone: the small group you are the obvious choice for. Each dot is a woman. Today she sits at blue: women's confidence.",q:"Won't I lose people if I go smaller? She only narrows what she sells. Her personal brand stays broad."},
+ note:"Tap Market, Niche, Gold dot in order and let the grid change. Every dot is a person. The yellow dots are her exact client, also called the Unique Value Zone: the small group you are the obvious choice for. Each dot is a woman. Today she sits at blue: women's confidence.",q:"Won't I lose people if I go smaller? She only narrows what she sells. Her personal brand stays broad."},
 
 {c:1,n:"Pub or Michelin star",html:`<h2>Same coach. <span class="mark sweep">Very different price.</span></h2>
  <div class="split"><div class="stack">
@@ -337,19 +337,19 @@ const SL=[
  <div class="grid2" id="rules"></div><p class="small">Tap each one.</p>`,
  note:"Open them one at a time. Connect each to something she already knows from her own coaching before 2021.",q:"Why do people who pay more do better? They've committed, so they show up and do the work. That gives better results, better testimonials and more sales."},
 
-{c:1,n:"Find it",html:`<h2>Now we look for <span class="mark sweep">your gold dot</span></h2>
+{c:1,n:"Find it",html:`<h2>Now let's find <span class="mark sweep">your exact client</span></h2>
  <div class="grid2">
   ${ans("q_dm","What do women DM you about most when it comes to confidence?","What's the most common thing they tell you or ask you?")}
   ${ans("q_best","Out of the women you've mentored, who got the best results?","Who were they, and what changed?")}
   ${ans("q_self","Before you had your confidence, who were you?","What version of yourself was that?")}
   ${ans("q_pain","Which confidence problem are women most desperate to fix?","What are they already spending time or money trying to solve?")}
  </div>`,
- note:"Stay quiet and let her think. Ask for real names and real stories. Her own story is usually where the gold dot is hiding.",q:"What if the answers point in different directions? Look for the woman who shows up in two or more answers."},
+ note:"Stay quiet and let her think. Ask for real names and real stories. Her own story is usually where her exact client is hiding.",q:"What if the answers point in different directions? Look for the woman who shows up in two or more answers."},
 
 {c:1,n:"Pick it",html:`<h2>Pick one. <span class="mark sweep">You can widen it later.</span></h2>
  <div class="split"><div class="stack" id="goldOpts"></div>
  <div class="stack">
-  ${ans("gold","Your gold dot, in your own words","The woman you are the obvious choice for")}
+  ${ans("gold","Your exact client, in your own words","The woman you are the obvious choice for")}
   <div class="note"><h3>What stays the same</h3><p style="margin-top:6px">Your personal brand stays broad. The Rebirth sells one clear transformation. Once it's selling, we open the door wider.</p></div>
  </div></div>`,
  note:"These four are starting points, not the answer. If she writes her own, use hers. Her choice fills in the examples for the rest of the session.",q:"What about the six areas on the website? They stay. They become where the transformation shows up."},
@@ -567,7 +567,7 @@ function drawLayer(){
   $$("[data-layer]").forEach(b=>b.classList.toggle("on",+b.dataset.layer===layer));
   const picked=(S.a.gold||"").trim();
   const say=["Personal development","Women's confidence",picked||GOLDS[exI].label];
-  const txt=["Everyone who wants to feel better about themselves.","Women who want more confidence. This is where most confidence coaches stop.",picked?"Your Unique Value Zone. The women you are the obvious choice for.":"Your Unique Value Zone. This is only an example. We'll choose yours in a minute."];
+  const txt=["Everyone who wants to feel better about themselves.","Women who want more confidence. This is where most confidence coaches stop.",picked?"Your exact client. The women you are the obvious choice for.":"Your exact client. This is only an example. We'll choose yours in a minute."];
   $("#layerOut").innerHTML=`<div class="say">${esc(say[layer-1])}</div><p style="margin-top:6px">${txt[layer-1]}</p>`;
   $("#goldExRow").hidden=!(layer===3&&!picked);
 }
@@ -705,7 +705,7 @@ $("#tl").onclick=e=>{const b=e.target.closest("[data-s]");if(b){stopI=+b.dataset
 
 /* summary */
 const SUM=[
- ["gold","Your gold dot",["Website headline","VSL hook","Instagram bio"],5],
+ ["gold","Your exact client",["Website headline","VSL hook","Instagram bio"],5],
  ["pointA","Point A",["VSL problem","Instagram posts","Quiz"],6],
  ["obst","What's in their way",["Content ideas","Sales calls"],6],
  ["pointB","Point B",["Website","VSL","Testimonial prompts"],6],
@@ -727,7 +727,7 @@ $("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(+b.dat
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");push("Promise",promiseText());push("Short",shortText());
-  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",gold:"Gold dot",pointA:"Point A",obst:"In the way",pointB:"Point B",outcome:"Outcome",r_out:"Specific outcomes",r_meas:"Measurable",r_time:"Timeframe",r_sign:"Signs it's working",r_past:"Past transformations",tried:"Already tried",diff:"What's different",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",gold:"Exact client",pointA:"Point A",obst:"In the way",pointB:"Point B",outcome:"Outcome",r_out:"Specific outcomes",r_meas:"Measurable",r_time:"Timeframe",r_sign:"Signs it's working",r_past:"Past transformations",tried:"Already tried",diff:"What's different",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
   Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Test Circle price: "+money(S.price));
   L.push("What's in each level:");
