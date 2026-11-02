@@ -339,10 +339,10 @@ const SL=[
 
 {c:1,n:"Find it",html:`<h2>Now we look for <span class="mark sweep">your gold dot</span></h2>
  <div class="grid2">
-  ${ans("q_dm","Which woman sends you the most DMs?","What's going on in their life?")}
-  ${ans("q_best","Who got your best results before 2021?","Who were they, what changed?")}
-  ${ans("q_self","Which version of yourself did you rebuild from?","The you before the change")}
-  ${ans("q_pain","Who would pay the most, because it hurts the most?","Where's the problem most urgent?")}
+  ${ans("q_dm","What do women DM you about most when it comes to confidence?","What's the most common thing they tell you or ask you?")}
+  ${ans("q_best","Out of the women you've mentored, who got the best results?","Who were they, and what changed?")}
+  ${ans("q_self","Before you had your confidence, who were you?","What version of yourself was that?")}
+  ${ans("q_pain","Which confidence problem are women most desperate to fix?","What are they already spending time or money trying to solve?")}
  </div>`,
  note:"Stay quiet and let her think. Ask for real names and real stories. Her own story is usually where the gold dot is hiding.",q:"What if the answers point in different directions? Look for the woman who shows up in two or more answers."},
 
@@ -727,7 +727,7 @@ $("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(+b.dat
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");push("Promise",promiseText());push("Short",shortText());
-  const labels={q_dm:"Most DMs from",q_best:"Best results before 2021",q_self:"Rebuilt from",q_pain:"Hurts the most",gold:"Gold dot",pointA:"Point A",obst:"In the way",pointB:"Point B",outcome:"Outcome",r_out:"Specific outcomes",r_meas:"Measurable",r_time:"Timeframe",r_sign:"Signs it's working",r_past:"Past transformations",tried:"Already tried",diff:"What's different",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",gold:"Gold dot",pointA:"Point A",obst:"In the way",pointB:"Point B",outcome:"Outcome",r_out:"Specific outcomes",r_meas:"Measurable",r_time:"Timeframe",r_sign:"Signs it's working",r_past:"Past transformations",tried:"Already tried",diff:"What's different",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
   Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Test Circle price: "+money(S.price));
   L.push("What's in each level:");
