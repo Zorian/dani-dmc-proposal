@@ -292,7 +292,7 @@ const MOCK="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAAAAAAD/2wBDAAYEBQYFBAYGB
 /* ---------- state ---------- */
 const KEY="offer-workbook-v1";
 const blankM=()=>({name:"",who:"",res:"",wo:""});
-let S={groups:[25,0,0],methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[]},a:{},price:1500,vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
+let S={groups:[25,0,0],methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[]},a:{},vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
 try{const raw=localStorage.getItem(KEY);if(raw){S=Object.assign(S,JSON.parse(raw))}}catch(e){}
 let db=null,dbTimer=null;
 const saveEl=()=>document.getElementById("save");
@@ -400,16 +400,11 @@ const SL=[
 
 {c:4,n:"How it could look",html:`<div class="sec-head"><h2>How this could look <span class="mark sweep">on Instagram</span></h2><p>Your page, your bio and three clear doors. This is only an example, so the names and wording can change.</p></div>
  <img class="igmock" src="${MOCK}" alt="Example Instagram profile for The Confidence Rebirth with three pinned method posts">`},
-{c:5,n:"Three Circles",html:`<div class="sec-head"><h2>Three groups, <span class="mark sweep">one at a time</span></h2><p>The masterclass runs for 8 weeks with a weekly live call and 25 women max. Each method gets its own group. We fill one, then open the next.</p></div>
+{c:5,n:"Three Circles",html:`<div class="sec-head"><h2>Three groups, <span class="mark sweep">one at a time</span></h2><p>The masterclass is $3,333 per woman, for 8 weeks with a weekly live call and 25 women max. Each method gets its own group. We fill one, then open the next.</p></div>
  <div class="inkcard stack" style="gap:6px"><h3 style="color:var(--hl)">Show all three, but only sell one</h3><p>The other two appear on the site as coming soon, with a waitlist. Women who aren't right for the first still have somewhere to go, and you can see real demand before you film anything else.</p></div>
- <div class="stack" style="gap:6px;max-width:520px"><h3>Test price for the masterclass</h3><div class="bignum" id="priceOut"></div><input type="range" id="price" min="300" max="5000" step="50" aria-label="Test price"></div>
  <div class="grid3" id="groups"></div>
  <div class="reach gstats" id="gStats"></div>
- <p class="small">Example numbers using the test price. Not a promise.</p>
- <div class="grid2">
-  ${ans("firstgroup","Which group would you start first?","The one you're most excited to coach")}
-  ${ans("calltimes","When could you run three calls a week?","Days and times that work every week")}
- </div>`},
+ <p class="small">Example numbers at $3,333 per woman. Not a promise.</p>`},
 
 {c:5,n:"Three courses",html:`<div class="sec-head"><h2>One recorded course <span class="mark sweep">for each method</span></h2><p>You film each one once, and it sells any time. Your three stages become the structure of each course.</p></div>
  <div class="grid3" id="courses"></div>
@@ -583,8 +578,7 @@ function shortText(m){return (m.who||m.res)?`We help ${m.who||"___"} achieve ${m
 const promisesHTML=()=>S.methods.map((m,i)=>`<div class="stack" style="gap:8px"><h3>${esc(mTitle(i))}</h3><div class="promise">${promiseHTML(m)}</div><div class="short">${esc(shortText(m)||"We help X achieve X.")}</div></div>`).join("");
 /* price */
 const money=n=>"$"+Math.round(n).toLocaleString("en-US");
-function drawPrice(){$("#price").value=S.price;$("#priceOut").textContent=money(S.price)}
-$("#price").addEventListener("input",e=>{S.price=+e.target.value;drawPrice();drawGStats();save()});
+const PRICE=3333;
 
 /* three circles */
 function drawGroups(){
@@ -594,7 +588,7 @@ function drawGroups(){
 }
 function drawGStats(){
   const tot=S.groups.reduce((a,b)=>a+b,0),calls=S.groups.filter(Boolean).length;
-  $("#gStats").innerHTML=`<div><b>${tot}</b><span>Women in the masterclass</span></div><div><b>${calls}</b><span>Live calls a week</span></div><div><b>${calls} ${calls===1?"hour":"hours"}</b><span>On calls each week</span></div><div><b>${money(tot*S.price)}</b><span>Every 8 weeks at ${money(S.price)}</span></div>`;
+  $("#gStats").innerHTML=`<div><b>${tot}</b><span>Women in the masterclass</span></div><div><b>${calls}</b><span>Live calls a week</span></div><div><b>${calls} ${calls===1?"hour":"hours"}</b><span>On calls each week</span></div><div><b>${money(tot*PRICE)}</b><span>Every 8 weeks at ${money(PRICE)}</span></div>`;
 }
 $("#groups").addEventListener("input",e=>{const i=e.target.dataset.gi;if(i==null)return;const n=+e.target.value;S.groups[+i]=n;const card=e.target.closest(".note");card.querySelector(".gn").textContent=n;card.querySelectorAll(".seats i").forEach((d,k)=>d.classList.toggle("on",k<n));drawGStats();save()});
 
@@ -662,8 +656,6 @@ const SUM=[
  ["out0","Outcome 1",["Website","Offer pages"],"Outcomes"],
  ["out1","Outcome 2",["Website","Offer pages"],"Outcomes"],
  ["out2","Outcome 3",["Website","Offer pages"],"Outcomes"],
- ["firstgroup","The group you'd start first",["Launch plan","First ads"],"Three Circles"],
- ["calltimes","Your call times",["Masterclass calendar","Apply form"],"Three Circles"],
  ["firstcourse","The course you'd film first",["Filming plan","Website"],"Three courses"],
  ["q1proof","Your strongest proof",["Website","VSL"],"What's in their head"],
  ["coachq","Your best question",["Coaching calls","Instagram posts"],"Call structure"]
@@ -676,10 +668,10 @@ $("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(SL.fin
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");
-  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstgroup:"First group to start",calltimes:"Call times",firstcourse:"First course to film",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Membership founding price",d_cap:"Founding members",d_date:"Next workshop"};
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstcourse:"First course to film",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Membership founding price",d_cap:"Founding members",d_date:"Next workshop"};
   S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));[1,2,3].forEach(n=>push("Stage "+n,S.a[`m${i}s${n}`]))});
   L.push("");[0,1,2].forEach(i=>push("Outcome "+(i+1),S.a["out"+i]));Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
-  L.push("Test masterclass price: "+money(S.price));
+  L.push("Masterclass price: "+money(PRICE)+" per woman");
   L.push("Masterclass groups: "+S.groups.map((n,i)=>mTitle(i)+" "+n).join(", "));
   return L.join("\n");
 }
@@ -703,7 +695,7 @@ function onEnter(){}
 
 /* boot */
 function boot(){
-  drawSharp();drawPrice();drawRP();drawStop();fillInputs();syncAll();
+  drawSharp();drawRP();drawStop();fillInputs();syncAll();
   setCurrent(0);grow();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(grow);
 }
@@ -716,7 +708,7 @@ boot();
     db=await c.use("db");
     if(!db){saveEl().textContent="Saved on this device. Use Copy all at the end.";return}
     const snap=await db.doc("sessions/dani").get();
-    if(snap.exists){const d=snap.data();if(d&&d.savedAt>(S.savedAt||0)&&d.state){const hasFocus=/INPUT|TEXTAREA/.test(document.activeElement.tagName);S=Object.assign(S,JSON.parse(d.state));if(!hasFocus){fillInputs();drawPrice();syncAll();grow();$$("[data-t]").forEach(t=>t.checked=!!S.done[t.dataset.t])}}}
+    if(snap.exists){const d=snap.data();if(d&&d.savedAt>(S.savedAt||0)&&d.state){const hasFocus=/INPUT|TEXTAREA/.test(document.activeElement.tagName);S=Object.assign(S,JSON.parse(d.state));if(!hasFocus){fillInputs();syncAll();grow();$$("[data-t]").forEach(t=>t.checked=!!S.done[t.dataset.t])}}}
     saveEl().textContent="Answers save automatically";
   }catch(e){db=null;saveEl().textContent="Saved on this device. Use Copy all at the end."}
 })();
