@@ -385,10 +385,10 @@ const SL=[
   <div class="row"><button class="pill ink" id="sharpBtn">Make it more specific</button></div>
   <div><div class="small" style="margin-bottom:4px">How easy it is to justify paying</div><div class="meter"><i id="sharpBar"></i></div></div>
  </div><div class="stack">
-  <h3>What exactly will they get from working with you?</h3>
-  ${ans("out0",'<span data-mt="0">Method 1</span>',"Something they could point at and say: I did that")}
-  ${ans("out1",'<span data-mt="1">Method 2</span>',"Something they could point at and say: I did that")}
-  ${ans("out2",'<span data-mt="2">Method 3</span>',"Something they could point at and say: I did that")}
+  <h3>What 3 outcomes do you want for the women you work with?</h3>
+  ${ans("out0","Outcome 1","Something they could point at and say: I did that")}
+  ${ans("out1","Outcome 2","Something they could point at and say: I did that")}
+  ${ans("out2","Outcome 3","Something they could point at and say: I did that")}
   <div class="inkcard"><h3 style="color:var(--hl)">Your clients already said it</h3><p style="margin-top:6px">“It was worth every penny.” “I love the person I am becoming.” What had actually changed for them?</p></div>
  </div></div>`},
 
@@ -703,6 +703,9 @@ const SUM=[
  ["q_pain","The problem they most want fixed",["Website","Sales calls"],"Find it"],
  ["loved","What clients used most",["Offer pages","Circle"],"What they get"],
  ["cost","Cost of staying stuck",["VSL","Sales calls"],"The 10x rule"],
+ ["out0","Outcome 1",["Website","Offer pages"],"Outcomes"],
+ ["out1","Outcome 2",["Website","Offer pages"],"Outcomes"],
+ ["out2","Outcome 3",["Website","Offer pages"],"Outcomes"],
  ["firstgroup","The group you'd start first",["Launch plan","First ads"],"Three Circles"],
  ["calltimes","Your call times",["Circle calendar","Apply form"],"Three Circles"],
  ["firstcourse","The course you'd film first",["Filming plan","Website"],"Three courses"],
@@ -718,8 +721,8 @@ function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");push("Bio",S.a.bio);
   const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstgroup:"First group to start",calltimes:"Call times",firstcourse:"First course to film",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
-  S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));push("What exactly they get",S.a["out"+i]);[1,2,3].forEach(n=>push("Stage "+n,S.a[`m${i}s${n}`]))});
-  L.push("");Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
+  S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));[1,2,3].forEach(n=>push("Stage "+n,S.a[`m${i}s${n}`]))});
+  L.push("");[0,1,2].forEach(i=>push("Outcome "+(i+1),S.a["out"+i]));Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Test Circle price: "+money(S.price));
   L.push("Circle groups: "+S.groups.map((n,i)=>mTitle(i)+" "+n).join(", "));
   L.push("What's in each level:");
