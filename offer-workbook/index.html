@@ -117,7 +117,7 @@ input[type=range]{width:100%;accent-color:var(--cherry);height:28px;cursor:point
 .tap .star{position:absolute;top:18px;right:20px;font-size:22px;line-height:1;color:var(--line)}
 .tap.on .star{color:var(--cherry)}
 
-.opt{padding:16px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card);font-weight:600;font-size:16px;line-height:1.3;transition:background .15s}
+.opt{padding:13px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);font-weight:600;font-size:15px;line-height:1.3;transition:background .15s}
 .opt:hover{background:var(--paper-2)}
 .opt.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 
@@ -279,14 +279,9 @@ function save(){
 }
 
 /* ---------- content data ---------- */
-const GOLDS=[
- {label:"Plus size women rebuilding their confidence",who:"plus size women",a:"They hide from photos, dress to disappear and put life on hold until they're smaller.",b:"They wear what they want, get in the photo and take up space in any room.",o:"Being told for years to shrink first.",res:"the freedom to wear what they want and stop hiding",wo:"dieting first"},
- {label:"Women rebuilding after a breakup or divorce",who:"women rebuilding after divorce",a:"They don't recognise themselves and second guess every decision.",b:"They know who they are again and choose from worth, not fear of being alone.",o:"An identity built around someone else.",res:"a sense of self they can trust again",wo:"rushing into someone new"},
- {label:"Women who lost themselves after becoming mums",who:"mums who lost themselves",a:"Everyone else comes first and they can't remember what they even like.",b:"They have a life, a look and a voice that's theirs again.",o:"The guilt that comes with choosing themselves.",res:"a life that feels like theirs again",wo:"feeling guilty about it"},
- {label:"Women in their 30s and 40s who shrink at work",who:"women in their 30s and 40s who shrink at work",a:"They stay quiet in meetings, do the work and watch others get the credit.",b:"They speak first, ask for the raise and go for the role.",o:"Waiting to feel ready before they act.",res:"the confidence to speak up and ask for the raise",wo:"faking a personality"}
-];
+const GOLDS=[{"group": "Stuck in a pattern", "label": "Women who've lived by everyone else's expectations and are ready to choose themselves", "who": "women who've lived by everyone else's expectations", "a": "They do what's expected, keep everyone happy and can't remember what they actually want.", "b": "They know what they want, choose it and stop asking permission.", "o": "Years of being rewarded for putting themselves last.", "res": "the confidence to choose themselves", "wo": "blowing up their life"}, {"group": "Stuck in a pattern", "label": "People pleasers who can't say no without guilt", "who": "people pleasers", "a": "They say yes when they mean no, then resent it.", "b": "They say no without explaining and keep the people who respect it.", "o": "Fear of being disliked if they stop giving.", "res": "the confidence to say no and mean it", "wo": "feeling guilty"}, {"group": "Stuck in a pattern", "label": "Overthinkers who talk themselves out of everything", "who": "overthinkers", "a": "They replay every conversation and talk themselves out of things before they start.", "b": "They decide, act and stop needing everyone's opinion first.", "o": "Waiting to feel certain before they move.", "res": "the confidence to trust themselves and act", "wo": "needing to feel ready first"}, {"group": "Stuck in a pattern", "label": "Women who feel like a fraud, however much they achieve", "who": "high achieving women who feel like a fraud", "a": "They've done the work, but still wait to be found out.", "b": "They own what they've done and take the credit.", "o": "Believing their success was luck.", "res": "the confidence to own their success", "wo": "achieving even more to prove it"}, {"group": "Stuck in a pattern", "label": "Women who hide, shrink and play small", "who": "women who shrink and play small", "a": "They stay quiet, stay in the background and let others take the room.", "b": "They speak first, get seen and take up space.", "o": "Fear of what people will think if they're seen.", "res": "the confidence to be seen and take up space", "wo": "faking a personality"}, {"group": "At a turning point", "label": "Women who've lost themselves and want to feel like themselves again", "who": "women who've lost themselves", "a": "They look fine from the outside, but don't recognise who they've become.", "b": "They feel like themselves again, and it shows.", "o": "Years of putting themselves at the bottom of the list.", "res": "a version of themselves they recognise and love again", "wo": "becoming someone new"}, {"group": "At a turning point", "label": "Women starting over after a big life change", "who": "women starting over", "a": "Life changed and they don't know who they are now.", "b": "They've built a life that's theirs, on their terms.", "o": "An identity built around how things used to be.", "res": "the confidence to build a life on their own terms", "wo": "rushing to fill the gap"}, {"group": "At a turning point", "label": "Women who've outgrown their life and want more", "who": "women who've outgrown their life", "a": "Nothing's wrong on paper, but they know there's more for them.", "b": "They've gone after the bigger life, and stopped apologising for wanting it.", "o": "Guilt about wanting more than they've got.", "res": "the confidence to go after the life they want", "wo": "feeling ungrateful"}, {"group": "At a turning point", "label": "Women in their 30s and 40s who are done waiting to feel ready", "who": "women in their 30s and 40s who are done waiting", "a": "They've spent years saying someday.", "b": "They're doing it now, nervous or not.", "o": "Believing confidence comes before action.", "res": "the confidence to stop waiting and start", "wo": "needing to feel ready first"}, {"group": "At a turning point", "label": "Women about to take a big leap: a new job, business or move", "who": "women about to take a big leap", "a": "They know the next step, but keep finding reasons to delay it.", "b": "They've made the leap, and they trust themselves to handle it.", "o": "Fear of failing in front of everyone.", "res": "the nerve to take the leap", "wo": "knowing how it ends first"}, {"group": "Going after something", "label": "Women who want to speak up and be taken seriously at work", "who": "women who want to be taken seriously at work", "a": "They stay quiet in meetings and watch others get the credit.", "b": "They speak first, ask for the raise and go for the role.", "o": "Waiting to be noticed instead of asking.", "res": "the confidence to speak up and ask for more", "wo": "faking a personality"}, {"group": "Going after something", "label": "Women ready to charge more, ask for more and stop settling", "who": "women ready to ask for more", "a": "They undercharge, overdeliver and apologise when they ask.", "b": "They name their price and hold it.", "o": "Not believing they're worth it yet.", "res": "the confidence to ask for what they're worth", "wo": "feeling guilty about it"}, {"group": "Going after something", "label": "Women who want to walk into any room and feel they belong", "who": "women who want to feel they belong in any room", "a": "They walk in, shrink, and leave wishing they'd said something.", "b": "They walk in as themselves and own the room.", "o": "Comparing themselves to everyone there.", "res": "the presence to walk into any room as themselves", "wo": "pretending to be someone else"}, {"group": "Going after something", "label": "Women who want to stop waiting for the perfect body to start living", "who": "women waiting for the perfect body to start living", "a": "They hide from photos and put life on hold until they look different.", "b": "They wear what they want, get in the photo and live now.", "o": "Being told for years to change first.", "res": "the freedom to live fully in the body they have now", "wo": "dieting first"}, {"group": "Going after something", "label": "Women who keep settling for less than they deserve in love", "who": "women who keep settling in love", "a": "They accept less than they'd ever want for their best friend.", "b": "They know their worth before they walk in, and leave when it isn't met.", "o": "Fear of being alone.", "res": "the confidence to know their worth in love", "wo": "playing games"}];
 const goldObj=()=>GOLDS.find(g=>g.label===S.a.gold)||null;
-const eg=()=>goldObj()||GOLDS[3];
+const eg=()=>goldObj()||GOLDS[0];
 const CHAPTERS=["Start","Your exact client","A to B","Your way","What's inside","How you coach","Finish"];
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ans=(k,label,ph,one)=>`<div class="ans" data-ans="${k}"><label for="f-${k}">${label}</label>${one?`<input id="f-${k}" data-k="${k}" placeholder="${esc(ph||"Write it here")}" autocomplete="off">`:`<textarea id="f-${k}" data-k="${k}" rows="2" placeholder="${esc(ph||"Write it here")}"></textarea>`}</div>`;
@@ -346,13 +341,20 @@ const SL=[
  </div>`,
  note:"Stay quiet and let her think. Ask for real names and real stories. Her own story is usually where her exact client is hiding.",q:"What if the answers point in different directions? Look for the woman who shows up in two or more answers."},
 
-{c:1,n:"Pick it",html:`<h2>Pick one. <span class="mark sweep">You can widen it later.</span></h2>
- <div class="split"><div class="stack" id="goldOpts"></div>
- <div class="stack">
-  ${ans("gold","Your exact client, in your own words","The woman you are the obvious choice for")}
-  <div class="note"><h3>What stays the same</h3><p style="margin-top:6px">Your personal brand stays broad. The Rebirth sells one clear transformation. Once it's selling, we open the door wider.</p></div>
- </div></div>`,
- note:"These four are starting points, not the answer. If she writes her own, use hers. Her choice fills in the examples for the rest of the session.",q:"What about the six areas on the website? They stay. They become where the transformation shows up."},
+{c:1,n:"Pick it",html:`<div class="sec-head"><h2>Pick one. <span class="mark sweep">You can widen it later.</span></h2><p>It doesn't have to be a type of woman. It can be the pattern they're stuck in, the moment they're in, or what they're going after. They all still sit under confidence.</p></div>
+ <div class="grid3" id="goldOpts"></div>
+ <div class="split"><div class="stack">
+  ${ans("gold","Your exact client, in your own words","Pick one above and change the words, or write your own")}
+ </div><div class="stack">
+  <h3>Does it pass?</h3>
+  <div class="ticks">
+   <label><input type="checkbox" data-t="g1"><span>You've lived it, or got women results with it</span></label>
+   <label><input type="checkbox" data-t="g2"><span>Women already DM you about it</span></label>
+   <label><input type="checkbox" data-t="g3"><span>You could talk about it every day for a year</span></label>
+  </div>
+ </div></div>
+ <p class="small">Your personal brand stays broad. The Rebirth sells one clear transformation.</p>`,
+ note:"These are starting points, so don't let her get stuck on the exact wording. Ask which three feel closest, cross off two, then change the words until it sounds like her. Her website bio says she spent years living by everyone else's expectations, so the first one is the strongest place to start. Her choice fills in the examples for the rest of the session.",q:"Isn't this still broad? It's broad on who, but specific on the problem. That's enough to write a clear promise, and it keeps confidence in every area of life on the table."},
 
 {c:2,n:"Point A to Point B",html:`<h2>You take them from <span class="mark sweep">Point A to Point B</span></h2>
  <div class="split"><div class="stack path">
@@ -560,7 +562,7 @@ const NICHE=new Set(),GOLD=new Set();
 for(let r=0;r<4;r++)for(let c=6;c<10;c++)NICHE.add(r*10+c);
 [8,9,18,19].forEach(x=>GOLD.add(x));
 $("#dots").innerHTML=Array.from({length:100},(_,i)=>`<div class="dot" data-i="${i}"></div>`).join("");
-let layer=1,exI=3;
+let layer=1,exI=0;
 function drawLayer(){
   $$(".dot").forEach(d=>{const i=+d.dataset.i;d.classList.toggle("n",layer>=2&&NICHE.has(i)&&!(layer===3&&GOLD.has(i)));d.classList.toggle("g",layer===3&&GOLD.has(i))});
   $("#dots").classList.toggle("dim",layer===3);
@@ -575,7 +577,7 @@ $("#sl1").addEventListener("click",e=>{const b=e.target.closest("[data-layer]");
 
 /* specificity */
 function drawSpec(){
-  const v=+$("#spec").value, gold=S.a.gold||"women rebuilding after divorce";
+  const v=+$("#spec").value, gold=S.a.gold||"people pleasers who can't say no without guilt";
   const R=[["I'm a coach.","A coach of what?","Everyone with a course",14],["I'm a confidence coach.","There are thousands of those.","Every coach and free post on Instagram",34],["I help women feel more confident.","Maybe. Is that me?","Books, podcasts and free advice",58],["I help "+gold.charAt(0).toLowerCase()+gold.slice(1)+".","That's me. This was made for me.","Almost nobody",100]][v];
   $("#specSay").textContent=R[0];$("#specThink").textContent=R[1];$("#specComp").textContent=R[2];$("#specBar").style.width=R[3]+"%";
   $("#scPub").style.opacity=v>=2?.45:1;$("#scOma").style.opacity=v>=2?1:.55;
@@ -588,7 +590,7 @@ $("#rules").innerHTML=RULES.map(r=>`<button class="tap"><span class="star">★</
 $("#rules").onclick=e=>{const t=e.target.closest(".tap");if(t)t.classList.toggle("on")};
 
 /* gold options */
-$("#goldOpts").innerHTML=GOLDS.map((g,i)=>`<button class="opt" data-g="${i}">${esc(g.label)}</button>`).join("");
+$("#goldOpts").innerHTML=[...new Set(GOLDS.map(g=>g.group))].map(gr=>`<div class="stack" style="gap:8px"><h3>${esc(gr)}</h3>${GOLDS.map((g,i)=>g.group===gr?`<button class="opt" data-g="${i}">${esc(g.label)}</button>`:"").join("")}</div>`).join("");
 $("#goldOpts").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;S.a.gold=GOLDS[+b.dataset.g].label;fillInputs();syncAll();save();grow()};
 
 /* path */
@@ -623,7 +625,7 @@ $("#nameNext").onclick=()=>{nameI=(nameI+1)%NAMES.length;drawName()};
 $("#nameUse").onclick=()=>{S.a.method=NAMES[nameI];fillInputs();syncAll();save()};
 
 /* flips */
-const FLIPS=[["I help women feel more confident.","I use the Rebirth Method to help women in their 30s who shrink at work ask for the raise in 8 weeks, without faking a personality."],["I help women love their bodies.","I use the Take Up Space Method to help plus size women wear what they want and stop hiding, in 8 weeks, without dieting first."],["I help women after a breakup.","I use the Come Back Method to help women rebuild who they are after divorce in 12 weeks, without rushing into someone new."]];
+const FLIPS=[["I help women feel more confident.","I use the Come Back Method to help women who've lived by everyone else's expectations choose themselves in 12 weeks, without blowing up their life."],["I help women stop people pleasing.","I use the Rebirth Method to help people pleasers say no and mean it in 8 weeks, without feeling guilty."],["I help women be confident at work.","I use the Take Up Space Method to help women who play small at work speak up and ask for more in 8 weeks, without faking a personality."]];
 $("#flips").innerHTML=FLIPS.map(f=>`<button class="flip"><span class="front"><h3>Instead of</h3><q>${f[0]}</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>You say</h3><q>${f[1]}</q></span></button>`).join("");
 $("#flips").onclick=e=>{const t=e.target.closest(".flip");if(t)t.classList.toggle("on")};
 
