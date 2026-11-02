@@ -431,14 +431,6 @@ const SL=[
  <p class="small" id="cNote"></p>
  ${ans("firstcourse","Which course would you film first?","Usually the same method as your first masterclass")}`},
 
-{c:6,n:"Everything you said",html:`<h2>Here's <span class="mark sweep">your offer</span></h2>
- <div id="bioOut" class="short"></div>
- <div id="promise2" class="stack"></div>
- <div class="reach flowrow"><div><b>Your bio</b><span>Confidence coaching</span></div><div><b>The quiz</b><span>Finds their method</span></div><div><b>Their method</b><span>One clear promise</span></div><div><b>Their level</b><span>Course, masterclass or 1:1</span></div></div>
- <div id="sumList"></div>
- <div class="row"><button class="pill ink" id="copyAll">Copy all answers</button><span id="copyMsg" class="small" aria-live="polite"></span></div>
- <textarea id="exportBox" readonly hidden aria-label="All answers"></textarea>`},
-
 {c:6,n:"What happens next",html:`<h2>You did the hard part. <span class="mark sweep">Here's what's next.</span></h2>
  <div class="split"><div class="stack">
   <h3>Decide today</h3>
@@ -458,7 +450,9 @@ const SL=[
    <label><input type="checkbox" data-t="t7"><span>Turn your answers into your content ideas</span></label>
    <label><input type="checkbox" data-t="t8"><span>Build the apply form and call scripts around your outcomes</span></label>
   </div>
- </div></div>`}
+ </div></div>
+ <div class="row"><button class="pill ink" id="copyAll">Copy all answers</button><span id="copyMsg" class="small" aria-live="polite"></span></div>
+ <textarea id="exportBox" readonly hidden aria-label="All answers"></textarea>`}
 ];
 
 /* ---------- render ---------- */
@@ -576,7 +570,6 @@ const sl=(v,ph)=>`<span class="slot${(v||"").trim()?"":" empty"}">${esc((v||"").
 function promiseHTML(m){return `I help ${sl(m.who,"who")}<br>achieve ${sl(m.res,"what result")}<br>through ${sl(m.name?m.name.replace(/^The /,"the "):"",  "my method")}<br>without ${sl(m.wo,"what they hate")}.`}
 function promiseText(m){return (m.who||m.res)?`I help ${m.who||"___"} achieve ${m.res||"___"} through ${m.name?m.name.replace(/^The /,"the "):"___"} without ${m.wo||"___"}.`:""}
 function shortText(m){return (m.who||m.res)?`We help ${m.who||"___"} achieve ${m.res||"___"}.`:""}
-const promisesHTML=()=>S.methods.map((m,i)=>`<div class="stack" style="gap:8px"><h3>${esc(mTitle(i))}</h3><div class="promise">${promiseHTML(m)}</div><div class="short">${esc(shortText(m)||"We help X achieve X.")}</div></div>`).join("");
 /* price */
 const money=n=>"$"+Math.round(n).toLocaleString("en-US");
 const PRICE=3333;
@@ -620,22 +613,6 @@ function drawCourses(){
 $("#sheet").addEventListener("click",e=>{const b=e.target.closest("[data-cm]");if(b){courseMode=b.dataset.cm;drawCourses()}});
 
 /* summary */
-const SUM=[
- ["q_dm","What women DM you about",["VSL","Instagram posts"],"Find it"],
- ["q_best","Your best mentee results",["Website","VSL"],"Find it"],
- ["q_self","Who you were before",["VSL","Instagram posts"],"Find it"],
- ["q_pain","The problem they most want fixed",["Website","Sales calls"],"Find it"],
- ["cost","Cost of staying stuck",["VSL","Sales calls"],"Outcomes"],
- ["out0","Outcome 1",["Website","Offer pages"],"Outcomes"],
- ["out1","Outcome 2",["Website","Offer pages"],"Outcomes"],
- ["out2","Outcome 3",["Website","Offer pages"],"Outcomes"],
- ["firstcourse","The course you'd film first",["Filming plan","Website"],"Three courses"],
-];
-function drawSummary(){
-  $("#promise2").innerHTML=promisesHTML();$("#bioOut").textContent="Confidence coaching for women. Get your confidence back. Find your method.";
-  $("#sumList").innerHTML=SUM.map(([k,l,g,to])=>{const v=(S.a[k]||"").trim();return `<div class="sum"><h3>${l}</h3>${v?`<div class="t">${esc(v)}</div>`:`<button class="t none" style="text-align:left;text-decoration:underline" data-goto="${esc(to)}">Not answered yet. Go back to it.</button>`}<div class="goes">${g.map(x=>`<span>${x}</span>`).join("")}</div></div>`}).join("");
-}
-$("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(SL.findIndex(x=>x.n===b.dataset.goto))};
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");
@@ -661,7 +638,7 @@ function drawTitles(){$$("[data-mt]").forEach(el=>el.textContent=mTitle(+el.data
 function syncAll(){
   drawLadder();
   drawBuild();drawFlips();drawTitles();
-  drawLayer();drawSpec();drawSummary();drawGroups();drawCourses();
+  drawLayer();drawSpec();drawGroups();drawCourses();
 }
 function onEnter(){}
 
