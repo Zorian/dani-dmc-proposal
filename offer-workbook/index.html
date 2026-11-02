@@ -122,6 +122,15 @@ input[type=range]{width:100%;accent-color:var(--cherry);height:28px;cursor:point
 .opt.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 
 /* pick and mix */
+.cstages{margin:0;padding-left:20px;font-size:15px;color:var(--ink-2)}
+.extable{min-width:560px}
+.extable caption{caption-side:top;text-align:left;padding:14px 20px 0;font-weight:600;font-size:14px;color:var(--cherry)}
+.extable th,.extable td{text-align:left}
+.extable td:first-child{font-weight:600}
+.seats{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.seats i{display:block;aspect-ratio:1;border-radius:50%;background:var(--paper-2);transition:background .2s}
+.seats i.on{background:var(--hl);box-shadow:0 0 0 1px var(--ink)}
+.gstats{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:0}
 .mcards{position:sticky;top:calc(61px + env(safe-area-inset-top,0px));z-index:5;background:var(--paper);padding-block:8px;margin-block:-8px}
 #mCards{gap:10px;align-items:stretch}
 .mcard{display:flex;flex-direction:column;gap:2px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.3;color:var(--ink-2)}
@@ -250,7 +259,7 @@ thead th{font-size:14px;font-weight:600;color:var(--ink-2);background:var(--pape
   .split,.sec-head{grid-template-columns:minmax(0,1fr);gap:20px}
   .mcards{position:static;margin:0;padding:0}
   #promises,#promise2{grid-template-columns:minmax(0,1fr)}
-  .flowrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flowrow,.gstats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .grid3,.builder{grid-template-columns:minmax(0,1fr)}
   .builder>div,.builder>div:nth-child(-n+2){grid-column:auto}
   .reach{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -289,7 +298,7 @@ const LOGO="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAADnCAYAAAA3t2GgAA
 const KEY="offer-workbook-v1";
 const blankMatrix=()=>({ "Confidence worksheets after each call":[0,1,1,1],"Word for word templates: saying no, asking for more":[0,0,0,0],"Confidence score tracker":[0,0,0,0],"Scripts for scary moments: the raise, the boundary":[0,0,0,0],"Library of confidence exercises":[0,0,0,0],"Call recordings":[1,1,1,1] });
 const blankM=()=>({name:"",who:"",res:"",wo:""});
-let S={methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[]},a:{},matrix:blankMatrix(),price:1500,vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
+let S={groups:[20,20,20],methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[]},a:{},matrix:blankMatrix(),price:1500,vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
 const OLD={"Worksheets after each call":"Confidence worksheets after each call","Templates to speed things up":"Word for word templates: saying no, asking for more","Tools":"Confidence score tracker","Playbooks for common moments":"Scripts for scary moments: the raise, the boundary","Resource library":"Library of confidence exercises"};
 function migrate(){Object.keys(OLD).forEach(k=>{if(S.matrix[k]){S.matrix[OLD[k]]=S.matrix[k];delete S.matrix[k]}});const m=blankMatrix();Object.keys(m).forEach(k=>{m[k]=S.matrix[k]||m[k]});S.matrix=m}
 try{const raw=localStorage.getItem(KEY);if(raw){S=Object.assign(S,JSON.parse(raw));migrate()}}catch(e){}
@@ -365,7 +374,21 @@ const SL=[
  </div>`,
  note:"Stay quiet and let her think. Ask for real names and real stories. Her own story is usually where her exact client is hiding.",q:"What if the answers point in different directions? Look for the woman who shows up in two or more answers."},
 
+{c:1,n:"One engine",html:`<div class="sec-head"><h2>One engine, <span class="mark sweep">three doors</span></h2><p>Confidence is broad, and one niche is too narrow. So you run one confidence business with three specific ways in.</p></div>
+ <div class="grid2">
+  <div class="note stack" style="gap:6px"><h3>Brand and bio</h3><p>“Confidence coaching for women. Get your confidence back. Find your method.”</p></div>
+  <div class="note stack" style="gap:6px"><h3>What's different</h3><p>Each method has its own name, promise, personality, testimonials, content series, Circle group and recorded course.</p></div>
+  <div class="note stack" style="gap:6px"><h3>What stays the same</h3><p>The Club, Circle and VIP levels, and the community. That avoids 9 separate products.</p></div>
+  <div class="note stack" style="gap:6px"><h3>The quiz chooses for them</h3><p>Your quiz sends each woman to the right method. It answers “which one is for me?” automatically.</p></div>
+ </div>`,
+ note:"This is the big idea. She doesn't have to choose one audience or give anything up. Women get something that feels made for them, and it's still one business to run.",q:"Isn't this three businesses? No. One brand, one community and the same levels. Only the door they walk through is different."},
+
 {c:1,n:"Your three methods",html:`<div class="sec-head"><h2>Build <span class="mark sweep">your three methods</span></h2><p>One confidence business, three clear doors. Choose a method, then pick one thing from each section.</p></div>
+ <div class="tablewrap"><table class="extable"><caption>For example</caption><thead><tr><th>Method</th><th>For women who</th><th>They get</th></tr></thead><tbody>
+  <tr><td>The Come Back Method</td><td>have lost themselves</td><td>to feel like themselves again</td></tr>
+  <tr><td>The Say No Method</td><td>put everyone else first</td><td>to say no without guilt</td></tr>
+  <tr><td>The Take Up Space Method</td><td>play small at work and in life</td><td>to speak up, get seen and ask for more</td></tr>
+ </tbody></table></div>
  <div class="mcards"><div id="mCards" class="grid3"></div></div>
  <div class="row"><button class="pill" id="mStart">Show me a starting three</button></div>
  <div class="stack" id="mSecs" style="gap:40px"></div>`,
@@ -421,6 +444,24 @@ const SL=[
   <p class="small">These numbers are examples for working out the price. We don't promise them to anyone.</p>
  </div></div>`,
  note:"Drag the price, tick the values and see where the bar lands. It's a thinking tool. Don't use these figures in marketing as promises or typical results. The price here isn't final and it stays hidden on the site.",q:"Isn't confidence priceless? It is, and that's why they also need something concrete to justify it."},
+
+{c:4,n:"Three Circles",html:`<div class="sec-head"><h2>One Circle offer, <span class="mark sweep">three groups</span></h2><p>The Rebirth Circle stays the same: 8 weeks, a weekly live call, 20 women max. Now each method gets its own group, and women apply for the one that fits.</p></div>
+ <div class="grid3" id="groups"></div>
+ <div class="reach gstats" id="gStats"></div>
+ <p class="small">Example numbers using the test price above. Not a promise.</p>
+ <div class="grid2">
+  ${ans("firstgroup","Which group would you start first?","The one you're most excited to coach")}
+  ${ans("calltimes","When could you run three calls a week?","Days and times that work every week")}
+ </div>`,
+ note:"Move the sliders so she can see both sides: more women, but more calls. Three full groups means three times the Circle income and three hours of calls a week, plus prep. I'd start the strongest method first, then open the others once it's working. That way a half-empty group never drags the others down. Shared lessons mean she isn't writing three programmes from scratch.",q:"Do I have to start all three at once? No. Start with one, add the next when it's full. What if a group is small? Set a minimum, such as 8 women, before that group opens."},
+
+{c:4,n:"Three courses",html:`<div class="sec-head"><h2>One recorded course <span class="mark sweep">for each method</span></h2><p>You film each one once, and it sells any time. Your three stages become the structure of each course.</p></div>
+ <div class="grid3" id="courses"></div>
+ <div class="row"><button class="pill" data-cm="full">A full course each</button><button class="pill" data-cm="core">Shared core, then one track each</button></div>
+ <div class="reach gstats" id="cStats"></div>
+ <p class="small" id="cNote"></p>
+ ${ans("firstcourse","Which course would you film first?","Usually the same method as your first Circle")}`,
+ note:"Sizes use the example course from the proposal: 28 videos and about 4.5 hours. Toggle between the two to show the filming. With the shared core, every course opens with the same confidence foundations and then goes specific. It still sells as three courses and saves real filming time. I'd film one first and sell it before starting the next.",q:"Do I film them all at once? No. Film the lead method first, see what sells, and use what you learn in the other two."},
 
 {c:5,n:"What's in their head",html:`<div class="sec-head"><h2>They're asking <span class="mark sweep">three questions</span></h2><p>Clients don't just want advice. They want a solution to their problem.</p></div>
  <div class="grid3" id="three"></div>
@@ -621,8 +662,30 @@ function drawTen(){
   $("#target").textContent=money(tgt);$("#valBar").style.width=Math.min(100,tot/tgt*100)+"%";
   $("#verdict").textContent=tot>=tgt?`They can see ${money(tot)} of value. Saying yes gets easy.`:`They can see ${money(tot)}. That's ${money(tgt-tot)} short, so add value or lower the price.`;
 }
-$("#price").addEventListener("input",e=>{S.price=+e.target.value;drawTen();save()});
+$("#price").addEventListener("input",e=>{S.price=+e.target.value;drawTen();drawGStats();save()});
 $("#vals").addEventListener("input",e=>{const t=e.target;if(t.dataset.vn!=null)S.vals[+t.dataset.vn]=+t.value||0;if(t.dataset.vi!=null)S.valOn[+t.dataset.vi]=t.checked;drawTen();save()});
+
+/* three circles */
+function drawGroups(){
+  $("#groups").innerHTML=S.groups.map((n,i)=>`<div class="note stack" style="gap:10px"><h3>${esc(mTitle(i))}</h3><div class="seats" aria-hidden="true">${Array.from({length:20},(_,k)=>`<i class="${k<n?"on":""}"></i>`).join("")}</div><label class="small" for="g${i}"><b class="gn">${n}</b> of 20 women</label><input type="range" id="g${i}" data-gi="${i}" min="0" max="20" value="${n}"></div>`).join("");
+  drawGStats();
+}
+function drawGStats(){
+  const tot=S.groups.reduce((a,b)=>a+b,0),calls=S.groups.filter(Boolean).length;
+  $("#gStats").innerHTML=`<div><b>${tot}</b><span>Women in the Circle</span></div><div><b>${calls}</b><span>Live calls a week</span></div><div><b>${calls} hours</b><span>On calls each week</span></div><div><b>${money(tot*S.price)}</b><span>Every 8 weeks at ${money(S.price)}</span></div>`;
+}
+$("#groups").addEventListener("input",e=>{const i=e.target.dataset.gi;if(i==null)return;const n=+e.target.value;S.groups[+i]=n;const card=e.target.closest(".note");card.querySelector(".gn").textContent=n;card.querySelectorAll(".seats i").forEach((d,k)=>d.classList.toggle("on",k<n));drawGStats();save()});
+
+/* three courses */
+let courseMode="full";
+function drawCourses(){
+  $("#courses").innerHTML=S.methods.map((m,i)=>{const st=[1,2,3].map(n=>(S.a[`m${i}s${n}`]||"").trim()).filter(Boolean);return `<div class="note stack" style="gap:8px"><h3>${esc(mTitle(i))}</h3><p class="small">${m.res?"Helps them get "+esc(m.res)+".":"Recorded course"}</p>${st.length?`<ol class="cstages">${st.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:`<p class="small">Your three stages will show here.</p>`}</div>`}).join("");
+  const full=courseMode==="full";
+  $$("[data-cm]").forEach(b=>b.classList.toggle("on",b.dataset.cm===courseMode));
+  $("#cStats").innerHTML=`<div><b>3</b><span>Courses to sell</span></div><div><b>${full?84:56}</b><span>Videos to film</span></div><div><b>${full?"13.5":"9"} hours</b><span>Of finished video</span></div><div><b>${full?"0":"14"}</b><span>Videos shared by all three</span></div>`;
+  $("#cNote").textContent=full?"Based on the example course: 28 videos, about 4.5 hours each.":"Based on the example course: 14 shared videos, then 14 specific to each method. Women still buy one course.";
+}
+$("#sheet").addEventListener("click",e=>{const b=e.target.closest("[data-cm]");if(b){courseMode=b.dataset.cm;drawCourses()}});
 
 /* three questions */
 const THREE=[["Can this person solve my problem?","Your proof, your story and your named method answer this."],["Do I feel supported?","Your voice notes, the private chat and a clear plan each week answer this."],["Is this worth the investment?","Their wins, week after week, answer this. So does 10x value."]];
@@ -675,6 +738,9 @@ const SUM=[
  ["q_pain","The problem they most want fixed",["Website","Sales calls"],"Find it"],
  ["loved","What clients used most",["Offer pages","Circle"],"What they get"],
  ["cost","Cost of staying stuck",["VSL","Sales calls"],"The 10x rule"],
+ ["firstgroup","The group you'd start first",["Launch plan","First ads"],"Three Circles"],
+ ["calltimes","Your call times",["Circle calendar","Apply form"],"Three Circles"],
+ ["firstcourse","The course you'd film first",["Filming plan","Website"],"Three courses"],
  ["q1proof","Your strongest proof",["Website","VSL"],"What's in their head"],
  ["coachq","Your best question",["Coaching calls","Instagram posts"],"Call structure"]
 ];
@@ -686,10 +752,11 @@ $("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(SL.fin
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");push("Bio",S.a.bio);
-  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstgroup:"First group to start",calltimes:"Call times",firstcourse:"First course to film",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
   S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));push("What exactly they get",S.a["out"+i]);[1,2,3].forEach(n=>push("Stage "+n,S.a[`m${i}s${n}`]))});
   L.push("");Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Test Circle price: "+money(S.price));
+  L.push("Circle groups: "+S.groups.map((n,i)=>mTitle(i)+" "+n).join(", "));
   L.push("What's in each level:");
   Object.keys(S.matrix).forEach(r=>{const inc=TIERS.filter((_,i)=>S.matrix[r][i]);if(inc.length)L.push("  "+r+": "+inc.join(", "))});
   return L.join("\n");
@@ -708,7 +775,7 @@ $$("[data-t]").forEach(t=>t.checked=!!S.done[t.dataset.t]);
 function drawTitles(){$$("[data-mt]").forEach(el=>el.textContent=mTitle(+el.dataset.mt))}
 function syncAll(){
   drawBuild();drawFlips();$("#promises").innerHTML=promisesHTML();drawEditTabs();drawEdit();drawTitles();
-  drawLayer();drawSpec();drawSummary();
+  drawLayer();drawSpec();drawSummary();drawGroups();drawCourses();
 }
 function onEnter(){}
 
