@@ -282,7 +282,7 @@ function save(){
 const GOLDS=[{"group": "Stuck in a pattern", "label": "Overthinkers who talk themselves out of everything", "who": "overthinkers", "a": "They replay every conversation and talk themselves out of things before they start.", "b": "They decide, act and stop needing everyone's opinion first.", "o": "Waiting to feel certain before they move.", "res": "the confidence to trust themselves and act", "wo": "needing to feel ready first"}, {"group": "Stuck in a pattern", "label": "Women who hide, shrink and play small", "who": "women who shrink and play small", "a": "They stay quiet, stay in the background and let others take the room.", "b": "They speak first, get seen and take up space.", "o": "Fear of what people will think if they're seen.", "res": "the confidence to be seen and take up space", "wo": "faking a personality"}, {"group": "At a turning point", "label": "Women who've lost themselves and want to feel like themselves again", "who": "women who've lost themselves", "a": "They look fine from the outside, but don't recognise who they've become.", "b": "They feel like themselves again, and it shows.", "o": "Years of putting themselves at the bottom of the list.", "res": "a version of themselves they recognise and love again", "wo": "becoming someone new"}, {"group": "At a turning point", "label": "Women starting over after a big life change", "who": "women starting over", "a": "Life changed and they don't know who they are now.", "b": "They've built a life that's theirs, on their terms.", "o": "An identity built around how things used to be.", "res": "the confidence to build a life on their own terms", "wo": "rushing to fill the gap"}, {"group": "At a turning point", "label": "Women who've outgrown their life and want more", "who": "women who've outgrown their life", "a": "Nothing's wrong on paper, but they know there's more for them.", "b": "They've gone after the bigger life, and stopped apologising for wanting it.", "o": "Guilt about wanting more than they've got.", "res": "the confidence to go after the life they want", "wo": "feeling ungrateful"}, {"group": "Going after something", "label": "Women who want to speak up and be taken seriously at work", "who": "women who want to be taken seriously at work", "a": "They stay quiet in meetings and watch others get the credit.", "b": "They speak first, ask for the raise and go for the role.", "o": "Waiting to be noticed instead of asking.", "res": "the confidence to speak up and ask for more", "wo": "faking a personality"}, {"group": "Going after something", "label": "Women ready to charge more, ask for more and stop settling", "who": "women ready to ask for more", "a": "They undercharge, overdeliver and apologise when they ask.", "b": "They name their price and hold it.", "o": "Not believing they're worth it yet.", "res": "the confidence to ask for what they're worth", "wo": "feeling guilty about it"}, {"group": "Going after something", "label": "Women who keep settling for less than they deserve in love", "who": "women who keep settling in love", "a": "They accept less than they'd ever want for their best friend.", "b": "They know their worth before they walk in, and leave when it isn't met.", "o": "Fear of being alone.", "res": "the confidence to know their worth in love", "wo": "playing games"}];
 const goldObj=()=>GOLDS.find(g=>g.label===S.a.gold)||null;
 const eg=()=>goldObj()||GOLDS[0];
-const CHAPTERS=["Start","Your exact client","A to B","Your way","What's inside","How you coach","Finish"];
+const CHAPTERS=["Start","Your exact client","Results","Your way","What's inside","How you coach","Finish"];
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ans=(k,label,ph,one)=>`<div class="ans" data-ans="${k}"><label for="f-${k}">${label}</label>${one?`<input id="f-${k}" data-k="${k}" placeholder="${esc(ph||"Write it here")}" autocomplete="off">`:`<textarea id="f-${k}" data-k="${k}" rows="2" placeholder="${esc(ph||"Write it here")}"></textarea>`}</div>`;
 
@@ -355,25 +355,6 @@ const SL=[
  </div></div>
  <p class="small">Your personal brand stays broad. The Rebirth sells one clear transformation.</p>`,
  note:"These are starting points, so don't let her get stuck on the exact wording. Ask which three feel closest, cross off two, then change the words until it sounds like her. Her choice fills in the examples for the rest of the session.",q:"Isn't this still broad? It's broad on who, but specific on the problem. That's enough to write a clear promise, and it keeps confidence in every area of life on the table."},
-
-{c:2,n:"Point A to Point B",html:`<h2>You take them from <span class="mark sweep">Point A to Point B</span></h2>
- <div class="split"><div class="stack path">
-   <svg viewBox="0 0 600 220" role="img" aria-label="A path from point A to point B">
-     <path id="pBase" d="M40 190 C 180 190, 210 110, 300 110 S 430 34, 560 34" fill="none" stroke="#24161F" stroke-width="3"/>
-     <path id="pHl" d="M40 190 C 180 190, 210 110, 300 110 S 430 34, 560 34" fill="none" stroke="#F2CE3E" stroke-width="16" stroke-linecap="round"/>
-     <use href="#pBase"/>
-     <circle cx="40" cy="190" r="11" fill="#D6264F"/><text x="26" y="168" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="18" fill="#24161F">A</text>
-     <circle cx="560" cy="34" r="11" fill="#6B4FB8"/><text x="552" y="16" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="18" fill="#24161F">B</text>
-     <g id="pStar"><circle r="17" fill="#24161F"/><text text-anchor="middle" y="7" font-size="20" fill="#F2CE3E">★</text></g>
-   </svg>
-   <input type="range" id="pRange" min="0" max="100" value="0" aria-label="Move along the path">
-   <div class="note box" id="pBox"></div>
- </div><div class="stack">
-   ${ans("pointA","Point A: where are they today?","What does a bad Tuesday look like?")}
-   ${ans("obst","What's standing in their way?","The real reason they're stuck")}
-   ${ans("pointB","Point B: where are they once they finish?","What can they do now that they couldn't before?")}
- </div></div>`,
- note:"This is the whole job of a coach. Drag the star along the line. Then get her to describe Point A in the words her followers actually use. Those exact words become VSL lines and captions.",q:"Point B is what they get once they finish the course. Keep asking: and what does that let them do?"},
 
 {c:2,n:"Outcomes",html:`<h2>People don't buy coaching. <span class="mark sweep">They buy outcomes.</span></h2>
  <div class="split"><div class="stack">
@@ -502,7 +483,7 @@ const SL=[
   <div class="ticks">
    <label><input type="checkbox" data-t="t5"><span>Rewrite the website around your promise</span></label>
    <label><input type="checkbox" data-t="t6"><span>Write your VSL script from your answers</span></label>
-   <label><input type="checkbox" data-t="t7"><span>Turn Point A and Point B into your content ideas</span></label>
+   <label><input type="checkbox" data-t="t7"><span>Turn your answers into your content ideas</span></label>
    <label><input type="checkbox" data-t="t8"><span>Build the apply form and call scripts around your outcomes</span></label>
   </div>
  </div></div>`,
@@ -593,19 +574,6 @@ $("#rules").onclick=e=>{const t=e.target.closest(".tap");if(t)t.classList.toggle
 $("#goldOpts").innerHTML=[...new Set(GOLDS.map(g=>g.group))].map(gr=>`<div class="stack" style="gap:8px"><h3>${esc(gr)}</h3>${GOLDS.map((g,i)=>g.group===gr?`<button class="opt" data-g="${i}">${esc(g.label)}</button>`:"").join("")}</div>`).join("");
 $("#goldOpts").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;S.a.gold=GOLDS[+b.dataset.g].label;fillInputs();syncAll();save();grow()};
 
-/* path */
-const pHl=$("#pHl"),pBase=$("#pBase"),pLen=pBase.getTotalLength();
-pHl.style.strokeDasharray=pLen;
-function drawPath(){
-  const v=+$("#pRange").value/100,p=pBase.getPointAtLength(pLen*v);
-  $("#pStar").setAttribute("transform",`translate(${p.x} ${p.y})`);
-  pHl.style.strokeDashoffset=pLen*(1-v);
-  const g=eg();
-  const box=v<.25?["Point A",S.a.pointA||g.a]:v<.75?["The coaching",`You help them past this: ${S.a.obst||g.o}`]:["Point B",S.a.pointB||g.b];
-  $("#pBox").innerHTML=`<h3>${box[0]}</h3><div class="quote" style="margin-top:4px">${esc(box[1])}</div>`;
-}
-$("#pRange").addEventListener("input",drawPath);
-
 /* sharpen */
 const SHARP=[["Feel more confident",18],["Speak up at work",42],["Speak up in every meeting and ask for the raise",72],["Ask for the raise within 8 weeks, with the words ready",100]];
 let sharp=0;
@@ -639,7 +607,7 @@ function drawChips(){
   $("#tChips").innerHTML=TIMES.map(t=>`<button class="chip" data-chip="time" data-v="${t}">${t}</button>`).join("");
   $("#woChips").innerHTML=`<button class="chip" data-chip="without" data-v="${esc(g.wo)}">${esc(g.wo)}</button>`;
 }
-$("#sl12").addEventListener("click",e=>{const c=e.target.closest("[data-chip]");if(c){S.a[c.dataset.chip]=c.dataset.v;fillInputs();syncAll();save()}});
+$("#woChips").closest(".slide").addEventListener("click",e=>{const c=e.target.closest("[data-chip]");if(c){S.a[c.dataset.chip]=c.dataset.v;fillInputs();syncAll();save()}});
 function prefillPromise(){const g=goldObj(),a=S.a;let ch=false;if(!a.who&&g){a.who=g.who;ch=true}if(!a.result&&g){a.result=g.res;ch=true}if(ch){fillInputs();save()}}
 
 /* matrix */
@@ -708,18 +676,15 @@ $("#tl").onclick=e=>{const b=e.target.closest("[data-s]");if(b){stopI=+b.dataset
 /* summary */
 const SUM=[
  ["gold","Your exact client",["Website headline","VSL hook","Instagram bio"],5],
- ["pointA","Point A",["VSL problem","Instagram posts","Quiz"],6],
- ["obst","What's in their way",["Content ideas","Sales calls"],6],
- ["pointB","Point B",["Website","VSL","Testimonial prompts"],6],
- ["outcome","What they get",["Offer pages","Apply form"],7],
- ["r_meas","How you measure it",["Offer pages","Client check ins"],8],
- ["tried","What they've tried",["VSL","Instagram posts"],9],
- ["diff","What you do differently",["Website","VSL","Sales calls"],9],
- ["method","Your method",["Website","VSL","Course"],10],
- ["loved","What clients used most",["Offer pages","Circle"],13],
- ["cost","Cost of staying stuck",["VSL","Sales calls"],14],
- ["q1proof","Your strongest proof",["Website","VSL"],15],
- ["coachq","Your best question",["Coaching calls","Instagram posts"],17]
+ ["outcome","What they get",["Offer pages","Apply form"],6],
+ ["r_meas","How you measure it",["Offer pages","Client check ins"],7],
+ ["tried","What they've tried",["VSL","Instagram posts"],8],
+ ["diff","What you do differently",["Website","VSL","Sales calls"],8],
+ ["method","Your method",["Website","VSL","Course"],9],
+ ["loved","What clients used most",["Offer pages","Circle"],12],
+ ["cost","Cost of staying stuck",["VSL","Sales calls"],13],
+ ["q1proof","Your strongest proof",["Website","VSL"],14],
+ ["coachq","Your best question",["Coaching calls","Instagram posts"],16]
 ];
 function drawSummary(){
   $("#promise2").innerHTML=promiseHTML();
@@ -729,7 +694,7 @@ $("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(+b.dat
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");push("Promise",promiseText());push("Short",shortText());
-  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",gold:"Exact client",pointA:"Point A",obst:"In the way",pointB:"Point B",outcome:"Outcome",r_out:"Specific outcomes",r_meas:"Measurable",r_time:"Timeframe",r_sign:"Signs it's working",r_past:"Past transformations",tried:"Already tried",diff:"What's different",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",gold:"Exact client",outcome:"Outcome",r_out:"Specific outcomes",r_meas:"Measurable",r_time:"Timeframe",r_sign:"Signs it's working",r_past:"Past transformations",tried:"Already tried",diff:"What's different",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
   Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Test Circle price: "+money(S.price));
   L.push("What's in each level:");
@@ -752,7 +717,7 @@ function syncAll(){
   $("#promise").innerHTML=promiseHTML();
   $("#shortLine").textContent=shortText()||"We help X achieve X.";
   $$("[data-g]").forEach(b=>b.classList.toggle("on",GOLDS[+b.dataset.g].label===S.a.gold));
-  drawLayer();drawSpec();drawPath();drawChips();drawSummary();
+  drawLayer();drawSpec();drawChips();drawSummary();
 }
 function onEnter(){
   const n=SL[cur].n;
