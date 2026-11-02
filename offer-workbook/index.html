@@ -321,7 +321,7 @@ function save(){
 
 /* ---------- content data ---------- */
 const GOLDS=[{"label": "Overthinkers who talk themselves out of everything", "who": "overthinkers", "res": "the confidence to trust themselves and act", "wo": "needing to feel ready first", "name": "The Trust Yourself Method", "cat": 0}, {"label": "People pleasers who can't say no without guilt", "who": "people pleasers", "res": "the confidence to say no and mean it", "wo": "feeling guilty", "name": "The Say No Method", "cat": 0}, {"label": "Women who hide, shrink and play small", "who": "women who shrink and play small", "res": "the confidence to be seen and take up space", "wo": "faking a personality", "name": "The Take Up Space Method", "cat": 0}, {"label": "Women who've lost themselves and want to feel like themselves again", "who": "women who've lost themselves", "res": "a version of themselves they recognise and love again", "wo": "becoming someone new", "name": "The Come Back Method", "cat": 1}, {"label": "Women starting over after a big life change", "who": "women starting over", "res": "the confidence to build a life on their own terms", "wo": "rushing to fill the gap", "name": "The Start Again Method", "cat": 1}, {"label": "Women who've outgrown their life and want more", "who": "women who've outgrown their life", "res": "the confidence to go after the life they want", "wo": "feeling ungrateful", "name": "The Bigger Life Method", "cat": 1}, {"label": "Women who want to speak up and be taken seriously at work", "who": "women who want to be taken seriously at work", "res": "the confidence to speak up and ask for more", "wo": "faking a personality", "name": "The Speak Up Method", "cat": 2}, {"label": "Women ready to charge more, ask for more and stop settling", "who": "women ready to ask for more", "res": "the confidence to ask for what they're worth", "wo": "feeling guilty", "name": "The Ask For More Method", "cat": 2}, {"label": "Women who keep settling for less than they deserve in love", "who": "women who keep settling in love", "res": "the confidence to know their worth in love", "wo": "playing games", "name": "The Know Your Worth Method", "cat": 2}];
-const CHAPTERS=["Start","Your client","Your 3 methods","Results","Your way","What's inside","How you coach","Finish"];
+const CHAPTERS=["Start","Your client","Your 3 methods","Results","Your way","What's inside","Finish"];
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ans=(k,label,ph,one)=>`<div class="ans" data-ans="${k}"><label for="f-${k}">${label}</label>${one?`<input id="f-${k}" data-k="${k}" placeholder="${esc(ph||"Write it here")}" autocomplete="off">`:`<textarea id="f-${k}" data-k="${k}" rows="2" placeholder="${esc(ph||"Write it here")}"></textarea>`}</div>`;
 
@@ -431,18 +431,7 @@ const SL=[
  <p class="small" id="cNote"></p>
  ${ans("firstcourse","Which course would you film first?","Usually the same method as your first masterclass")}`},
 
-{c:6,n:"The doctor approach",html:`<h2>A doctor <span class="mark sweep">examines first</span></h2>
- <div class="split"><div class="stack">
-  <p>Before you prescribe, you ask. Ask yourself these on every check in call.</p>
-  <div class="q3"><div>Where are they right now?</div><div>Where do they want to get to?</div><div>What's stopping them?</div></div>
-  <div class="stars" id="rpStars" aria-label="Score"></div>
- </div><div class="stack" id="rp"></div></div>`},
-
-{c:6,n:"Call structure",html:`<h2>Every call runs <span class="mark sweep">the same way</span></h2>
- <div class="timeline" id="tl"></div>
- <div id="tlBody"></div>`},
-
-{c:7,n:"Everything you said",html:`<h2>Here's <span class="mark sweep">your offer</span></h2>
+{c:6,n:"Everything you said",html:`<h2>Here's <span class="mark sweep">your offer</span></h2>
  <div id="bioOut" class="short"></div>
  <div id="promise2" class="stack"></div>
  <div class="reach flowrow"><div><b>Your bio</b><span>Confidence coaching</span></div><div><b>The quiz</b><span>Finds their method</span></div><div><b>Their method</b><span>One clear promise</span></div><div><b>Their level</b><span>Course, masterclass or 1:1</span></div></div>
@@ -450,7 +439,7 @@ const SL=[
  <div class="row"><button class="pill ink" id="copyAll">Copy all answers</button><span id="copyMsg" class="small" aria-live="polite"></span></div>
  <textarea id="exportBox" readonly hidden aria-label="All answers"></textarea>`},
 
-{c:7,n:"What happens next",html:`<h2>You did the hard part. <span class="mark sweep">Here's what's next.</span></h2>
+{c:6,n:"What happens next",html:`<h2>You did the hard part. <span class="mark sweep">Here's what's next.</span></h2>
  <div class="split"><div class="stack">
   <h3>Decide today</h3>
   ${ans("d_date","Next free workshop date","The site says 12 Nov for now",1)}
@@ -630,44 +619,6 @@ function drawCourses(){
 }
 $("#sheet").addEventListener("click",e=>{const b=e.target.closest("[data-cm]");if(b){courseMode=b.dataset.cm;drawCourses()}});
 
-/* role play */
-const RP=[
- {m:"I froze in the meeting again. I just can't speak up.",o:[["Here are five tips for speaking up in meetings.",0,"That's the prescription before the examination. You don't know why they froze yet."],["Walk me through the moment just before you went quiet.",1,"Yes. Now you know where they are and what's really stopping them."]]},
- {m:"I just want to feel confident.",o:[["What would you be doing next month if you already were?",1,"Yes. You just turned a feeling into a destination you can coach towards."],["I love that. Let's start with daily affirmations.",0,"That's generic. They've probably tried it, and you still don't know where they want to go."]]},
- {m:"I didn't do any of my tasks this week.",o:[["You need to be more disciplined about this.",0,"That makes them feel small and tells you nothing."],["No problem. What got in the way?",1,"Yes. Now you find the real obstacle, and you can change the next step to fit."]]}
-];
-let rpI=0,rpScore=0,rpPicked=null;
-function drawRP(){
-  $("#rpStars").innerHTML=RP.map((_,i)=>`<i class="${i<rpScore?"on":""}">★</i>`).join(" ");
-  if(rpI>=RP.length){$("#rp").innerHTML=`<div class="say">${rpScore===RP.length?"Three out of three.":rpScore+" out of 3."} Ask first. Advise second.</div><p>One more rule: you coach, you don't treat. If a client brings up trauma, an eating problem or thoughts of harming themselves, stop coaching and refer them to a professional.</p><div class="row"><button class="pill" id="rpAgain">Go again</button></div>`;$("#rpAgain").onclick=()=>{rpI=0;rpScore=0;rpPicked=null;drawRP()};return}
-  const r=RP[rpI];
-  $("#rp").innerHTML=`<div class="small">A client says</div><div class="bubble">${esc(r.m)}</div><div class="small">You reply</div><div class="stack" style="gap:8px">${r.o.map((o,i)=>`<button class="opt${rpPicked===i?" on":""}" data-o="${i}">${esc(o[0])}</button>`).join("")}</div><div class="fb">${rpPicked!=null?esc(r.o[rpPicked][2]):""}</div>${rpPicked!=null?`<div class="row"><button class="pill ink" id="rpNext">Next client</button></div>`:""}`;
-}
-$("#rp").addEventListener("click",e=>{
-  const b=e.target.closest("[data-o]");
-  if(b&&rpPicked==null){rpPicked=+b.dataset.o;if(RP[rpI].o[rpPicked][1])rpScore++;drawRP();return}
-  if(e.target.id==="rpNext"){rpI++;rpPicked=null;drawRP()}
-});
-
-/* call structure */
-const STOPS=[
- {n:"Intro",m:5,h:"Build rapport and check on progress",b:`<div class="split"><div class="stack"><p>Keep it natural. Help them feel comfortable, then check in.</p><div class="quote">“What's one brave thing, however small, you did this past week?”</div></div><div class="stack"><div class="quote">“On a scale of 1 to 10, how confident have you felt this week?”</div><input type="range" id="scale" min="1" max="10" value="6" aria-label="Progress score"><div class="bignum" id="scaleOut">6</div><p class="small">Log this number every week. It's their confidence score, and your proof.</p></div></div>`},
- {n:"Set agenda",m:3,h:"Say what today is for",b:`<div class="stack"><p>Tell them what you'll cover so they know where the time is going. Then let them add to it.</p><div class="quote">“Today I want to cover how that conversation with your boss went, and your plan for next week. Anything you want to add?”</div></div>`},
- {n:"Transition",m:2,h:"Change your tone",b:`<div class="split"><div class="stack"><p>Move from chatting to working. Your voice shifts, so they know you're serious about getting them results.</p><div class="quote">“So glad you had a good week. Cool if we jump straight into week two of the work?”</div></div><div class="stack"><div class="wave" id="wave" aria-hidden="true"></div><p class="small">Warm and chatty, then calm and focused.</p></div></div>`},
- {n:"Coaching",m:40,h:"Where are they, where to next, what's stopping them",b:`<div class="split"><div class="stack"><p>Most of the call. Ask, listen, then give one clear next step. This is where your method does the work.</p><p class="small">You coach, you don't treat. Refer trauma, eating problems or thoughts of harming themselves to a professional.</p><div class="quote">“Where did you shrink this week, and what were you afraid would happen if you didn't?”</div></div><div class="stack">${ans("coachq","Your best question: the one that always unlocks people","What do you always end up asking?")}</div></div>`},
- {n:"Actionables",m:10,h:"Agree what they do before the next call",b:`<div class="split"><div class="stack"><p>Be clear that these get done before the next call. That's how they keep moving.</p><div class="quote">“So this week you speak first in one meeting and fill in your worksheet. You're clear on that? And you know where to find everything?”</div></div><div class="ticks stack" style="gap:0"><label><input type="checkbox"><span>They know exactly what to do</span></label><label><input type="checkbox"><span>They know where to find everything</span></label><label><input type="checkbox"><span>They know it's due before the next call</span></label></div></div>`}
-];
-let stopI=0;
-function drawStop(){
-  $("#tl").innerHTML=STOPS.map((s,i)=>`<button class="stop${i===stopI?" on":""}" data-s="${i}" style="flex:${Math.max(s.m,11)} 1 0">${s.n}<small>${s.m} min</small></button>`).join("");
-  const s=STOPS[stopI];
-  $("#tlBody").innerHTML=`<div class="stack"><h3 style="font-size:24px">${s.h}</h3>${s.b}</div>`;
-  if(stopI===0){const r=$("#scale");r.oninput=()=>$("#scaleOut").textContent=r.value}
-  if(stopI===2){$("#wave").innerHTML=Array.from({length:34},(_,i)=>{const h=i<17?18+Math.abs(Math.sin(i*1.3))*36:12+Math.abs(Math.sin(i*.6))*16;return `<i class="${i<17?"":"focus"}" style="height:${h}px;animation-delay:${(i%7)*.09}s"></i>`}).join("")}
-  fillInputs();
-}
-$("#tl").onclick=e=>{const b=e.target.closest("[data-s]");if(b){stopI=+b.dataset.s;drawStop()}};
-
 /* summary */
 const SUM=[
  ["q_dm","What women DM you about",["VSL","Instagram posts"],"Find it"],
@@ -679,7 +630,6 @@ const SUM=[
  ["out1","Outcome 2",["Website","Offer pages"],"Outcomes"],
  ["out2","Outcome 3",["Website","Offer pages"],"Outcomes"],
  ["firstcourse","The course you'd film first",["Filming plan","Website"],"Three courses"],
- ["coachq","Your best question",["Coaching calls","Instagram posts"],"Call structure"]
 ];
 function drawSummary(){
   $("#promise2").innerHTML=promisesHTML();$("#bioOut").textContent="Confidence coaching for women. Get your confidence back. Find your method.";
@@ -689,7 +639,7 @@ $("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(SL.fin
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");
-  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstcourse:"First course to film",cost:"Cost of staying stuck",coachq:"Best coaching question",d_date:"Next workshop"};
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstcourse:"First course to film",cost:"Cost of staying stuck",d_date:"Next workshop"};
   S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));[1,2,3].forEach(n=>push("Stage "+n,S.a[`m${i}s${n}`]))});
   L.push("");[0,1,2].forEach(i=>push("Outcome "+(i+1),S.a["out"+i]));Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Masterclass price: "+money(PRICE)+" per woman");
@@ -717,7 +667,7 @@ function onEnter(){}
 
 /* boot */
 function boot(){
-  drawSharp();drawRP();drawStop();fillInputs();syncAll();
+  drawSharp();fillInputs();syncAll();
   setCurrent(0);grow();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(grow);
 }
