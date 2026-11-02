@@ -566,11 +566,11 @@ const uniq=a=>[...new Set(a)];
 const clean=(f,v)=>{v=v.trim();if(f==="name"&&v){if(!/method$/i.test(v))v+=" Method";if(!/^the /i.test(v))v="The "+v}return v};
 function optionsFor(f){const base=[];GOLDS.forEach(g=>{const v=g[f];if(base.some(o=>o.v===v))return;base.push({v,l:f==="who"?g.label:v.charAt(0).toUpperCase()+v.slice(1),c:f==="wo"?WOCAT[v]:g.cat})});return [...base,...(S.custom[f]||[]).filter(v=>!base.some(o=>o.v===v)).map(v=>({v,l:v,c:3}))]}
 const isDone=m=>SECS.every(([f])=>(m[f]||"").trim());
-const mTitle=i=>S.methods[i].name||"Method "+(i+1);
+const mTitle=i=>"Method "+(i+1);
 function matchG(m){return GOLDS.find(g=>g.name===m.name||g.who===m.who||g.res===m.res)||null}
 function drawBuild(){
   const m=S.methods[S.mi],g=matchG(m);
-  $("#mCards").innerHTML=S.methods.map((x,i)=>{const f=SECS.filter(([k])=>(x[k]||"").trim()).length,total=SECS.length;return `<button class="mcard${i===S.mi?" on":""}" data-mi="${i}"><span class="mhead"><b>${esc(mTitle(i))}</b><span class="mcount">${f===total?"★":f+" of "+total}</span></span>${x.who?`<span>For ${esc(x.who)}</span>`:""}${x.res?`<span>Gets ${esc(x.res)}</span>`:""}${x.wo?`<span>Without ${esc(x.wo)}</span>`:""}${f===0?`<span class="mempty">Nothing picked yet</span>`:""}</button>`}).join("");
+  $("#mCards").innerHTML=S.methods.map((x,i)=>{const f=SECS.filter(([k])=>(x[k]||"").trim()).length,total=SECS.length;return `<button class="mcard${i===S.mi?" on":""}" data-mi="${i}"><span class="mhead"><b>${esc(mTitle(i))}</b><span class="mcount">${f===total?"★":f+" of "+total}</span></span>${x.name?`<span>${esc(x.name)}</span>`:""}${x.who?`<span>For ${esc(x.who)}</span>`:""}${x.res?`<span>Gets ${esc(x.res)}</span>`:""}${x.wo?`<span>Without ${esc(x.wo)}</span>`:""}${f===0?`<span class="mempty">Nothing picked yet</span>`:""}</button>`}).join("");
   const chip=(f,o)=>{const on=m[f]===o.v;const other=(f==="name"||f==="who")?S.methods.findIndex((x,i)=>i!==S.mi&&x[f]===o.v):-1;const sug=!on&&g&&g[f]===o.v;return `<button class="mchip${on?" on":""}${other>=0?" taken":""}" data-f="${f}" data-v="${esc(o.v)}" ${other>=0?"disabled":""}>${sug?'<i>★</i> ':""}${esc(o.l)}${other>=0?` <small>in method ${other+1}</small>`:""}</button>`};
   $("#mSecs").innerHTML=SECS.map(([f,t,ph,cats],n)=>{const opts=optionsFor(f),own=opts.filter(o=>o.c===3);return `<div class="stack" style="gap:12px"><h3 class="msec">${n+1}. ${t}</h3><div class="grid3 mcats">${cats.map((c,ci)=>`<div class="mcat"><h4>${esc(c)}</h4>${opts.filter(o=>o.c===ci).map(o=>chip(f,o)).join("")}</div>`).join("")}</div>${own.length?`<div class="mcat own"><h4>Your own</h4><div class="row">${own.map(o=>chip(f,o)).join("")}</div></div>`:""}
   <form class="mown" data-f="${f}"><input aria-label="${esc(ph)}" placeholder="${esc(ph)}" autocomplete="off"><button class="pill" type="submit">Add</button></form></div>`}).join("");
@@ -592,9 +592,9 @@ function drawSharp(){$("#sharpSay").textContent=SHARP[sharp][0];$("#sharpBar").s
 $("#sharpBtn").onclick=()=>{sharp=(sharp+1)%SHARP.length;drawSharp()};
 
 /* flips */
-const FALLBACK=[{name:"The Come Back Method",who:"women who've lost themselves",res:"a version of themselves they recognise and love again",wo:"becoming someone new"},{name:"The Say No Method",who:"people pleasers",res:"the confidence to say no and mean it",wo:"feeling guilty"},{name:"The Take Up Space Method",who:"women who shrink and play small",res:"the confidence to be seen and take up space",wo:"faking a personality"}];
+const BLANKFLIP={name:"your method",who:"the women you choose",res:"the result you choose",wo:"what they hate"};
 function drawFlips(){const open=$$("#flips .flip").map(f=>f.classList.contains("on"));
-  $("#flips").innerHTML=S.methods.map((m,i)=>{const d=isDone(m)?m:FALLBACK[i];return `<button class="flip${open[i]?" on":""}"><span class="front"><h3>Instead of</h3><q>I help ${esc(d.who)}.</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>You say</h3><q>I use ${esc(d.name.replace(/^The /,"the "))} to help ${esc(d.who)} get ${esc(d.res)}, without ${esc(d.wo)}.</q></span></button>`}).join("")}
+  $("#flips").innerHTML=S.methods.map((m,i)=>{const d=isDone(m)?m:BLANKFLIP;return `<button class="flip${open[i]?" on":""}"><span class="front"><h3>Instead of</h3><q>${isDone(m)?"I help "+esc(d.who)+".":"I help women feel more confident."}</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>You say</h3><q>I use ${esc(d.name.replace(/^The /,"the "))} to help ${esc(d.who)} get ${esc(d.res)}, without ${esc(d.wo)}.</q></span></button>`}).join("")}
 $("#flips").onclick=e=>{const t=e.target.closest(".flip");if(t)t.classList.toggle("on")};
 
 /* promise */
