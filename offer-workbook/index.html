@@ -431,10 +431,6 @@ const SL=[
  <p class="small" id="cNote"></p>
  ${ans("firstcourse","Which course would you film first?","Usually the same method as your first masterclass")}`},
 
-{c:6,n:"What's in their head",html:`<div class="sec-head"><h2>They're asking <span class="mark sweep">three questions</span></h2><p>Clients don't just want advice. They want a solution to their problem.</p></div>
- <div class="grid3" id="three"></div>
- ${ans("q1proof","What's your strongest proof that you can solve this?","A story, a result, a testimonial")}`},
-
 {c:6,n:"The doctor approach",html:`<h2>A doctor <span class="mark sweep">examines first</span></h2>
  <div class="split"><div class="stack">
   <p>Before you prescribe, you ask. Ask yourself these on every check in call.</p>
@@ -634,11 +630,6 @@ function drawCourses(){
 }
 $("#sheet").addEventListener("click",e=>{const b=e.target.closest("[data-cm]");if(b){courseMode=b.dataset.cm;drawCourses()}});
 
-/* three questions */
-const THREE=[["Can this person solve my problem?","Your proof, your story and your named method answer this."],["Do I feel supported?","Your voice notes, the private chat and a clear plan each week answer this."],["Is this worth the investment?","Their wins, week after week, answer this. So does 10x value."]];
-$("#three").innerHTML=THREE.map(t=>`<button class="tap"><span class="star">★</span><h3 style="padding-right:34px">${t[0]}</h3><span class="hint">Tap for your answer</span><span class="more">${t[1]}</span></button>`).join("");
-$("#three").onclick=e=>{const t=e.target.closest(".tap");if(t)t.classList.toggle("on")};
-
 /* role play */
 const RP=[
  {m:"I froze in the meeting again. I just can't speak up.",o:[["Here are five tips for speaking up in meetings.",0,"That's the prescription before the examination. You don't know why they froze yet."],["Walk me through the moment just before you went quiet.",1,"Yes. Now you know where they are and what's really stopping them."]]},
@@ -688,7 +679,6 @@ const SUM=[
  ["out1","Outcome 2",["Website","Offer pages"],"Outcomes"],
  ["out2","Outcome 3",["Website","Offer pages"],"Outcomes"],
  ["firstcourse","The course you'd film first",["Filming plan","Website"],"Three courses"],
- ["q1proof","Your strongest proof",["Website","VSL"],"What's in their head"],
  ["coachq","Your best question",["Coaching calls","Instagram posts"],"Call structure"]
 ];
 function drawSummary(){
@@ -699,7 +689,7 @@ $("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(SL.fin
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");
-  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstcourse:"First course to film",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_date:"Next workshop"};
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstcourse:"First course to film",cost:"Cost of staying stuck",coachq:"Best coaching question",d_date:"Next workshop"};
   S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));[1,2,3].forEach(n=>push("Stage "+n,S.a[`m${i}s${n}`]))});
   L.push("");[0,1,2].forEach(i=>push("Outcome "+(i+1),S.a["out"+i]));Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Masterclass price: "+money(PRICE)+" per woman");
