@@ -122,6 +122,13 @@ input[type=range]{width:100%;accent-color:var(--cherry);height:28px;cursor:point
 .opt.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 
 /* pick and mix */
+.toggle{display:inline-flex;align-items:center;gap:10px}
+.sw{position:relative;display:block;width:36px;height:20px;border-radius:999px;background:var(--line);flex:none;transition:background .2s}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+.toggle.on{background:var(--card);color:var(--ink);border-color:var(--ink)}
+.toggle.on:hover{background:var(--paper-2)}
+.toggle.on .sw{background:var(--cherry)}
+.toggle.on .sw::after{transform:translateX(16px)}
 .cstages{margin:0;padding-left:20px;font-size:15px;color:var(--ink-2)}
 .extable{min-width:560px}
 .extable caption{caption-side:top;text-align:left;padding:14px 20px 0;font-weight:600;font-size:14px;color:var(--cherry)}
@@ -389,7 +396,7 @@ const SL=[
   <tr><td>The Take Up Space Method</td><td>play small at work and in life</td><td>to speak up, get seen and ask for more</td></tr>
  </tbody></table></div>
  <div class="mcards"><div id="mCards" class="grid3"></div></div>
- <div class="row"><button class="pill" id="mStart">Show me a starting three</button></div>
+ <div class="row"><button class="pill toggle" id="mStart" role="switch" aria-checked="false"><i class="sw" aria-hidden="true"></i><span>Show me a starting three</span></button></div>
  <div class="stack" id="mSecs" style="gap:40px"></div>`,
  note:"Let her lead. A star marks the pieces that go well with what's already picked, but she can mix anything. If she writes her own, it goes straight in. If she gets stuck, tap Show me a starting three and let her react to it. It's easier to change something than start from nothing.",q:"Three feels like a lot of work? It isn't three businesses. Same community, same levels and same calls, with three ways in. Isn't this broad again? No. Each method is specific, and only the business as a whole is broad."},
 
@@ -604,7 +611,9 @@ function optionsFor(f){const base=[];GOLDS.forEach(g=>{const v=g[f];if(base.some
 const isDone=m=>SECS.every(([f])=>(m[f]||"").trim());
 const mTitle=i=>S.methods[i].name||"Method "+(i+1);
 function matchG(m){return GOLDS.find(g=>g.name===m.name||g.who===m.who||g.res===m.res)||null}
+function drawStartToggle(){const b=$("#mStart"),on=!!S.startOn;b.classList.toggle("on",on);b.setAttribute("aria-checked",on);b.querySelector("span").textContent=on?"Starting three on: tap to remove":"Show me a starting three"}
 function drawBuild(){
+  drawStartToggle();
   const m=S.methods[S.mi],g=matchG(m);
   $("#mCards").innerHTML=S.methods.map((x,i)=>{const f=SECS.filter(([k])=>(x[k]||"").trim()).length,total=SECS.length;return `<button class="mcard${i===S.mi?" on":""}" data-mi="${i}"><span class="mhead"><b>${esc(mTitle(i))}</b><span class="mcount">${f===total?"★":f+" of "+total}</span></span>${x.who?`<span>For ${esc(x.who)}</span>`:""}${x.res?`<span>Gets ${esc(x.res)}</span>`:""}${x.wo?`<span>Without ${esc(x.wo)}</span>`:""}${f===0?`<span class="mempty">Nothing picked yet</span>`:""}</button>`}).join("");
   const chip=(f,o)=>{const on=m[f]===o.v;const other=(f==="name"||f==="who")?S.methods.findIndex((x,i)=>i!==S.mi&&x[f]===o.v):-1;const sug=!on&&g&&g[f]===o.v;return `<button class="mchip${on?" on":""}${other>=0?" taken":""}" data-f="${f}" data-v="${esc(o.v)}" ${other>=0?"disabled":""}>${sug?'<i>★</i> ':""}${esc(o.l)}${other>=0?` <small>in method ${other+1}</small>`:""}</button>`};
@@ -612,6 +621,7 @@ function drawBuild(){
   <form class="mown" data-f="${f}"><input aria-label="${esc(ph)}" placeholder="${esc(ph)}" autocomplete="off"><button class="pill" type="submit">Add</button></form></div>`}).join("");
 }
 function pick(f,v){
+  S.startOn=false;S.startPrev=null;
   const m=S.methods[S.mi];m[f]=m[f]===v?"":v;
   if(isDone(m)){const n=S.methods.findIndex(x=>!isDone(x));if(n>=0)S.mi=n}
   syncAll();save();
@@ -619,7 +629,10 @@ function pick(f,v){
 $("#mSecs").addEventListener("click",e=>{const b=e.target.closest(".mchip");if(b&&!b.disabled)pick(b.dataset.f,b.dataset.v)});
 $("#mSecs").addEventListener("submit",e=>{e.preventDefault();const fm=e.target,f=fm.dataset.f,inp=fm.querySelector("input"),v=clean(f,inp.value);if(!v)return;if(!optionsFor(f).some(o=>o.v===v))S.custom[f].push(v);S.methods[S.mi][f]="";pick(f,v)});
 $("#mCards").addEventListener("click",e=>{const b=e.target.closest("[data-mi]");if(b){S.mi=+b.dataset.mi;syncAll();save()}});
-$("#mStart").onclick=()=>{const T=["The Come Back Method","The Say No Method","The Take Up Space Method"];S.methods=T.map(n=>{const g=GOLDS.find(x=>x.name===n);return {name:g.name,who:g.who,res:g.res,wo:g.wo}});S.mi=0;syncAll();save()};
+$("#mStart").onclick=()=>{
+  if(S.startOn){S.methods=S.startPrev||[blankM(),blankM(),blankM()];S.startOn=false;S.startPrev=null}
+  else{S.startPrev=JSON.parse(JSON.stringify(S.methods));const T=["The Come Back Method","The Say No Method","The Take Up Space Method"];S.methods=T.map(n=>{const g=GOLDS.find(x=>x.name===n);return {name:g.name,who:g.who,res:g.res,wo:g.wo}});S.startOn=true}
+  S.mi=0;syncAll();save()};
 
 /* sharpen */
 const SHARP=[["Feel more confident",18],["Speak up at work",42],["Speak up in every meeting and ask for the raise",72],["Ask for the raise within 8 weeks, with the words ready",100]];
@@ -643,7 +656,7 @@ function drawEditTabs(){$("#mEditTabs").innerHTML=S.methods.map((m,i)=>`<button 
 function drawEdit(){const m=S.methods[S.mi];const L=[["who","I help"],["res","Achieve"],["name","Through"],["wo","Without"]];
   $("#mEdit").innerHTML=L.map(([f,l])=>`<div><div class="ans${(m[f]||"").trim()?" filled":""}"><label for="e-${f}">${l}</label><input id="e-${f}" data-mk="${f}" value="${esc(m[f])}" autocomplete="off"></div></div>`).join("")}
 $("#mEditTabs").addEventListener("click",e=>{const b=e.target.closest("[data-ed]");if(b){S.mi=+b.dataset.ed;syncAll();save()}});
-$("#mEdit").addEventListener("input",e=>{const f=e.target.dataset.mk;if(!f)return;S.methods[S.mi][f]=e.target.value;e.target.closest(".ans").classList.toggle("filled",!!e.target.value.trim());$("#promises").innerHTML=promisesHTML();drawBuild();drawFlips();drawSummary();drawTitles();save()});
+$("#mEdit").addEventListener("input",e=>{const f=e.target.dataset.mk;if(!f)return;S.startOn=false;S.startPrev=null;drawStartToggle();S.methods[S.mi][f]=e.target.value;e.target.closest(".ans").classList.toggle("filled",!!e.target.value.trim());$("#promises").innerHTML=promisesHTML();drawBuild();drawFlips();drawSummary();drawTitles();save()});
 
 /* matrix */
 const TIERS=["Free workshop","The Club","Rebirth Circle","Big Sis VIP"];
