@@ -434,19 +434,19 @@ const SL=[
 {c:6,n:"What happens next",html:`<h2>You did the hard part. <span class="mark sweep">Here's what's next.</span></h2>
  <div class="split"><div class="stack">
   <h3>Decide today</h3>
-  ${ans("d_date","Next free workshop date","The site says 12 Nov for now",1)}
+  ${ans("d_date","Next free workshop date","Pick a date",1)}
+  <div class="row" id="dateChips"><button class="pill" data-date="1 December">1 December</button><button class="pill" data-date="15 December">15 December</button></div>
  </div><div class="stack">
   <h3>You</h3>
   <div class="ticks" data-group="you">
-   <label><input type="checkbox" data-t="t1"><span>Screenshot 20 to 30 DMs from followers</span></label>
-   <label><input type="checkbox" data-t="t2"><span>Ask 5 followers: what's your biggest struggle, what have you tried, what would change your life?</span></label>
-   <label><input type="checkbox" data-t="t3"><span>Get 3 to 5 more testimonials, on video if you can</span></label>
-   <label><input type="checkbox" data-t="t4"><span>Film the VSL once I send the script</span></label>
+   <label><input type="checkbox" data-t="v1"><span>Finalise the three offers: pick the right wording for each one</span></label>
+   <label><input type="checkbox" data-t="v2"><span>Post an Instagram Story poll asking women what they want help with most</span></label>
+   <label><input type="checkbox" data-t="v3"><span>The winning answer becomes the first offer and first course we create</span></label>
+   <label><input type="checkbox" data-t="v4"><span>Record the first course by Friday 6 November, or Monday 9 November at the latest</span></label>
   </div>
   <h3>Me</h3>
   <div class="ticks">
-   <label><input type="checkbox" data-t="t5"><span>Rewrite the website around your promise</span></label>
-   <label><input type="checkbox" data-t="t6"><span>Write your VSL script from your answers</span></label>
+   <label><input type="checkbox" data-t="t5"><span>Rewrite the website around your three offers</span></label>
    <label><input type="checkbox" data-t="t7"><span>Turn your answers into your content ideas</span></label>
    <label><input type="checkbox" data-t="t8"><span>Build the apply form and call scripts around your outcomes</span></label>
   </div>
@@ -492,7 +492,7 @@ function grow(){$$("textarea[data-k]").forEach(t=>{t.style.height="auto";t.style
 function fillInputs(){$$("[data-k]").forEach(el=>{const v=S.a[el.dataset.k]||"";if(el.value!==v&&document.activeElement!==el)el.value=v;el.closest(".ans").classList.toggle("filled",!!v.trim())})}
 sheet.addEventListener("input",e=>{
   const el=e.target;
-  if(el.dataset.k){S.a[el.dataset.k]=el.value;fillInputs();if(el.tagName==="TEXTAREA")grow();syncAll();save()}
+  if(el.dataset.k){S.a[el.dataset.k]=el.value;fillInputs();drawDateChips();if(el.tagName==="TEXTAREA")grow();syncAll();save()}
 });
 
 /* dots */
@@ -629,6 +629,10 @@ $("#copyAll").onclick=async()=>{
   catch(e){box.hidden=false;box.value=t;box.focus();box.select();$("#copyMsg").textContent="Press copy on the selected text."}
 };
 
+/* workshop date */
+$("#dateChips").addEventListener("click",e=>{const b=e.target.closest("[data-date]");if(b){S.a.d_date=b.dataset.date;fillInputs();drawDateChips();save()}});
+function drawDateChips(){$$("[data-date]").forEach(b=>b.classList.toggle("on",b.dataset.date===S.a.d_date))}
+
 /* ticks saved */
 sheet.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.t){S.done[t.dataset.t]=t.checked;save()}});
 $$("[data-t]").forEach(t=>t.checked=!!S.done[t.dataset.t]);
@@ -636,6 +640,7 @@ $$("[data-t]").forEach(t=>t.checked=!!S.done[t.dataset.t]);
 /* shared sync */
 function drawTitles(){$$("[data-mt]").forEach(el=>el.textContent=mTitle(+el.dataset.mt))}
 function syncAll(){
+  drawDateChips();
   drawLadder();
   drawBuild();drawFlips();drawTitles();
   drawLayer();drawSpec();drawGroups();drawCourses();
