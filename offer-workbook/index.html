@@ -298,7 +298,7 @@ const LOGO="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAADnCAYAAAA3t2GgAA
 const KEY="offer-workbook-v1";
 const blankMatrix=()=>({ "Confidence worksheets after each call":[0,1,1,1],"Word for word templates: saying no, asking for more":[0,0,0,0],"Confidence score tracker":[0,0,0,0],"Scripts for scary moments: the raise, the boundary":[0,0,0,0],"Library of confidence exercises":[0,0,0,0],"Call recordings":[1,1,1,1] });
 const blankM=()=>({name:"",who:"",res:"",wo:""});
-let S={groups:[20,20,20],methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[]},a:{},matrix:blankMatrix(),price:1500,vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
+let S={groups:[25,0,0],methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[]},a:{},matrix:blankMatrix(),price:1500,vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
 const OLD={"Worksheets after each call":"Confidence worksheets after each call","Templates to speed things up":"Word for word templates: saying no, asking for more","Tools":"Confidence score tracker","Playbooks for common moments":"Scripts for scary moments: the raise, the boundary","Resource library":"Library of confidence exercises"};
 function migrate(){Object.keys(OLD).forEach(k=>{if(S.matrix[k]){S.matrix[OLD[k]]=S.matrix[k];delete S.matrix[k]}});const m=blankMatrix();Object.keys(m).forEach(k=>{m[k]=S.matrix[k]||m[k]});S.matrix=m}
 try{const raw=localStorage.getItem(KEY);if(raw){S=Object.assign(S,JSON.parse(raw));migrate()}}catch(e){}
@@ -445,7 +445,8 @@ const SL=[
  </div></div>`,
  note:"Drag the price, tick the values and see where the bar lands. It's a thinking tool. Don't use these figures in marketing as promises or typical results. The price here isn't final and it stays hidden on the site.",q:"Isn't confidence priceless? It is, and that's why they also need something concrete to justify it."},
 
-{c:4,n:"Three Circles",html:`<div class="sec-head"><h2>One Circle offer, <span class="mark sweep">three groups</span></h2><p>The Rebirth Circle stays the same: 8 weeks, a weekly live call, 20 women max. Now each method gets its own group, and women apply for the one that fits.</p></div>
+{c:4,n:"Three Circles",html:`<div class="sec-head"><h2>Three groups, <span class="mark sweep">one at a time</span></h2><p>The Rebirth Circle stays the same: 8 weeks and a weekly live call, now with 25 women max. Each method gets its own group. We fill one, then open the next.</p></div>
+ <div class="inkcard stack" style="gap:6px"><h3 style="color:var(--hl)">Show all three, but only sell one</h3><p>The other two appear on the site as coming soon, with a waitlist. Women who aren't right for the first still have somewhere to go, and you can see real demand before you film anything else.</p></div>
  <div class="grid3" id="groups"></div>
  <div class="reach gstats" id="gStats"></div>
  <p class="small">Example numbers using the test price above. Not a promise.</p>
@@ -453,7 +454,7 @@ const SL=[
   ${ans("firstgroup","Which group would you start first?","The one you're most excited to coach")}
   ${ans("calltimes","When could you run three calls a week?","Days and times that work every week")}
  </div>`,
- note:"Move the sliders so she can see both sides: more women, but more calls. Three full groups means three times the Circle income and three hours of calls a week, plus prep. I'd start the strongest method first, then open the others once it's working. That way a half-empty group never drags the others down. Shared lessons mean she isn't writing three programmes from scratch.",q:"Do I have to start all three at once? No. Start with one, add the next when it's full. What if a group is small? Set a minimum, such as 8 women, before that group opens."},
+ note:"Start with one group at 25 women. Move the other sliders up to show where this goes: three full groups means three times the Circle income and three hours of calls a week, plus prep. The waitlists tell us which method to open next.",q:"Why not open all three now? It splits her content, ads and proof, and risks three half-empty groups. What if the first doesn't fill? We change the message before adding another offer."},
 
 {c:4,n:"Three courses",html:`<div class="sec-head"><h2>One recorded course <span class="mark sweep">for each method</span></h2><p>You film each one once, and it sells any time. Your three stages become the structure of each course.</p></div>
  <div class="grid3" id="courses"></div>
@@ -667,7 +668,8 @@ $("#vals").addEventListener("input",e=>{const t=e.target;if(t.dataset.vn!=null)S
 
 /* three circles */
 function drawGroups(){
-  $("#groups").innerHTML=S.groups.map((n,i)=>`<div class="note stack" style="gap:10px"><h3>${esc(mTitle(i))}</h3><div class="seats" aria-hidden="true">${Array.from({length:20},(_,k)=>`<i class="${k<n?"on":""}"></i>`).join("")}</div><label class="small" for="g${i}"><b class="gn">${n}</b> of 20 women</label><input type="range" id="g${i}" data-gi="${i}" min="0" max="20" value="${n}"></div>`).join("");
+  if(S.groups.join()==="20,20,20")S.groups=[25,0,0];
+  $("#groups").innerHTML=S.groups.map((n,i)=>`<div class="note stack" style="gap:10px"><h3>${esc(mTitle(i))}</h3><p class="small" style="font-weight:600;color:var(--cherry)">${i===0?"Open first":"Coming soon, with a waitlist"}</p><div class="seats" aria-hidden="true">${Array.from({length:25},(_,k)=>`<i class="${k<n?"on":""}"></i>`).join("")}</div><label class="small" for="g${i}"><b class="gn">${n}</b> of 25 women</label><input type="range" id="g${i}" data-gi="${i}" min="0" max="25" value="${n}"></div>`).join("");
   drawGStats();
 }
 function drawGStats(){
