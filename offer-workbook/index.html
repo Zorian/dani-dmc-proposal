@@ -121,7 +121,32 @@ input[type=range]{width:100%;accent-color:var(--cherry);height:28px;cursor:point
 .opt:hover{background:var(--paper-2)}
 .opt.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 
-/* path */
+/* pick and mix */
+.mix{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:start}
+.mcards{position:sticky;top:76px}
+.mcard{display:flex;flex-direction:column;gap:3px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;font-size:15px;line-height:1.35;color:var(--ink-2)}
+.mcard b{font:800 19px/1.15 var(--head);letter-spacing:-.02em;color:var(--ink)}
+.mcard.on{background:var(--ink);border-color:var(--ink);color:var(--on-ink-2)}
+.mcard.on b{color:var(--on-ink)}
+.mhead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:3px}
+.mcount{font-size:13px;font-weight:600;white-space:nowrap;color:var(--cherry)}
+.mcard.on .mcount{color:var(--hl)}
+.mempty{color:var(--muted)}
+.mix-chips{display:flex;flex-wrap:wrap;gap:8px}
+.mchip{padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-weight:500;font-size:15px;line-height:1.3;transition:background .15s}
+.mchip:hover{background:var(--hl-soft)}
+.mchip i{font-style:normal;color:var(--cherry)}
+.mchip.on{background:var(--hl);border-color:var(--hl);font-weight:600}
+.mchip.taken{opacity:.45;cursor:default;background:var(--paper-2)}
+.mchip small{font-size:12px}
+.mown{display:flex;gap:8px;max-width:440px}
+.mown input{flex:1;min-width:0;border:1px dashed var(--line);border-radius:999px;background:transparent;padding:8px 14px;font-size:15px}
+.mown input:focus{outline:0;border:1px solid var(--cherry)}
+.mown .pill{padding:8px 14px;font-size:14px}
+.flowrow{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:8px}
+#promises,#promise2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+#promises .promise,#promise2 .promise{font-size:clamp(19px,1.9vw,23px);line-height:1.34;padding:22px;border-radius:var(--r);letter-spacing:-.015em}
+#promises .short,#promise2 .short{font-size:16px}
 .path svg{width:100%;height:auto;display:block;overflow:visible}
 .path .box{min-height:120px}
 .quote{font:600 20px/1.3 var(--head);letter-spacing:-.01em}
@@ -219,7 +244,10 @@ thead th{font-size:14px;font-weight:600;color:var(--ink-2);background:var(--pape
 
 @media (max-width:860px){
   .slide{padding-block:56px}
-  .split,.sec-head{grid-template-columns:minmax(0,1fr);gap:20px}
+  .split,.sec-head,.mix{grid-template-columns:minmax(0,1fr);gap:20px}
+  .mcards{position:static;order:-1}
+  #promises,#promise2{grid-template-columns:minmax(0,1fr)}
+  .flowrow{grid-template-columns:repeat(2,minmax(0,1fr))}
   .grid3,.builder{grid-template-columns:minmax(0,1fr)}
   .builder>div,.builder>div:nth-child(-n+2){grid-column:auto}
   .reach{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -257,7 +285,8 @@ const LOGO="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAADnCAYAAAA3t2GgAA
 /* ---------- state ---------- */
 const KEY="offer-workbook-v1";
 const blankMatrix=()=>({ "Confidence worksheets after each call":[0,1,1,1],"Word for word templates: saying no, asking for more":[0,0,0,0],"Confidence score tracker":[0,0,0,0],"Scripts for scary moments: the raise, the boundary":[0,0,0,0],"Library of confidence exercises":[0,0,0,0],"Call recordings":[1,1,1,1] });
-let S={a:{},matrix:blankMatrix(),price:1500,vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
+const blankM=()=>({name:"",who:"",res:"",wo:"",time:""});
+let S={methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[],time:[]},a:{},matrix:blankMatrix(),price:1500,vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
 const OLD={"Worksheets after each call":"Confidence worksheets after each call","Templates to speed things up":"Word for word templates: saying no, asking for more","Tools":"Confidence score tracker","Playbooks for common moments":"Scripts for scary moments: the raise, the boundary","Resource library":"Library of confidence exercises"};
 function migrate(){Object.keys(OLD).forEach(k=>{if(S.matrix[k]){S.matrix[OLD[k]]=S.matrix[k];delete S.matrix[k]}});const m=blankMatrix();Object.keys(m).forEach(k=>{m[k]=S.matrix[k]||m[k]});S.matrix=m}
 try{const raw=localStorage.getItem(KEY);if(raw){S=Object.assign(S,JSON.parse(raw));migrate()}}catch(e){}
@@ -273,10 +302,8 @@ function save(){
 }
 
 /* ---------- content data ---------- */
-const GOLDS=[{"group": "Stuck in a pattern", "label": "Overthinkers who talk themselves out of everything", "who": "overthinkers", "a": "They replay every conversation and talk themselves out of things before they start.", "b": "They decide, act and stop needing everyone's opinion first.", "o": "Waiting to feel certain before they move.", "res": "the confidence to trust themselves and act", "wo": "needing to feel ready first"}, {"group": "Stuck in a pattern", "label": "Women who hide, shrink and play small", "who": "women who shrink and play small", "a": "They stay quiet, stay in the background and let others take the room.", "b": "They speak first, get seen and take up space.", "o": "Fear of what people will think if they're seen.", "res": "the confidence to be seen and take up space", "wo": "faking a personality"}, {"group": "At a turning point", "label": "Women who've lost themselves and want to feel like themselves again", "who": "women who've lost themselves", "a": "They look fine from the outside, but don't recognise who they've become.", "b": "They feel like themselves again, and it shows.", "o": "Years of putting themselves at the bottom of the list.", "res": "a version of themselves they recognise and love again", "wo": "becoming someone new"}, {"group": "At a turning point", "label": "Women starting over after a big life change", "who": "women starting over", "a": "Life changed and they don't know who they are now.", "b": "They've built a life that's theirs, on their terms.", "o": "An identity built around how things used to be.", "res": "the confidence to build a life on their own terms", "wo": "rushing to fill the gap"}, {"group": "At a turning point", "label": "Women who've outgrown their life and want more", "who": "women who've outgrown their life", "a": "Nothing's wrong on paper, but they know there's more for them.", "b": "They've gone after the bigger life, and stopped apologising for wanting it.", "o": "Guilt about wanting more than they've got.", "res": "the confidence to go after the life they want", "wo": "feeling ungrateful"}, {"group": "Going after something", "label": "Women who want to speak up and be taken seriously at work", "who": "women who want to be taken seriously at work", "a": "They stay quiet in meetings and watch others get the credit.", "b": "They speak first, ask for the raise and go for the role.", "o": "Waiting to be noticed instead of asking.", "res": "the confidence to speak up and ask for more", "wo": "faking a personality"}, {"group": "Going after something", "label": "Women ready to charge more, ask for more and stop settling", "who": "women ready to ask for more", "a": "They undercharge, overdeliver and apologise when they ask.", "b": "They name their price and hold it.", "o": "Not believing they're worth it yet.", "res": "the confidence to ask for what they're worth", "wo": "feeling guilty about it"}, {"group": "Going after something", "label": "Women who keep settling for less than they deserve in love", "who": "women who keep settling in love", "a": "They accept less than they'd ever want for their best friend.", "b": "They know their worth before they walk in, and leave when it isn't met.", "o": "Fear of being alone.", "res": "the confidence to know their worth in love", "wo": "playing games"}];
-const goldObj=()=>GOLDS.find(g=>g.label===S.a.gold)||null;
-const eg=()=>goldObj()||GOLDS[0];
-const CHAPTERS=["Start","Your exact client","Results","Your way","What's inside","How you coach","Finish"];
+const GOLDS=[{"label": "Overthinkers who talk themselves out of everything", "who": "overthinkers", "res": "the confidence to trust themselves and act", "wo": "needing to feel ready first", "name": "The Trust Yourself Method"}, {"label": "People pleasers who can't say no without guilt", "who": "people pleasers", "res": "the confidence to say no and mean it", "wo": "feeling guilty", "name": "The Say No Method"}, {"label": "Women who hide, shrink and play small", "who": "women who shrink and play small", "res": "the confidence to be seen and take up space", "wo": "faking a personality", "name": "The Take Up Space Method"}, {"label": "Women who've lost themselves and want to feel like themselves again", "who": "women who've lost themselves", "res": "a version of themselves they recognise and love again", "wo": "becoming someone new", "name": "The Come Back Method"}, {"label": "Women starting over after a big life change", "who": "women starting over", "res": "the confidence to build a life on their own terms", "wo": "rushing to fill the gap", "name": "The Start Again Method"}, {"label": "Women who've outgrown their life and want more", "who": "women who've outgrown their life", "res": "the confidence to go after the life they want", "wo": "feeling ungrateful", "name": "The Bigger Life Method"}, {"label": "Women who want to speak up and be taken seriously at work", "who": "women who want to be taken seriously at work", "res": "the confidence to speak up and ask for more", "wo": "faking a personality", "name": "The Speak Up Method"}, {"label": "Women ready to charge more, ask for more and stop settling", "who": "women ready to ask for more", "res": "the confidence to ask for what they're worth", "wo": "feeling guilty about it", "name": "The Ask For More Method"}, {"label": "Women who keep settling for less than they deserve in love", "who": "women who keep settling in love", "res": "the confidence to know their worth in love", "wo": "playing games", "name": "The Know Your Worth Method"}];
+const CHAPTERS=["Start","Your 3 methods","Results","Your way","What's inside","How you coach","Finish"];
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ans=(k,label,ph,one)=>`<div class="ans" data-ans="${k}"><label for="f-${k}">${label}</label>${one?`<input id="f-${k}" data-k="${k}" placeholder="${esc(ph||"Write it here")}" autocomplete="off">`:`<textarea id="f-${k}" data-k="${k}" rows="2" placeholder="${esc(ph||"Write it here")}"></textarea>`}</div>`;
 
@@ -300,11 +327,11 @@ const SL=[
 
 {c:1,n:"The dots",html:`<h2>Most confidence coaches <span class="mark sweep">stop at the niche</span></h2>
  <div class="split"><div class="stack">
-   <div class="row"><button class="pill" data-layer="1">Market</button><button class="pill" data-layer="2">Niche</button><button class="pill" data-layer="3">Your exact client</button></div>
+   <div class="row"><button class="pill" data-layer="1">Market</button><button class="pill" data-layer="2">Niche</button><button class="pill" data-layer="3">Your exact clients</button></div>
    <div class="layer-out" id="layerOut"></div>
    <div class="row" id="goldExRow"><button class="pill" id="goldEx">Show another example</button></div>
  </div><div id="dots" class="dots"></div></div>`,
- note:"Tap Market, Niche, Your exact client in order and let the grid change. Every dot is a person. The yellow dots are her exact client, also called the Unique Value Zone: the small group you are the obvious choice for. Each dot is a woman. Today she sits at blue: women's confidence.",q:"Won't I lose people if I go smaller? She only narrows what she sells. Her personal brand stays broad."},
+ note:"Tap Market, Niche, Your exact client in order and let the grid change. Every dot is a person. The yellow dots are her three exact clients, also called Unique Value Zones: the small group you are the obvious choice for. Each dot is a woman. Today she sits at blue: women's confidence.",q:"Won't I lose people if I go smaller? She only narrows what she sells. Her personal brand stays broad."},
 
 {c:1,n:"Pub or Michelin star",html:`<h2>Same coach. <span class="mark sweep">Very different price.</span></h2>
  <div class="split"><div class="stack">
@@ -335,20 +362,10 @@ const SL=[
  </div>`,
  note:"Stay quiet and let her think. Ask for real names and real stories. Her own story is usually where her exact client is hiding.",q:"What if the answers point in different directions? Look for the woman who shows up in two or more answers."},
 
-{c:1,n:"Pick it",html:`<div class="sec-head"><h2>Pick one. <span class="mark sweep">You can widen it later.</span></h2><p>It doesn't have to be a type of woman. It can be the pattern they're stuck in, the moment they're in, or what they're going after. They all still sit under confidence.</p></div>
- <div class="grid3" id="goldOpts"></div>
- <div class="split"><div class="stack">
-  ${ans("gold","Your exact client, in your own words","Pick one above and change the words, or write your own")}
- </div><div class="stack">
-  <h3>Does it pass?</h3>
-  <div class="ticks">
-   <label><input type="checkbox" data-t="g1"><span>You've lived it, or got women results with it</span></label>
-   <label><input type="checkbox" data-t="g2"><span>Women already DM you about it</span></label>
-   <label><input type="checkbox" data-t="g3"><span>You could talk about it every day for a year</span></label>
-  </div>
- </div></div>
- <p class="small">Your personal brand stays broad. The Rebirth sells one clear transformation.</p>`,
- note:"These are starting points, so don't let her get stuck on the exact wording. Ask which three feel closest, cross off two, then change the words until it sounds like her. Her choice fills in the examples for the rest of the session.",q:"Isn't this still broad? It's broad on who, but specific on the problem. That's enough to write a clear promise, and it keeps confidence in every area of life on the table."},
+{c:1,n:"Your three methods",html:`<div class="sec-head"><h2>Build <span class="mark sweep">your three methods</span></h2><p>One confidence business, three clear doors. Choose a method, then pick one thing from each section.</p></div>
+ <div class="mix"><div class="stack" id="mSecs" style="gap:28px"></div>
+ <div class="stack mcards"><div id="mCards" class="stack" style="gap:10px"></div><button class="pill" id="mStart">Show me a starting three</button></div></div>`,
+ note:"Let her lead. A star marks the pieces that go well with what's already picked, but she can mix anything. If she writes her own, it goes straight in. If she gets stuck, tap Show me a starting three and let her react to it. It's easier to change something than start from nothing.",q:"Three feels like a lot of work? It isn't three businesses. Same community, same levels and same calls, with three ways in. Isn't this broad again? No. Each method is specific, and only the business as a whole is broad."},
 
 {c:2,n:"Outcomes",html:`<h2>People don't buy coaching. <span class="mark sweep">They buy outcomes.</span></h2>
  <div class="split"><div class="stack">
@@ -357,40 +374,28 @@ const SL=[
   <div class="row"><button class="pill ink" id="sharpBtn">Make it more specific</button></div>
   <div><div class="small" style="margin-bottom:4px">How easy it is to justify paying</div><div class="meter"><i id="sharpBar"></i></div></div>
  </div><div class="stack">
-  ${ans("outcome","What exactly will they get from working with you?","Something they could point at and say: I did that")}
+  <h3>What exactly will they get from working with you?</h3>
+  ${ans("out0",'<span data-mt="0">Method 1</span>',"Something they could point at and say: I did that")}
+  ${ans("out1",'<span data-mt="1">Method 2</span>',"Something they could point at and say: I did that")}
+  ${ans("out2",'<span data-mt="2">Method 3</span>',"Something they could point at and say: I did that")}
   <div class="inkcard"><h3 style="color:var(--hl)">Your clients already said it</h3><p style="margin-top:6px">“It was worth every penny.” “I love the person I am becoming.” What had actually changed for them?</p></div>
  </div></div>`,
  note:"Tap the button three times. The more measurable the promise, the easier it is for someone to justify the investment. Those quotes are from testimonials on the site: ask what actually changed for those women.",q:"Can I promise a result? Promise the work and the path, and show real results. Never guarantee an income or a specific outcome."},
 
-{c:3,n:"Name it",html:`<h2>Give your path <span class="mark sweep">a name</span></h2>
- <div class="split"><div class="stack">
-  <p>A method with a name feels like a real system. It's yours, and nobody else can offer it.</p>
-  <div class="note"><div class="small">Idea</div><div class="say" id="nameIdea" style="margin:4px 0 10px"></div>
-   <div class="row"><button class="pill" id="nameNext">Another idea</button><button class="pill ink" id="nameUse">Use this name</button></div></div>
- </div><div class="stack">
-  ${ans("method","Your method's name","The ... Method",1)}
-  <h3>Its three stages</h3>
-  ${ans("m1","Stage one","Where every client starts",1)}
-  ${ans("m2","Stage two","The middle of the work",1)}
-  ${ans("m3","Stage three","How they finish",1)}
- </div></div>`,
- note:"The names are only sparks. The stages can become the course modules, the weeks of the Circle and the VSL structure. Three is enough. Coming back to you is already in the slogan, so that's a strong thread to pull.",q:"Can we change it later? Yes, but pick one to test today."},
+{c:3,n:"The stages",html:`<div class="sec-head"><h2>Give each method <span class="mark sweep">three stages</span></h2><p>A method with clear stages feels like a real system, and nobody else can offer it. Three is enough.</p></div>
+ <div class="grid3">${[0,1,2].map(i=>`<div class="stack note"><h3 data-mt="${i}">Method ${i+1}</h3>${ans(`m${i}s1`,"Stage one","Where every client starts",1)}${ans(`m${i}s2`,"Stage two","The middle of the work",1)}${ans(`m${i}s3`,"Stage three","How they finish",1)}</div>`).join("")}</div>`,
+ note:"These stages can become the course modules, the weeks of the Circle and the VSL structure. If time is tight, do one method properly and fill in the other two later.",q:"Can we change them later? Yes. They only need to be good enough to test."},
 
 {c:3,n:"Instead of",html:`<h2>Instead of this, <span class="mark sweep">you say that</span></h2>
- <div class="grid3" id="flips"></div><p class="small">Tap a card to turn it over. These are examples to show the difference.</p>`,
- note:"Read the front in a flat voice, then flip and read the back. Same person, a totally different sale. Ask which back she could picture on her bio.",q:""},
+ <div class="grid3" id="flips"></div><p class="small">Tap a card to turn it over.</p>`,
+ note:"Read the front in a flat voice, then flip and read the back. Same person, a totally different sale. These use the methods she just built.",q:""},
 
-{c:3,n:"Your promise",html:`<h2>Your whole offer, <span class="mark sweep">in one sentence</span></h2>
- <div class="promise" id="promise" aria-live="polite"></div>
- <div class="short" id="shortLine"></div>
- <div class="builder">
-  <div>${ans("who","I help","Who?",1)}</div>
-  <div>${ans("result","Achieve","What result?",1)}</div>
-  <div>${ans("method","Through my","Which method?",1).replace(/f-method/g,"f-method2")}</div>
-  <div>${ans("without","Without","What do they hate?",1)}<div class="chips" id="woChips"></div></div>
-  <div>${ans("time","In","How long?",1)}<div class="chips" id="tChips"></div></div>
- </div>`,
- note:"This is the most important sheet today. Don't move on until she'd happily say it out loud. This line anchors the website hero, Instagram bio, VSL and sales calls. Read it back to her.",q:"Too long for a bio? Use the short version underneath: we help X achieve X."},
+{c:3,n:"Your promises",html:`<h2>Three offers, <span class="mark sweep">three clear promises</span></h2>
+ ${ans("bio","Your bio, the line above all three","Confidence coaching for women. Get your confidence back. Find your method.")}
+ <div id="promises" class="stack"></div>
+ <div class="row" id="mEditTabs"></div>
+ <div class="builder" id="mEdit"></div>`,
+ note:"This is the most important sheet today. Don't move on until she'd happily say all three out loud. Read each one back to her. Pick a method to change the words. These lines anchor the website, VSL, Instagram and sales calls.",q:"Too long for a bio? Use the short line under each one, and keep the bio as the umbrella."},
 
 {c:4,n:"What they get",html:`<div class="sec-head"><h2>Decide what goes <span class="mark sweep">in each level</span></h2><p>Tap a circle to add it or take it out. This is what makes the price feel obvious.</p></div>
  <div class="tablewrap"><table id="matrix"></table></div>
@@ -432,7 +437,9 @@ const SL=[
  note:"Tap through in order. Width shows a suggested split for a 60 minute call. Change it to suit her. A set structure means she never walks into a call wondering what to do. Clients feel looked after and it's easy to repeat.",q:"Will this feel robotic? No. The structure stays the same, while the conversation is always hers."},
 
 {c:6,n:"Everything you said",html:`<h2>Here's <span class="mark sweep">your offer</span></h2>
- <div class="promise" id="promise2"></div>
+ <div id="bioOut" class="short"></div>
+ <div id="promise2" class="stack"></div>
+ <div class="reach flowrow"><div><b>Your bio</b><span>Confidence coaching</span></div><div><b>The quiz</b><span>Finds their method</span></div><div><b>Their method</b><span>One clear promise</span></div><div><b>Their level</b><span>Club, Circle or VIP</span></div></div>
  <div id="sumList"></div>
  <div class="row"><button class="pill ink" id="copyAll">Copy all answers</button><span id="copyMsg" class="small" aria-live="polite"></span></div>
  <textarea id="exportBox" readonly hidden aria-label="All answers"></textarea>`,
@@ -514,16 +521,16 @@ sheet.addEventListener("input",e=>{
 /* dots */
 const NICHE=new Set(),GOLD=new Set();
 for(let r=0;r<4;r++)for(let c=6;c<10;c++)NICHE.add(r*10+c);
-[8,9,18,19].forEach(x=>GOLD.add(x));
+[6,7,28,29,36,37].forEach(x=>GOLD.add(x));
 $("#dots").innerHTML=Array.from({length:100},(_,i)=>`<div class="dot" data-i="${i}"></div>`).join("");
 let layer=1,exI=0;
 function drawLayer(){
   $$(".dot").forEach(d=>{const i=+d.dataset.i;d.classList.toggle("n",layer>=2&&NICHE.has(i)&&!(layer===3&&GOLD.has(i)));d.classList.toggle("g",layer===3&&GOLD.has(i))});
   $("#dots").classList.toggle("dim",layer===3);
   $$("[data-layer]").forEach(b=>b.classList.toggle("on",+b.dataset.layer===layer));
-  const picked=(S.a.gold||"").trim();
-  const say=["Personal development","Women's confidence",picked||GOLDS[exI].label];
-  const txt=["Everyone who wants to feel better about themselves.","Women who want more confidence. This is where most confidence coaches stop.",picked?"Your exact client. The women you are the obvious choice for.":"Your exact client. This is only an example. We'll choose yours in a minute."];
+  const picked=S.methods.map(m=>m.who).filter(Boolean).join(", ");
+  const say=["Personal development","Women's confidence",picked||"For example: "+GOLDS[exI].who];
+  const txt=["Everyone who wants to feel better about themselves.","Women who want more confidence. This is where most confidence coaches stop.","Three exact clients, one method each. Still one confidence business."];
   $("#layerOut").innerHTML=`<div class="say">${esc(say[layer-1])}</div><p style="margin-top:6px">${txt[layer-1]}</p>`;
   $("#goldExRow").hidden=!(layer===3&&!picked);
 }
@@ -531,7 +538,7 @@ $("#sl1").addEventListener("click",e=>{const b=e.target.closest("[data-layer]");
 
 /* specificity */
 function drawSpec(){
-  const v=+$("#spec").value, gold=S.a.gold||"overthinkers who talk themselves out of everything";
+  const v=+$("#spec").value, gold=S.methods.map(m=>m.who).find(Boolean)||"overthinkers who talk themselves out of everything";
   const R=[["I'm a coach.","A coach of what?","Everyone with a course",14],["I'm a confidence coach.","There are thousands of those.","Every coach and free post on Instagram",34],["I help women feel more confident.","Maybe. Is that me?","Books, podcasts and free advice",58],["I help "+gold.charAt(0).toLowerCase()+gold.slice(1)+".","That's me. This was made for me.","Almost nobody",100]][v];
   $("#specSay").textContent=R[0];$("#specThink").textContent=R[1];$("#specComp").textContent=R[2];$("#specBar").style.width=R[3]+"%";
   $("#scPub").style.opacity=v>=2?.45:1;$("#scOma").style.opacity=v>=2?1:.55;
@@ -543,9 +550,30 @@ const RULES=[["Specialising creates perceived value","The coach for one kind of 
 $("#rules").innerHTML=RULES.map(r=>`<button class="tap"><span class="star">★</span><h3 style="padding-right:34px">${r[0]}</h3><span class="hint">Tap to open</span><span class="more">${r[1]}</span></button>`).join("");
 $("#rules").onclick=e=>{const t=e.target.closest(".tap");if(t)t.classList.toggle("on")};
 
-/* gold options */
-$("#goldOpts").innerHTML=[...new Set(GOLDS.map(g=>g.group))].map(gr=>`<div class="stack" style="gap:8px"><h3>${esc(gr)}</h3>${GOLDS.map((g,i)=>g.group===gr?`<button class="opt" data-g="${i}">${esc(g.label)}</button>`:"").join("")}</div>`).join("");
-$("#goldOpts").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;S.a.gold=GOLDS[+b.dataset.g].label;fillInputs();syncAll();save();grow()};
+/* methods */
+const SECS=[["name","Pick the method","Your own method name"],["who","Who it's for","Your own: who is it for?"],["res","What they get","Your own: what do they get?"],["wo","Without","Your own: without what?"],["time","How long","Your own timeframe"]];
+const TIMES=["6 weeks","8 weeks","12 weeks","90 days"];
+const uniq=a=>[...new Set(a)];
+const clean=(f,v)=>{v=v.trim();if(f==="name"&&v){if(!/method$/i.test(v))v+=" Method";if(!/^the /i.test(v))v="The "+v}return v};
+function optionsFor(f){const c=S.custom[f]||[];if(f==="time")return uniq([...TIMES,...c]).map(v=>({v,l:v}));if(f==="who")return [...GOLDS.map(g=>({v:g.who,l:g.label})),...c.map(v=>({v,l:v}))];return uniq([...GOLDS.map(g=>g[f]),...c]).map(v=>({v,l:v}))}
+const isDone=m=>SECS.every(([f])=>(m[f]||"").trim());
+const mTitle=i=>S.methods[i].name||"Method "+(i+1);
+function matchG(m){return GOLDS.find(g=>g.name===m.name||g.who===m.who||g.res===m.res)||null}
+function drawBuild(){
+  const m=S.methods[S.mi],g=matchG(m);
+  $("#mCards").innerHTML=S.methods.map((x,i)=>{const f=SECS.filter(([k])=>(x[k]||"").trim()).length;return `<button class="mcard${i===S.mi?" on":""}" data-mi="${i}"><span class="mhead"><b>${esc(mTitle(i))}</b><span class="mcount">${f===5?"★":f+" of 5"}</span></span>${x.who?`<span>For ${esc(x.who)}</span>`:""}${x.res?`<span>Gets ${esc(x.res)}</span>`:""}${x.wo?`<span>Without ${esc(x.wo)}</span>`:""}${x.time?`<span>In ${esc(x.time)}</span>`:""}${f===0?`<span class="mempty">Nothing picked yet</span>`:""}</button>`}).join("");
+  $("#mSecs").innerHTML=SECS.map(([f,t,ph],n)=>`<div class="stack" style="gap:10px"><h3>${n+1}. ${t}</h3><div class="mix-chips">${optionsFor(f).map(o=>{const on=m[f]===o.v;const other=(f==="name"||f==="who")?S.methods.findIndex((x,i)=>i!==S.mi&&x[f]===o.v):-1;const sug=!on&&g&&g[f]===o.v;return `<button class="mchip${on?" on":""}${other>=0?" taken":""}" data-f="${f}" data-v="${esc(o.v)}" ${other>=0?"disabled":""}>${sug?'<i>★</i> ':""}${esc(o.l)}${other>=0?` <small>in method ${other+1}</small>`:""}</button>`}).join("")}</div>
+  <form class="mown" data-f="${f}"><input aria-label="${esc(ph)}" placeholder="${esc(ph)}" autocomplete="off"><button class="pill" type="submit">Add</button></form></div>`).join("");
+}
+function pick(f,v){
+  const m=S.methods[S.mi];m[f]=m[f]===v?"":v;
+  if(isDone(m)){const n=S.methods.findIndex(x=>!isDone(x));if(n>=0)S.mi=n}
+  syncAll();save();
+}
+$("#mSecs").addEventListener("click",e=>{const b=e.target.closest(".mchip");if(b&&!b.disabled)pick(b.dataset.f,b.dataset.v)});
+$("#mSecs").addEventListener("submit",e=>{e.preventDefault();const fm=e.target,f=fm.dataset.f,inp=fm.querySelector("input"),v=clean(f,inp.value);if(!v)return;if(!optionsFor(f).some(o=>o.v===v))S.custom[f].push(v);S.methods[S.mi][f]="";pick(f,v)});
+$("#mCards").addEventListener("click",e=>{const b=e.target.closest("[data-mi]");if(b){S.mi=+b.dataset.mi;syncAll();save()}});
+$("#mStart").onclick=()=>{const T=[["The Come Back Method","12 weeks"],["The Say No Method","8 weeks"],["The Take Up Space Method","8 weeks"]];S.methods=T.map(([n,t])=>{const g=GOLDS.find(x=>x.name===n);return {name:g.name,who:g.who,res:g.res,wo:g.wo,time:t}});S.mi=0;syncAll();save()};
 
 /* sharpen */
 const SHARP=[["Feel more confident",18],["Speak up at work",42],["Speak up in every meeting and ask for the raise",72],["Ask for the raise within 8 weeks, with the words ready",100]];
@@ -553,30 +581,23 @@ let sharp=0;
 function drawSharp(){$("#sharpSay").textContent=SHARP[sharp][0];$("#sharpBar").style.width=SHARP[sharp][1]+"%";$("#sharpBtn").textContent=sharp===SHARP.length-1?"Start again":"Make it more specific"}
 $("#sharpBtn").onclick=()=>{sharp=(sharp+1)%SHARP.length;drawSharp()};
 
-/* name */
-const NAMES=["The Come Back Method","The Big Sis Method","The Take Up Space Method","The Highlighter Method","The 3 Stage Rebirth","The Rebirth Method"];
-let nameI=0;
-const drawName=()=>$("#nameIdea").textContent=NAMES[nameI];
-$("#nameNext").onclick=()=>{nameI=(nameI+1)%NAMES.length;drawName()};
-$("#nameUse").onclick=()=>{S.a.method=NAMES[nameI];fillInputs();syncAll();save()};
-
 /* flips */
-const FLIPS=[["I help women feel more confident.","I use the Come Back Method to help women who've lost themselves feel like themselves again in 12 weeks, without becoming someone new."],["I help women stop overthinking.","I use the Rebirth Method to help overthinkers trust themselves and act in 8 weeks, without needing to feel ready first."],["I help women be confident at work.","I use the Take Up Space Method to help women who play small at work speak up and ask for more in 8 weeks, without faking a personality."]];
-$("#flips").innerHTML=FLIPS.map(f=>`<button class="flip"><span class="front"><h3>Instead of</h3><q>${f[0]}</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>You say</h3><q>${f[1]}</q></span></button>`).join("");
+const FALLBACK=[{name:"The Come Back Method",who:"women who've lost themselves",res:"a version of themselves they recognise and love again",wo:"becoming someone new",time:"12 weeks"},{name:"The Say No Method",who:"people pleasers",res:"the confidence to say no and mean it",wo:"feeling guilty",time:"8 weeks"},{name:"The Take Up Space Method",who:"women who shrink and play small",res:"the confidence to be seen and take up space",wo:"faking a personality",time:"8 weeks"}];
+function drawFlips(){const open=$$("#flips .flip").map(f=>f.classList.contains("on"));
+  $("#flips").innerHTML=S.methods.map((m,i)=>{const d=isDone(m)?m:FALLBACK[i];return `<button class="flip${open[i]?" on":""}"><span class="front"><h3>Instead of</h3><q>I help ${esc(d.who)}.</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>You say</h3><q>I use ${esc(d.name.replace(/^The /,"the "))} to help ${esc(d.who)} get ${esc(d.res)} in ${esc(d.time)}, without ${esc(d.wo)}.</q></span></button>`}).join("")}
 $("#flips").onclick=e=>{const t=e.target.closest(".flip");if(t)t.classList.toggle("on")};
 
 /* promise */
-function slot(k,ph){const v=(S.a[k]||"").trim();return `<span class="slot${v?"":" empty"}">${esc(v||ph)}</span>`}
-function promiseHTML(){return `I help ${slot("who","who")}<br>achieve ${slot("result","what result")}<br>through ${slot("method","my method")}<br>without ${slot("without","what they hate")}<br>in ${slot("time","how long")}.`}
-function promiseText(){const a=S.a;return (a.who||a.result)?`I help ${a.who||"___"} achieve ${a.result||"___"} through ${a.method||"___"} without ${a.without||"___"} in ${a.time||"___"}.`:""}
-const TIMES=["6 weeks","8 weeks","12 weeks","90 days"];
-function drawChips(){
-  const g=eg();
-  $("#tChips").innerHTML=TIMES.map(t=>`<button class="chip" data-chip="time" data-v="${t}">${t}</button>`).join("");
-  $("#woChips").innerHTML=`<button class="chip" data-chip="without" data-v="${esc(g.wo)}">${esc(g.wo)}</button>`;
-}
-$("#woChips").closest(".slide").addEventListener("click",e=>{const c=e.target.closest("[data-chip]");if(c){S.a[c.dataset.chip]=c.dataset.v;fillInputs();syncAll();save()}});
-function prefillPromise(){const g=goldObj(),a=S.a;let ch=false;if(!a.who&&g){a.who=g.who;ch=true}if(!a.result&&g){a.result=g.res;ch=true}if(ch){fillInputs();save()}}
+const sl=(v,ph)=>`<span class="slot${(v||"").trim()?"":" empty"}">${esc((v||"").trim()||ph)}</span>`;
+function promiseHTML(m){return `I help ${sl(m.who,"who")}<br>achieve ${sl(m.res,"what result")}<br>through ${sl(m.name?m.name.replace(/^The /,"the "):"",  "my method")}<br>without ${sl(m.wo,"what they hate")}<br>in ${sl(m.time,"how long")}.`}
+function promiseText(m){return (m.who||m.res)?`I help ${m.who||"___"} achieve ${m.res||"___"} through ${m.name?m.name.replace(/^The /,"the "):"___"} without ${m.wo||"___"} in ${m.time||"___"}.`:""}
+function shortText(m){return (m.who||m.res)?`We help ${m.who||"___"} achieve ${m.res||"___"}.`:""}
+const promisesHTML=()=>S.methods.map((m,i)=>`<div class="stack" style="gap:8px"><h3>${esc(mTitle(i))}</h3><div class="promise">${promiseHTML(m)}</div><div class="short">${esc(shortText(m)||"We help X achieve X.")}</div></div>`).join("");
+function drawEditTabs(){$("#mEditTabs").innerHTML=S.methods.map((m,i)=>`<button class="pill${i===S.mi?" on":""}" data-ed="${i}">Change ${esc(mTitle(i))}</button>`).join("")}
+function drawEdit(){const m=S.methods[S.mi];const L=[["who","I help"],["res","Achieve"],["name","Through"],["wo","Without"],["time","In"]];
+  $("#mEdit").innerHTML=L.map(([f,l])=>`<div><div class="ans${(m[f]||"").trim()?" filled":""}"><label for="e-${f}">${l}</label><input id="e-${f}" data-mk="${f}" value="${esc(m[f])}" autocomplete="off"></div></div>`).join("")}
+$("#mEditTabs").addEventListener("click",e=>{const b=e.target.closest("[data-ed]");if(b){S.mi=+b.dataset.ed;syncAll();save()}});
+$("#mEdit").addEventListener("input",e=>{const f=e.target.dataset.mk;if(!f)return;S.methods[S.mi][f]=e.target.value;e.target.closest(".ans").classList.toggle("filled",!!e.target.value.trim());$("#promises").innerHTML=promisesHTML();drawBuild();drawFlips();drawSummary();drawTitles();save()});
 
 /* matrix */
 const TIERS=["Free workshop","The Club","Rebirth Circle","Big Sis VIP"];
@@ -643,24 +664,26 @@ $("#tl").onclick=e=>{const b=e.target.closest("[data-s]");if(b){stopI=+b.dataset
 
 /* summary */
 const SUM=[
- ["gold","Your exact client",["Website headline","VSL hook","Instagram bio"],5],
- ["outcome","What they get",["Offer pages","Apply form"],6],
- ["method","Your method",["Website","VSL","Course"],7],
- ["loved","What clients used most",["Offer pages","Circle"],10],
- ["cost","Cost of staying stuck",["VSL","Sales calls"],11],
- ["q1proof","Your strongest proof",["Website","VSL"],12],
- ["coachq","Your best question",["Coaching calls","Instagram posts"],14]
+ ["q_dm","What women DM you about",["VSL","Instagram posts"],"Find it"],
+ ["q_best","Your best mentee results",["Website","VSL"],"Find it"],
+ ["q_self","Who you were before",["VSL","Instagram posts"],"Find it"],
+ ["q_pain","The problem they most want fixed",["Website","Sales calls"],"Find it"],
+ ["loved","What clients used most",["Offer pages","Circle"],"What they get"],
+ ["cost","Cost of staying stuck",["VSL","Sales calls"],"The 10x rule"],
+ ["q1proof","Your strongest proof",["Website","VSL"],"What's in their head"],
+ ["coachq","Your best question",["Coaching calls","Instagram posts"],"Call structure"]
 ];
 function drawSummary(){
-  $("#promise2").innerHTML=promiseHTML();
-  $("#sumList").innerHTML=SUM.map(([k,l,g,to])=>{const v=(S.a[k]||"").trim();return `<div class="sum"><h3>${l}</h3>${v?`<div class="t">${esc(v)}</div>`:`<button class="t none" style="text-align:left;text-decoration:underline" data-goto="${to}">Not answered yet. Go back to it.</button>`}<div class="goes">${g.map(x=>`<span>${x}</span>`).join("")}</div></div>`}).join("");
+  $("#promise2").innerHTML=promisesHTML();$("#bioOut").textContent=(S.a.bio||"").trim()||"Confidence coaching for women. Get your confidence back. Find your method.";
+  $("#sumList").innerHTML=SUM.map(([k,l,g,to])=>{const v=(S.a[k]||"").trim();return `<div class="sum"><h3>${l}</h3>${v?`<div class="t">${esc(v)}</div>`:`<button class="t none" style="text-align:left;text-decoration:underline" data-goto="${esc(to)}">Not answered yet. Go back to it.</button>`}<div class="goes">${g.map(x=>`<span>${x}</span>`).join("")}</div></div>`}).join("");
 }
-$("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(+b.dataset.goto)};
+$("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(SL.findIndex(x=>x.n===b.dataset.goto))};
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
-  L.push("THE OFFER WORKBOOK");push("Promise",promiseText());push("Short",shortText());
-  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",gold:"Exact client",outcome:"Outcome",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
-  Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
+  L.push("THE OFFER WORKBOOK");push("Bio",S.a.bio);
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
+  S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));push("What exactly they get",S.a["out"+i]);[1,2,3].forEach(n=>push("Stage "+n,S.a[`m${i}s${n}`]))});
+  L.push("");Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Test Circle price: "+money(S.price));
   L.push("What's in each level:");
   Object.keys(S.matrix).forEach(r=>{const inc=TIERS.filter((_,i)=>S.matrix[r][i]);if(inc.length)L.push("  "+r+": "+inc.join(", "))});
@@ -677,22 +700,16 @@ sheet.addEventListener("change",e=>{const t=e.target;if(t.dataset&&t.dataset.t){
 $$("[data-t]").forEach(t=>t.checked=!!S.done[t.dataset.t]);
 
 /* shared sync */
-function shortText(){const a=S.a;return (a.who||a.result)?`We help ${a.who||"___"} achieve ${a.result||"___"}.`:""}
+function drawTitles(){$$("[data-mt]").forEach(el=>el.textContent=mTitle(+el.dataset.mt))}
 function syncAll(){
-  $("#promise").innerHTML=promiseHTML();
-  $("#shortLine").textContent=shortText()||"We help X achieve X.";
-  $$("[data-g]").forEach(b=>b.classList.toggle("on",GOLDS[+b.dataset.g].label===S.a.gold));
-  drawLayer();drawSpec();drawChips();drawSummary();
+  drawBuild();drawFlips();$("#promises").innerHTML=promisesHTML();drawEditTabs();drawEdit();drawTitles();
+  drawLayer();drawSpec();drawSummary();
 }
-function onEnter(){
-  const n=SL[cur].n;
-  if(n==="Your promise"){prefillPromise();syncAll()}
-  if(n==="Everything you said")drawSummary();
-}
+function onEnter(){}
 
 /* boot */
 function boot(){
-  drawName();drawSharp();drawMatrix();drawVals();drawTen();drawRP();drawStop();fillInputs();syncAll();
+  drawSharp();drawMatrix();drawVals();drawTen();drawRP();drawStop();fillInputs();syncAll();
   setCurrent(0);grow();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(grow);
 }
