@@ -122,6 +122,18 @@ input[type=range]{width:100%;accent-color:var(--cherry);height:28px;cursor:point
 .opt.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 
 /* pick and mix */
+.ffrom{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;font-weight:600;font-size:15px}
+.ffrom span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+.ffrom i{font-style:normal;font-weight:500;color:var(--muted);font-size:14px}
+.ladder2{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:end}
+.lstep{display:flex;flex-direction:column;justify-content:flex-end;gap:6px;min-height:var(--h);padding:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--r) var(--r) 6px 6px;transition:background .15s}
+.lstep:hover{background:var(--paper-2)}
+.lstep.on{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.lname{font-weight:600;font-size:15px;line-height:1.25}
+.lprice{font:800 clamp(22px,2.6vw,32px)/1 var(--head);letter-spacing:-.03em;color:var(--cherry)}
+.lprice small{font:500 13px var(--body);letter-spacing:0;color:var(--muted)}
+.lstep.on .lprice{color:var(--hl)}
+.lstep.on .lprice small{color:var(--on-ink-2)}
 .igmock{width:100%;max-width:560px;height:auto;display:block;margin:0 auto;border:1px solid var(--line);border-radius:var(--r);background:#fff}
 .cstages{margin:0;padding-left:20px;font-size:15px;color:var(--ink-2)}
 .extable{min-width:560px}
@@ -256,6 +268,8 @@ thead th{font-size:14px;font-weight:600;color:var(--ink-2);background:var(--pape
   .mcards{position:static;margin:0;padding:0}
   #promises,#promise2{grid-template-columns:minmax(0,1fr)}
   .flowrow,.gstats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ladder2{grid-template-columns:minmax(0,1fr)}
+  .lstep{min-height:0;flex-direction:row;justify-content:space-between;align-items:center;border-radius:14px}
   .grid3,.builder{grid-template-columns:minmax(0,1fr)}
   .builder>div,.builder>div:nth-child(-n+2){grid-column:auto}
   .reach{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -400,6 +414,10 @@ const SL=[
 
 {c:4,n:"How it could look",html:`<div class="sec-head"><h2>How this could look <span class="mark sweep">on Instagram</span></h2><p>Your page, your bio and three clear doors. This is only an example, so the names and wording can change.</p></div>
  <img class="igmock" src="${MOCK}" alt="Example Instagram profile for The Confidence Rebirth with three pinned method posts">`},
+{c:5,n:"The offer ladder",html:`<div class="sec-head"><h2>Your funnel and <span class="mark sweep">offer ladder</span></h2><p>Each method has the same course, masterclass and 1:1. Same content, delivered three ways, so you only create it once.</p></div>
+ <div class="ffrom" aria-label="How women find the ladder"><span>Instagram and your content</span><i>then</i><span>The quiz finds their method</span><i>then</i><span>They step onto the ladder</span></div>
+ <div class="ladder2" id="ladder"></div>
+ <div id="ladderOut" class="note stack" style="gap:8px"></div>`},
 {c:5,n:"Three Circles",html:`<div class="sec-head"><h2>Three groups, <span class="mark sweep">one at a time</span></h2><p>The masterclass is $3,333 per woman, for 8 weeks with a weekly live call and 25 women max. Each method gets its own group. We fill one, then open the next.</p></div>
  <div class="inkcard stack" style="gap:6px"><h3 style="color:var(--hl)">Show all three, but only sell one</h3><p>The other two appear on the site as coming soon, with a waitlist. Women who aren't right for the first still have somewhere to go, and you can see real demand before you film anything else.</p></div>
  <div class="grid3" id="groups"></div>
@@ -580,6 +598,22 @@ const promisesHTML=()=>S.methods.map((m,i)=>`<div class="stack" style="gap:8px">
 const money=n=>"$"+Math.round(n).toLocaleString("en-US");
 const PRICE=3333;
 
+/* offer ladder */
+const LADDER=[
+ {n:"Free workshop",p:"$0",t:"Monthly",d:"One live confidence workshop with you each month. This is how they get to know you.",w:"1 hour a month",a:"Open to everyone"},
+ {n:"Paid membership",p:"$33",u:"a month",t:"Ongoing",d:"A monthly live group call and the members' chat, for women who want ongoing support.",w:"1 hour a month",a:"Join online"},
+ {n:"Course",p:"$888",t:"Own time",d:"The full method, recorded. They go through the chapters in their own time.",w:"Film it once",a:"Buy online"},
+ {n:"25 woman masterclass",p:"$3,333",t:"8 weeks",d:"You go through the method live with a group of 25. They can ask questions, get support and stay accountable. The course is included.",w:"1 hour a week per group",a:"Apply, then a sales call"},
+ {n:"1:1",p:"$8,888",t:"12 weeks",d:"You go through the method 1:1, fully personalised to them. If one method doesn't fit, you build them a custom confidence plan. The course is included. 10 places in total.",w:"1 hour a week per client",a:"Apply, then a sales call"}
+];
+let ladderI=3;
+function drawLadder(){
+  $("#ladder").innerHTML=LADDER.map((o,i)=>`<button class="lstep${i===ladderI?" on":""}" data-l="${i}" style="--h:${70+i*44}px"><span class="lname">${esc(o.n)}</span><span class="lprice">${o.p}${o.u?`<small> ${o.u}</small>`:""}</span></button>`).join("");
+  const o=LADDER[ladderI];
+  $("#ladderOut").innerHTML=`<h3>${esc(o.n)}: ${o.p}${o.u?" "+o.u:""}</h3><p>${esc(o.d)}</p><div class="kv"><b>Length</b><span>${esc(o.t)}</span><b>How they join</b><span>${esc(o.a)}</span><b>Your time</b><span>${esc(o.w)}</span></div>`;
+}
+$("#ladder").addEventListener("click",e=>{const b=e.target.closest("[data-l]");if(b){ladderI=+b.dataset.l;drawLadder()}});
+
 /* three circles */
 function drawGroups(){
   if(S.groups.join()==="20,20,20")S.groups=[25,0,0];
@@ -688,6 +722,7 @@ $$("[data-t]").forEach(t=>t.checked=!!S.done[t.dataset.t]);
 /* shared sync */
 function drawTitles(){$$("[data-mt]").forEach(el=>el.textContent=mTitle(+el.dataset.mt))}
 function syncAll(){
+  drawLadder();
   drawBuild();drawFlips();drawTitles();
   drawLayer();drawSpec();drawSummary();drawGroups();drawCourses();
 }
