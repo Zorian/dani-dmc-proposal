@@ -127,12 +127,6 @@ input[type=range]{width:100%;accent-color:var(--cherry);height:28px;cursor:point
 .quote{font:600 20px/1.3 var(--head);letter-spacing:-.01em}
 .box .quote{margin-top:6px}
 
-/* strike list */
-.strike{display:block;width:100%;padding:12px 0;font-size:18px;font-weight:500;border-top:1px solid var(--line);background-image:linear-gradient(var(--cherry),var(--cherry));background-repeat:no-repeat;background-position:0 52%;background-size:0 3px;transition:background-size .3s,color .3s}
-#strikes .strike:last-child{border-bottom:1px solid var(--line)}
-.strike.on{background-size:100% 3px;color:var(--muted)}
-#s-reveal{transition:opacity .35s}
-
 /* flip */
 .flip{perspective:1000px;display:grid;min-height:270px}
 .flip>span{grid-area:1/1;backface-visibility:hidden;transition:transform .45s;padding:24px 24px 44px;border-radius:var(--r);display:flex;flex-direction:column;gap:12px;position:relative}
@@ -368,27 +362,6 @@ const SL=[
  </div></div>`,
  note:"Tap the button three times. The more measurable the promise, the easier it is for someone to justify the investment. Those quotes are from testimonials on the site: ask what actually changed for those women.",q:"Can I promise a result? Promise the work and the path, and show real results. Never guarantee an income or a specific outcome."},
 
-{c:2,n:"Prove it",html:`<div class="sec-head"><h2>Make confidence <span class="mark sweep">something you can see</span></h2><p>Confidence feels vague. So we give them five things to hold on to.</p></div>
- <div class="grid2">
-  ${ans("r_out","Specific outcomes","Asks for the raise",1)}
-  ${ans("r_meas","Measurable improvements","Self rating moves from 4 out of 10 to 8",1)}
-  ${ans("r_time","A realistic timeframe","8 weeks",1)}
-  ${ans("r_sign","Signs it's working","Speaks first on a team call",1)}
- </div>
- ${ans("r_past","Past client transformations","Who changed, and how? Jada, Taylor, Jaleesa...")}`,
- note:"The grey text in each line is an example. Replace it with hers. The confidence score idea means every client rates themselves at the start, midpoint and end, which also gives you proof to post.",q:"Do I need numbers for everything? No. A clear moment works just as well: they spoke first, they booked the trip."},
-
-{c:3,n:"Unique solution",html:`<h2>They've already <span class="mark sweep">tried everything</span></h2>
- <div class="split"><div class="stack">
-  <p class="small">Tap each one to cross it out.</p>
-  <div id="strikes"></div>
-  <div class="inkcard" id="s-reveal" style="opacity:.25"><p style="font-size:19px">They aren't only buying a result. They're buying <b>your path</b> to it. That's what gives them hope that this time will be different.</p></div>
- </div><div class="stack">
-  ${ans("tried","What have they tried that didn't work?","What do your DMs say?")}
-  ${ans("diff","What do you do differently from everyone else?","What would they never get from another coach?")}
- </div></div>`,
- note:"Also known as the unique mechanism. Your solution isn't just what you do. It's how you do it differently. People who've failed before need a reason to believe this time won't be the same.",q:"What if what I do isn't that new? It rarely is. Her order, her language and her method are what make it hers."},
-
 {c:3,n:"Name it",html:`<h2>Give your path <span class="mark sweep">a name</span></h2>
  <div class="split"><div class="stack">
   <p>A method with a name feels like a real system. It's yours, and nobody else can offer it.</p>
@@ -580,11 +553,6 @@ let sharp=0;
 function drawSharp(){$("#sharpSay").textContent=SHARP[sharp][0];$("#sharpBar").style.width=SHARP[sharp][1]+"%";$("#sharpBtn").textContent=sharp===SHARP.length-1?"Start again":"Make it more specific"}
 $("#sharpBtn").onclick=()=>{sharp=(sharp+1)%SHARP.length;drawSharp()};
 
-/* strikes */
-const TRIED=["Affirmations in the mirror","A shelf of self help books","Free tips on Instagram","Just be yourself","Fake it till you make it"];
-$("#strikes").innerHTML=TRIED.map(t=>`<button class="strike">${t}</button>`).join("");
-$("#strikes").onclick=e=>{const b=e.target.closest(".strike");if(!b)return;b.classList.toggle("on");$("#s-reveal").style.opacity=$$(".strike.on").length>=3?1:.25};
-
 /* name */
 const NAMES=["The Come Back Method","The Big Sis Method","The Take Up Space Method","The Highlighter Method","The 3 Stage Rebirth","The Rebirth Method"];
 let nameI=0;
@@ -677,14 +645,11 @@ $("#tl").onclick=e=>{const b=e.target.closest("[data-s]");if(b){stopI=+b.dataset
 const SUM=[
  ["gold","Your exact client",["Website headline","VSL hook","Instagram bio"],5],
  ["outcome","What they get",["Offer pages","Apply form"],6],
- ["r_meas","How you measure it",["Offer pages","Client check ins"],7],
- ["tried","What they've tried",["VSL","Instagram posts"],8],
- ["diff","What you do differently",["Website","VSL","Sales calls"],8],
- ["method","Your method",["Website","VSL","Course"],9],
- ["loved","What clients used most",["Offer pages","Circle"],12],
- ["cost","Cost of staying stuck",["VSL","Sales calls"],13],
- ["q1proof","Your strongest proof",["Website","VSL"],14],
- ["coachq","Your best question",["Coaching calls","Instagram posts"],16]
+ ["method","Your method",["Website","VSL","Course"],7],
+ ["loved","What clients used most",["Offer pages","Circle"],10],
+ ["cost","Cost of staying stuck",["VSL","Sales calls"],11],
+ ["q1proof","Your strongest proof",["Website","VSL"],12],
+ ["coachq","Your best question",["Coaching calls","Instagram posts"],14]
 ];
 function drawSummary(){
   $("#promise2").innerHTML=promiseHTML();
@@ -694,7 +659,7 @@ $("#sumList").onclick=e=>{const b=e.target.closest("[data-goto]");if(b)go(+b.dat
 function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");push("Promise",promiseText());push("Short",shortText());
-  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",gold:"Exact client",outcome:"Outcome",r_out:"Specific outcomes",r_meas:"Measurable",r_time:"Timeframe",r_sign:"Signs it's working",r_past:"Past transformations",tried:"Already tried",diff:"What's different",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
+  const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",gold:"Exact client",outcome:"Outcome",method:"Method",m1:"Stage one",m2:"Stage two",m3:"Stage three",who:"I help",result:"Achieve",without:"Without",time:"In",loved:"Clients used most",cost:"Cost of staying stuck",q1proof:"Strongest proof",coachq:"Best coaching question",d_price:"Club founding price",d_cap:"Founding members",d_date:"Next workshop"};
   Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Test Circle price: "+money(S.price));
   L.push("What's in each level:");
