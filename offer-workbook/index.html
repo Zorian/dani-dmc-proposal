@@ -583,9 +583,10 @@ function drawSharp(){$("#sharpSay").textContent=SHARP[sharp][0];$("#sharpBar").s
 $("#sharpBtn").onclick=()=>{sharp=(sharp+1)%SHARP.length;drawSharp()};
 
 /* flips */
-const BLANKFLIP={name:"your method",who:"the women you choose",res:"the result you choose",wo:"what they hate"};
+function flipExamples(){const used=S.methods.filter(isDone).map(m=>m.name);const pref=["The Come Back Method","The Say No Method","The Take Up Space Method",...GOLDS.map(g=>g.name)];return pref.filter((n,i,a)=>a.indexOf(n)===i&&!used.includes(n)).map(n=>GOLDS.find(g=>g.name===n))}
 function drawFlips(){const open=$$("#flips .flip").map(f=>f.classList.contains("on"));
-  $("#flips").innerHTML=S.methods.map((m,i)=>{const d=isDone(m)?m:BLANKFLIP;return `<button class="flip${open[i]?" on":""}"><span class="front"><h3>Instead of</h3><q>${isDone(m)?"I help "+esc(d.who)+".":"I help women feel more confident."}</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>You say</h3><q>I use ${esc(d.name.replace(/^The /,"the "))} to help ${esc(d.who)} get ${esc(d.res)}, without ${esc(d.wo)}.</q></span></button>`}).join("")}
+  const ex=flipExamples();
+  $("#flips").innerHTML=S.methods.map((m,i)=>{const d=isDone(m)?m:ex.shift();return `<button class="flip${open[i]?" on":""}"><span class="front"><h3>Instead of</h3><q>${isDone(m)?"I help "+esc(d.who)+".":"I help women feel more confident."}</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>${isDone(m)?"You say":"You say, for example"}</h3><q>I use ${esc(d.name.replace(/^The /,"the "))} to help ${esc(d.who)} get ${esc(d.res)}, without ${esc(d.wo)}.</q></span></button>`}).join("")}
 $("#flips").onclick=e=>{const t=e.target.closest(".flip");if(t)t.classList.toggle("on")};
 
 /* promise */
