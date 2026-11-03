@@ -121,6 +121,15 @@ input[type=range]{width:100%;accent-color:var(--cherry);height:28px;cursor:point
 .opt:hover{background:var(--paper-2)}
 .opt.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
 
+/* chapter page */
+section.block:has(.chapterpage){background:var(--ink);border-top:0}
+section.block:has(.chapterpage)+section.block{border-top:0}
+.slide:has(.chapterpage){padding-block:0}
+.chapterpage{min-height:calc(100vh - 61px);min-height:calc(100svh - 61px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center;color:var(--on-ink);padding-block:64px}
+.chapterpage h2{font-size:clamp(44px,8vw,104px);letter-spacing:-.04em;line-height:1;max-width:14ch}
+.chapterpage .mark{color:var(--ink)}
+.cstar{font-size:clamp(34px,5vw,56px);line-height:1;color:var(--hl)}
+
 /* pick and mix */
 .ffrom{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;font-weight:600;font-size:15px}
 .ffrom span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
@@ -390,6 +399,8 @@ const SL=[
   ${ans("q_self","Before you had your confidence, who were you?","What version of yourself was that?")}
   ${ans("q_pain","Which confidence problem are women most desperate to fix?","In your opinion, what do they struggle with most?")}
  </div>`},
+
+{c:2,n:"Package your offer",html:`<div class="chapterpage"><span class="cstar" aria-hidden="true">☆</span><h2>Now let's package <span class="mark sweep">your offer</span></h2></div>`},
 
 {c:2,n:"One engine",html:`<div class="sec-head"><h2>One engine, <span class="mark sweep">three doors</span></h2><p>Confidence is broad, and one niche is too narrow. So you run one confidence business with three specific ways in.</p></div>
  <div class="grid3">
