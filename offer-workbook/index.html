@@ -157,7 +157,6 @@ section.block:has(.chapterpage)+section.block{border-top:0}
 .lstep.on .lprice{color:var(--hl)}
 .lstep.on .lprice small{color:var(--on-ink-2)}
 .igmock{width:100%;max-width:560px;height:auto;display:block;margin:0 auto;border:1px solid var(--line);border-radius:var(--r);background:#fff}
-.cstages{margin:0;padding-left:20px;font-size:15px;color:var(--ink-2)}
 .extable{min-width:560px}
 .extable caption{caption-side:top;text-align:left;padding:14px 20px 0;font-weight:600;font-size:14px;color:var(--cherry)}
 .extable th,.extable td{text-align:left}
@@ -433,9 +432,6 @@ const SL=[
   <div class="inkcard"><h3 style="color:var(--hl)">Your clients already said it</h3><p style="margin-top:6px">“It was worth every penny.” “I love the person I am becoming.” What had actually changed for them?</p></div>
  </div></div>`},
 
-{c:4,n:"The stages",html:`<div class="sec-head"><h2>Give each method <span class="mark sweep">three stages</span></h2><p>A method with clear stages feels like a real system, and nobody else can offer it. Three is enough.</p></div>
- <div class="grid3">${[0,1,2].map(i=>`<div class="stack note"><h3 data-mt="${i}">Method ${i+1}</h3>${ans(`m${i}s1`,"Stage one","Where every client starts",1)}${ans(`m${i}s2`,"Stage two","The middle of the work",1)}${ans(`m${i}s3`,"Stage three","How they finish",1)}</div>`).join("")}</div>`},
-
 {c:4,n:"Instead of",html:`<h2>Instead of this, <span class="mark sweep">you say that</span></h2>
  <div class="grid3" id="flips"></div><p class="small">Tap a card to turn it over.</p>`},
 
@@ -451,7 +447,7 @@ const SL=[
  <div class="reach gstats" id="gStats"></div>
  <p class="small">Example numbers at $3,333 per woman. Not a promise.</p>`},
 
-{c:5,n:"Three courses",html:`<div class="sec-head"><h2>One recorded course <span class="mark sweep">for each method</span></h2><p>You film each one once, and it sells any time. Your three stages become the structure of each course.</p></div>
+{c:5,n:"Three courses",html:`<div class="sec-head"><h2>One recorded course <span class="mark sweep">for each method</span></h2><p>You film each one once, and it sells any time.</p></div>
  <div class="grid3" id="courses"></div>
  <div class="row"><button class="pill" data-cm="full">A full course each</button><button class="pill" data-cm="core">Shared core, then one track each</button></div>
  <div class="reach gstats" id="cStats"></div>
@@ -638,7 +634,7 @@ $("#groups").addEventListener("input",e=>{const i=e.target.dataset.gi;if(i==null
 /* three courses */
 let courseMode="full";
 function drawCourses(){
-  $("#courses").innerHTML=S.methods.map((m,i)=>{const st=[1,2,3].map(n=>(S.a[`m${i}s${n}`]||"").trim()).filter(Boolean);return `<div class="note stack" style="gap:8px"><h3>${esc(mTitle(i))}</h3><p class="small">${m.res?"Helps them get "+esc(m.res)+".":"Recorded course"}</p>${st.length?`<ol class="cstages">${st.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:`<p class="small">Your three stages will show here.</p>`}</div>`}).join("");
+  $("#courses").innerHTML=S.methods.map((m,i)=>{return `<div class="note stack" style="gap:8px"><h3>${esc(mTitle(i))}</h3><p class="small">${m.res?"Helps them get "+esc(m.res)+".":"Recorded course"}</p></div>`}).join("");
   const full=courseMode==="full";
   $$("[data-cm]").forEach(b=>b.classList.toggle("on",b.dataset.cm===courseMode));
   $("#cStats").innerHTML=`<div><b>3</b><span>Courses to sell</span></div><div><b>${full?84:56}</b><span>Videos to film</span></div><div><b>${full?"13.5":"9"} hours</b><span>Of finished video</span></div><div><b>${full?"0":"14"}</b><span>Videos shared by all three</span></div>`;
@@ -651,7 +647,7 @@ function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");
   const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",firstcourse:"First course to film",cost:"Cost of staying stuck",d_date:"Next workshop"};
-  S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));[1,2,3].forEach(n=>push("Stage "+n,S.a[`m${i}s${n}`]))});
+  S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));});
   L.push("");[0,1,2].forEach(i=>push("Outcome "+(i+1),S.a["out"+i]));Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Masterclass price: "+money(PRICE)+" per woman");
   L.push("Masterclass groups: "+S.groups.map((n,i)=>mTitle(i)+" "+n).join(", "));
