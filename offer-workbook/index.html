@@ -358,7 +358,7 @@ const SL=[
     </div>
   </div>`},
 
-{c:1,n:"The dots",html:`<h2>Most confidence coaches <span class="mark sweep">stop at the niche</span></h2>
+{c:1,n:"The dots",html:`<h2>Most coaches <span class="mark sweep">stop at the niche</span></h2>
  <div class="split"><div class="stack">
    <div class="row"><button class="pill" data-layer="1">Market</button><button class="pill" data-layer="2">Niche</button><button class="pill" data-layer="3">Your exact clients</button></div>
    <div class="layer-out" id="layerOut"></div>
@@ -514,7 +514,7 @@ sheet.addEventListener("input",e=>{
 /* dots */
 const NICHE=new Set(),GOLD=new Set();
 for(let r=0;r<4;r++)for(let c=6;c<10;c++)NICHE.add(r*10+c);
-[6,7,28,29,36,37].forEach(x=>GOLD.add(x));
+[8,9,18,19].forEach(x=>GOLD.add(x));
 $("#dots").innerHTML=Array.from({length:100},(_,i)=>`<div class="dot" data-i="${i}"></div>`).join("");
 let layer=1,exI=0;
 function drawLayer(){
