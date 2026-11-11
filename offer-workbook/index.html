@@ -130,6 +130,26 @@ section.block:has(.chapterpage)+section.block{border-top:0}
 .chapterpage .mark{color:var(--ink)}
 .cstar{font-size:clamp(34px,5vw,56px);line-height:1;color:var(--hl)}
 
+/* five methods */
+.m5{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;align-items:stretch}
+.mcard5{display:flex;flex-direction:column;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.mcard5 h3{font-size:21px}
+.mcard5 b{display:block;font-size:13px;font-weight:600;color:var(--cherry);margin-bottom:2px}
+.mcard5 p{font-size:15px;line-height:1.45;color:var(--ink-2)}
+.mnum{font-size:13px;font-weight:600;color:var(--muted)}
+.pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.pstep{display:flex;flex-direction:column;gap:8px;padding:18px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);text-align:left;transition:background .15s}
+.pstep:hover{background:var(--paper-2)}
+.pstep.on{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.pnum{font:800 30px/1 var(--head);color:var(--cherry)}
+.pstep.on .pnum{color:var(--hl)}
+.pname{font:800 clamp(17px,1.8vw,22px)/1.1 var(--head);letter-spacing:-.02em}
+.cpill{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;font-weight:600}
+.cpill li::marker{color:var(--cherry);font-weight:800}
+.lrow{display:flex;justify-content:space-between;gap:8px;padding:6px 9px;border-radius:9px;background:var(--hl);color:var(--ink);font-size:12px;font-weight:600;line-height:1.2}
+.lrow b{font-weight:800}
+#flips .flip{min-height:300px}
+
 /* pick and mix */
 .ffrom{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;font-weight:600;font-size:15px}
 .ffrom span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
@@ -288,6 +308,8 @@ thead th{font-size:14px;font-weight:600;color:var(--ink-2);background:var(--pape
   .mcards{position:static;margin:0;padding:0}
   #promises,#promise2{grid-template-columns:minmax(0,1fr)}
   .flowrow,.gstats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pillars{grid-template-columns:minmax(0,1fr)}
+  .pstep{flex-direction:row;align-items:center}
   .ladder2{grid-template-columns:minmax(0,1fr)}
   .lstep{min-height:0;border-radius:14px}
   .lviz{margin-bottom:8px}
@@ -328,7 +350,7 @@ const LOGO="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAtAAAADnCAYAAAA3t2GgAA
 /* ---------- state ---------- */
 const KEY="offer-workbook-v1";
 const blankM=()=>({name:"",who:"",res:"",wo:""});
-let S={groups:[25,0,0],methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[]},a:{},vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
+let S={groups:[25,0,0,0,0],methods:[blankM(),blankM(),blankM()],mi:0,custom:{name:[],who:[],res:[],wo:[]},a:{},vals:[5000,10000,600,1500],valOn:[true,false,false,false],done:{},savedAt:0};
 try{const raw=localStorage.getItem(KEY);if(raw){S=Object.assign(S,JSON.parse(raw))}}catch(e){}
 let db=null,dbTimer=null;
 const saveEl=()=>document.getElementById("save");
@@ -343,7 +365,7 @@ function save(){
 
 /* ---------- content data ---------- */
 const GOLDS=[{"label": "Overthinkers who talk themselves out of everything", "who": "overthinkers", "res": "the confidence to trust themselves and act", "wo": "needing to feel ready first", "name": "The Trust Yourself Method", "cat": 0}, {"label": "People pleasers who can't say no without guilt", "who": "people pleasers", "res": "the confidence to say no and mean it", "wo": "feeling guilty", "name": "The Say No Method", "cat": 0}, {"label": "Women who hide, shrink and play small", "who": "women who shrink and play small", "res": "the confidence to be seen and take up space", "wo": "faking a personality", "name": "The Take Up Space Method", "cat": 0}, {"label": "Women who've lost themselves and want to feel like themselves again", "who": "women who've lost themselves", "res": "a version of themselves they recognise and love again", "wo": "becoming someone new", "name": "The Come Back Method", "cat": 1}, {"label": "Women starting over after a big life change", "who": "women starting over", "res": "the confidence to build a life on their own terms", "wo": "rushing to fill the gap", "name": "The Start Again Method", "cat": 1}, {"label": "Women who've outgrown their life and want more", "who": "women who've outgrown their life", "res": "the confidence to go after the life they want", "wo": "feeling ungrateful", "name": "The Bigger Life Method", "cat": 1}, {"label": "Women who want to speak up and be taken seriously at work", "who": "women who want to be taken seriously at work", "res": "the confidence to speak up and ask for more", "wo": "faking a personality", "name": "The Speak Up Method", "cat": 2}, {"label": "Women ready to charge more, ask for more and stop settling", "who": "women ready to ask for more", "res": "the confidence to ask for what they're worth", "wo": "feeling guilty", "name": "The Ask For More Method", "cat": 2}, {"label": "Women who keep settling for less than they deserve in love", "who": "women who keep settling in love", "res": "the confidence to know their worth in love", "wo": "playing games", "name": "The Know Your Worth Method", "cat": 2}];
-const CHAPTERS=["Start","Your client","Your 3 methods","Results","Your way","What's inside","Finish"];
+const CHAPTERS=["Start","Your client","Your 5 methods","Results","Your way","What's inside","Finish"];
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ans=(k,label,ph,one)=>`<div class="ans" data-ans="${k}"><label for="f-${k}">${label}</label>${one?`<input id="f-${k}" data-k="${k}" placeholder="${esc(ph||"Write it here")}" autocomplete="off">`:`<textarea id="f-${k}" data-k="${k}" rows="2" placeholder="${esc(ph||"Write it here")}"></textarea>`}</div>`;
 
@@ -392,21 +414,20 @@ const SL=[
 
 {c:2,n:"Package your offer",html:`<div class="chapterpage"><span class="cstar" aria-hidden="true">☆</span><h2>Now let's package <span class="mark sweep">your offer</span></h2></div>`},
 
-{c:2,n:"One engine",html:`<div class="sec-head"><h2>One engine, <span class="mark sweep">three doors</span></h2><p>Confidence is broad, and one niche is too narrow. So you run one confidence business with three specific ways in.</p></div>
+{c:2,n:"One engine",html:`<div class="sec-head"><h2>One engine, <span class="mark sweep">five doors</span></h2><p>Confidence is broad, and one niche is too narrow. So you run one confidence business with five specific ways in.</p></div>
  <div class="grid3">
   <div class="note stack" style="gap:6px"><h3>Brand and bio</h3><p>“Confidence coaching for women. Get your confidence back. Find your method.”</p></div>
   <div class="note stack" style="gap:6px"><h3>What's different</h3><p>Each method has its own name, promise, personality, testimonials, content series, masterclass group and recorded course.</p></div>
   <div class="note stack" style="gap:6px"><h3>The quiz chooses for them</h3><p>Your quiz sends each woman to the right method. It answers “which one is for me?” automatically.</p></div>
  </div>`},
 
-{c:2,n:"Your three methods",html:`<div class="sec-head"><h2>Build <span class="mark sweep">your three methods</span></h2><p>One confidence business, three clear doors. Choose a method, then pick one thing from each section.</p></div>
- <div class="tablewrap"><table class="extable"><caption>For example</caption><thead><tr><th>Method</th><th>For women who</th><th>They get</th></tr></thead><tbody>
-  <tr><td>The Come Back Method</td><td>have lost themselves</td><td>to feel like themselves again</td></tr>
-  <tr><td>The Say No Method</td><td>put everyone else first</td><td>to say no without guilt</td></tr>
-  <tr><td>The Take Up Space Method</td><td>play small at work and in life</td><td>to speak up, get seen and ask for more</td></tr>
- </tbody></table></div>
- <div class="mcards"><div id="mCards" class="grid3"></div></div>
- <div class="stack" id="mSecs" style="gap:40px"></div>`},
+{c:2,n:"Your five methods",html:`<div class="sec-head"><h2>Your <span class="mark sweep">five methods</span></h2><p>One confidence business, five clear ways in. Each method is a chapter on your site, and the quiz points women to theirs.</p></div>
+ <div class="m5" id="m5"></div>`},
+
+{c:2,n:"Your 5 pillars",html:`<div class="sec-head"><h2>Your <span class="mark sweep">5 pillars</span></h2><p>The methods are who it's for. The pillars are how you teach. Every woman goes through all five, whichever method she picks.</p></div>
+ <div class="pillars" id="pillars"></div>
+ <div class="note stack" id="pillarOut" style="gap:6px"></div>
+ <div class="inkcard"><p style="font-size:19px">So every course has the same five parts. You plan the structure once and fill it five ways.</p></div>`},
 
 {c:3,n:"Outcomes",html:`<h2>People don't buy coaching. <span class="mark sweep">They buy outcomes.</span></h2>
  <div class="split"><div class="stack">
@@ -424,20 +445,20 @@ const SL=[
  </div></div>`},
 
 {c:4,n:"Instead of",html:`<h2>Instead of this, <span class="mark sweep">you say that</span></h2>
- <div class="grid3" id="flips"></div><p class="small">Tap a card to turn it over.</p>`},
+ <div class="m5" id="flips"></div><p class="small">Tap a card to turn it over.</p>`},
 
 {c:5,n:"The offer ladder",html:`<div class="sec-head"><h2>Your funnel and <span class="mark sweep">offer ladder</span></h2><p>Each method has the same course, masterclass and 1:1. Same content, delivered three ways, so you only create it once.</p></div>
  <div class="ffrom" aria-label="How women find the ladder"><span>Instagram and your content</span><i>then</i><span>The quiz finds their method</span><i>then</i><span>They step onto the ladder</span></div>
  <div class="ladder2" id="ladder"></div>
  <div id="ladderOut" class="note stack" style="gap:8px"></div>`},
-{c:5,n:"Three Circles",html:`<div class="sec-head"><h2>Three groups, <span class="mark sweep">one at a time</span></h2><p>The masterclass is $3,333 per woman, for 8 weeks with a weekly live call and 25 women max. Each method gets its own group. We fill one, then open the next.</p></div>
- <div class="inkcard stack" style="gap:6px"><h3 style="color:var(--hl)">Show all three, but only sell one</h3><p>The other two appear on the site as coming soon, with a waitlist. Women who aren't right for the first still have somewhere to go, and you can see real demand before you film anything else.</p></div>
- <div class="grid3" id="groups"></div>
+{c:5,n:"Five groups",html:`<div class="sec-head"><h2>Five groups, <span class="mark sweep">one at a time</span></h2><p>The masterclass is $3,333 per woman, for 8 weeks with a weekly live call and 25 women max. Each method gets its own group. We fill one, then open the next.</p></div>
+ <div class="inkcard stack" style="gap:6px"><h3 style="color:var(--hl)">All five on the site, one group open at a time</h3><p>Women can see every method and join the waitlist for theirs. The waitlists tell us which group to open next.</p></div>
+ <div class="m5" id="groups"></div>
  <div class="reach gstats" id="gStats"></div>
  <p class="small">Example numbers at $3,333 per woman. Not a promise.</p>`},
 
-{c:5,n:"Three courses",html:`<div class="sec-head"><h2>One recorded course <span class="mark sweep">for each method</span></h2><p>You film each one once, and it sells any time.</p></div>
- <div class="grid3" id="courses"></div>`},
+{c:5,n:"Five courses",html:`<div class="sec-head"><h2>Five courses, <span class="mark sweep">one structure</span></h2><p>One recorded course for each method. Every course follows your 5 pillars, so you film to the same plan each time.</p></div>
+ <div class="m5" id="courses"></div>`},
 
 {c:6,n:"What happens next",html:`<h2>You did the hard part. <span class="mark sweep">Here's what's next.</span></h2>
  <div class="split"><div class="stack">
@@ -448,18 +469,18 @@ const SL=[
   <h3>You</h3>
   <div class="ticks" data-group="you">
    <label><input type="checkbox" data-t="v0"><span>Get the updated agreement back from your lawyer and send it to me</span></label>
-   <label><input type="checkbox" data-t="v1"><span>Finalise the three offers: pick the right wording for each one</span></label>
-   <label><input type="checkbox" data-t="v2"><span>Post an Instagram Story poll asking women what they want help with most</span></label>
+   <label><input type="checkbox" data-t="v1"><span>Finalise the wording for all five methods</span></label>
+   <label><input type="checkbox" data-t="v2"><span>Post an Instagram Story asking which of the five areas women want help with most</span></label>
    <label><input type="checkbox" data-t="v3"><span>The winning answer becomes the first offer and first course we create</span></label>
    <label><input type="checkbox" data-t="v4"><span>Record the first course in the week of Monday 9 to Sunday 15 November</span></label>
    <label><input type="checkbox" data-t="v5"><span>Record your VSL, the short video for your website</span></label>
-   <label><input type="checkbox" data-t="v6"><span>Record a short personalised video for each quiz result: People Pleaser, Overthinker, Hider, Imposter and Main Character</span></label>
+   <label><input type="checkbox" data-t="v6"><span>Record a short personalised video for each quiz result: People Pleaser, Fixer, Overthinker, Hider, Imposter and Main Character</span></label>
   </div>
   <h3>Me</h3>
   <div class="ticks">
    <label><input type="checkbox" data-t="me0"><span>Redesign the website with the changes you wanted</span></label>
-   <label><input type="checkbox" data-t="me1"><span>Rewrite the website around your three offers and finalise it</span></label>
-   <label><input type="checkbox" data-t="me2"><span>Solidify the three offers</span></label>
+   <label><input type="checkbox" data-t="me1"><span>Finalise the website around your five methods</span></label>
+   <label><input type="checkbox" data-t="me2"><span>Solidify the five methods and the 5 pillars</span></label>
    <label><input type="checkbox" data-t="me3"><span>Build the back end, structure and customer flow</span></label>
    <label><input type="checkbox" data-t="me4"><span>Set up the systems and community channels</span></label>
    <label><input type="checkbox" data-t="me5"><span>Create and finalise the quizzes</span></label>
@@ -524,7 +545,7 @@ function drawLayer(){
   $$("[data-layer]").forEach(b=>b.classList.toggle("on",+b.dataset.layer===layer));
   const picked=S.methods.map(m=>m.who).filter(Boolean).join(", ");
   const say=["Personal development","Women's confidence",picked||"For example: "+GOLDS[exI].who];
-  const txt=["Everyone who wants to feel better about themselves.","Women who want more confidence. This is where most confidence coaches stop.","Three exact clients, one method each. Still one confidence business."];
+  const txt=["Everyone who wants to feel better about themselves.","Women who want more confidence. This is where most confidence coaches stop.","Your UVZ. You'll have five, one for each method. Still one confidence business."];
   $("#layerOut").innerHTML=`<div class="say">${esc(say[layer-1])}</div><p style="margin-top:6px">${txt[layer-1]}</p>`;
   $("#goldExRow").hidden=!(layer===3&&!picked);
 }
@@ -544,31 +565,23 @@ const RULES=[["Specialising creates perceived value","The coach for one kind of 
 $("#rules").innerHTML=RULES.map(r=>`<button class="tap"><span class="star">★</span><h3 style="padding-right:34px">${r[0]}</h3><span class="hint">Tap to open</span><span class="more">${r[1]}</span></button>`).join("");
 $("#rules").onclick=e=>{const t=e.target.closest(".tap");if(t)t.classList.toggle("on")};
 
-/* methods */
-const SECS=[["name","Pick the method","Your own method name",["Breaking a pattern","Starting a new chapter","Going after more"]],["who","Who it's for","Your own: who is it for?",["Stuck in a pattern","At a turning point","Going after something"]],["res","What they get","Your own: what do they get?",["Freedom from the pattern","Finding themselves again","Asking for more"]],["wo","Without","Your own: without what?",["Without the guilt","Without changing who you are","Without the pressure"]]];
-const WOCAT={"feeling guilty":0,"feeling ungrateful":0,"faking a personality":1,"becoming someone new":1,"playing games":1,"needing to feel ready first":2,"rushing to fill the gap":2};
-const uniq=a=>[...new Set(a)];
-const clean=(f,v)=>{v=v.trim();if(f==="name"&&v){if(!/method$/i.test(v))v+=" Method";if(!/^the /i.test(v))v="The "+v}return v};
-function optionsFor(f){const base=[];GOLDS.forEach(g=>{const v=g[f];if(base.some(o=>o.v===v))return;base.push({v,l:f==="who"?g.label:v.charAt(0).toUpperCase()+v.slice(1),c:f==="wo"?WOCAT[v]:g.cat})});return [...base,...(S.custom[f]||[]).filter(v=>!base.some(o=>o.v===v)).map(v=>({v,l:v,c:3}))]}
-const isDone=m=>SECS.every(([f])=>(m[f]||"").trim());
-const mTitle=i=>"Method "+(i+1);
-function matchG(m){return GOLDS.find(g=>g.name===m.name||g.who===m.who||g.res===m.res)||null}
-function drawBuild(){
-  const m=S.methods[S.mi],g=matchG(m);
-  $("#mCards").innerHTML=S.methods.map((x,i)=>{const f=SECS.filter(([k])=>(x[k]||"").trim()).length,total=SECS.length;return `<button class="mcard${i===S.mi?" on":""}" data-mi="${i}"><span class="mhead"><b>${esc(mTitle(i))}</b><span class="mcount">${f===total?"★":f+" of "+total}</span></span>${x.name?`<span>${esc(x.name)}</span>`:""}${x.who?`<span>For ${esc(x.who)}</span>`:""}${x.res?`<span>Gets ${esc(x.res)}</span>`:""}${x.wo?`<span>Without ${esc(x.wo)}</span>`:""}${f===0?`<span class="mempty">Nothing picked yet</span>`:""}</button>`}).join("");
-  const chip=(f,o)=>{const on=m[f]===o.v;const other=(f==="name"||f==="who")?S.methods.findIndex((x,i)=>i!==S.mi&&x[f]===o.v):-1;const sug=!on&&g&&g[f]===o.v;return `<button class="mchip${on?" on":""}${other>=0?" taken":""}" data-f="${f}" data-v="${esc(o.v)}" ${other>=0?"disabled":""}>${sug?'<i>★</i> ':""}${esc(o.l)}${other>=0?` <small>in method ${other+1}</small>`:""}</button>`};
-  $("#mSecs").innerHTML=SECS.map(([f,t,ph,cats],n)=>{const opts=optionsFor(f),own=opts.filter(o=>o.c===3);return `<div class="stack" style="gap:12px"><h3 class="msec">${n+1}. ${t}</h3><div class="grid3 mcats">${cats.map((c,ci)=>`<div class="mcat"><h4>${esc(c)}</h4>${opts.filter(o=>o.c===ci).map(o=>chip(f,o)).join("")}</div>`).join("")}</div>${own.length?`<div class="mcat own"><h4>Your own</h4><div class="row">${own.map(o=>chip(f,o)).join("")}</div></div>`:""}
-  <form class="mown" data-f="${f}"><input aria-label="${esc(ph)}" placeholder="${esc(ph)}" autocomplete="off"><button class="pill" type="submit">Add</button></form></div>`}).join("");
+/* five methods and pillars */
+const M5=[
+ {n:"Head to Toe",who:"Women who pick their body apart in the mirror and don't feel at home in their own skin.",ch:"Feel good in your body as it is now, without waiting to change first.",f:"I help women love their bodies.",b:"I use the Head to Toe Method to help women who pick their body apart feel good in their body as it is now, without waiting to change first."},
+ {n:"Beyond the Mirror",who:"Women who've worked on body confidence but still doubt themselves day to day.",ch:"Carry yourself with confidence everywhere and go after the job, the partner and the lifestyle.",f:"I help women feel more confident.",b:"I use the Beyond the Mirror Method to help women who still doubt themselves carry their confidence everywhere and go after the job, the partner and the lifestyle."},
+ {n:"Go Getter",who:"Women with imposter syndrome who don't speak up for themselves, or haven't found their purpose yet.",ch:"Speak up, back yourself at work and go after what you're here to do.",f:"I help women be confident at work.",b:"I use the Go Getter Method to help women with imposter syndrome speak up, back themselves at work and go after what they're here to do."},
+ {n:"Boundary Boss",who:"People pleasers who struggle to say no and stand firm.",ch:"Say no, mean it and hold your boundaries, without the guilt.",f:"I help women stop people pleasing.",b:"I use the Boundary Boss Method to help people pleasers say no, mean it and hold their boundaries, without the guilt."},
+ {n:"Comeback",who:"Women rebuilding after a breakup, a loss or a hard season, who feel they've lost their spark.",ch:"Rebuild after a hard season and get your spark back.",f:"I help women after a breakup.",b:"I use the Comeback Method to help women rebuilding after a breakup, a loss or a hard season get their spark back."}
+];
+const PILLARS=[["Reawaken","Notice what's really been running your life."],["Repair","Heal the places it all started."],["Rewire","Change the story you tell yourself."],["Refocus","Put your energy where it grows you."],["Rebuild","Show up as the woman you're becoming."]];
+const mTitle=i=>"The "+M5[i].n+" Method";
+function drawM5(){$("#m5").innerHTML=M5.map((m,i)=>`<div class="mcard5"><span class="mnum">Chapter ${i+1}</span><h3>The ${esc(m.n)} Method</h3><div><b>Who it's for</b><p>${esc(m.who)}</p></div><div><b>What changes</b><p>${esc(m.ch)}</p></div></div>`).join("")}
+let pillarI=0;
+function drawPillars(){
+  $("#pillars").innerHTML=PILLARS.map((p,i)=>`<button class="pstep${i===pillarI?" on":""}" data-p="${i}"><span class="pnum">${i+1}</span><span class="pname">${p[0]}</span></button>`).join("");
+  const p=PILLARS[pillarI];$("#pillarOut").innerHTML=`<h3>Step ${pillarI+1}: ${p[0]}</h3><p>${esc(p[1])}</p>`;
 }
-function pick(f,v){
-  const m=S.methods[S.mi];m[f]=m[f]===v?"":v;
-  if(isDone(m)){const n=S.methods.findIndex(x=>!isDone(x));if(n>=0)S.mi=n}
-  syncAll();save();
-}
-$("#mSecs").addEventListener("click",e=>{const b=e.target.closest(".mchip");if(b&&!b.disabled)pick(b.dataset.f,b.dataset.v)});
-$("#mSecs").addEventListener("submit",e=>{e.preventDefault();const fm=e.target,f=fm.dataset.f,inp=fm.querySelector("input"),v=clean(f,inp.value);if(!v)return;if(!optionsFor(f).some(o=>o.v===v))S.custom[f].push(v);S.methods[S.mi][f]="";pick(f,v)});
-$("#mCards").addEventListener("click",e=>{const b=e.target.closest("[data-mi]");if(b){S.mi=+b.dataset.mi;syncAll();save()}});
-
+$("#pillars").addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(b){pillarI=+b.dataset.p;drawPillars()}});
 
 /* sharpen */
 const SHARP=[["Feel more confident",18],["Speak up at work",42],["Speak up in every meeting and ask for the raise",72],["Ask for the raise within 8 weeks, with the words ready",100]];
@@ -577,10 +590,9 @@ function drawSharp(){$("#sharpSay").textContent=SHARP[sharp][0];$("#sharpBar").s
 $("#sharpBtn").onclick=()=>{sharp=(sharp+1)%SHARP.length;drawSharp()};
 
 /* flips */
-function flipExamples(){const used=S.methods.filter(isDone).map(m=>m.name);const pref=["The Come Back Method","The Say No Method","The Take Up Space Method",...GOLDS.map(g=>g.name)];return pref.filter((n,i,a)=>a.indexOf(n)===i&&!used.includes(n)).map(n=>GOLDS.find(g=>g.name===n))}
 function drawFlips(){const open=$$("#flips .flip").map(f=>f.classList.contains("on"));
-  const ex=flipExamples();
-  $("#flips").innerHTML=S.methods.map((m,i)=>{const d=isDone(m)?m:ex.shift();return `<button class="flip${open[i]?" on":""}"><span class="front"><h3>Instead of</h3><q>${isDone(m)?"I help "+esc(d.who)+".":"I help women feel more confident."}</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>${isDone(m)?"You say":"You say, for example"}</h3><q>I use ${esc(d.name.replace(/^The /,"the "))} to help ${esc(d.who)} get ${esc(d.res)}, without ${esc(d.wo)}.</q></span></button>`}).join("")}
+  $("#flips").innerHTML=M5.map((m,i)=>`<button class="flip${open[i]?" on":""}"><span class="front"><h3>Instead of</h3><q>${esc(m.f)}</q><i class="tag">Tap to turn over</i></span><span class="back"><h3>You say</h3><q>${esc(m.b)}</q></span></button>`).join("");
+}
 $("#flips").onclick=e=>{const t=e.target.closest(".flip");if(t)t.classList.toggle("on")};
 
 /* promise */
@@ -595,20 +607,20 @@ const PRICE=3333;
 /* offer ladder */
 const LADDER=[
  {n:"Free workshop",p:"$0",t:"Monthly",d:"One live confidence workshop with you each month. This is how they get to know you.",w:"1 hour a month",a:"Open to everyone"},
- {n:"Course",p:"$888",t:"Own time",d:"One recorded course for each method, so 3 courses. They go through the chapters in their own time.",w:"Film it once",a:"Buy online"},
- {n:"25 woman masterclass",p:"$3,333",t:"8 weeks",d:"One group for each method, so 3 separate groups of 25. They open one at a time. You go through the method live, and they can ask questions, get support and stay accountable. The course is included.",w:"1 hour a week per group",a:"Apply, then a sales call"},
- {n:"1:1",p:"$8,888",t:"12 weeks",d:"10 women in total across all three methods, each coached 1 to 1. You go through their method, fully personalised to them. If one method doesn't fit, you build them a custom confidence plan. The course is included.",w:"1 hour a week per client",a:"Apply, then a sales call"}
+ {n:"Course",p:"$888",t:"Own time",d:"One recorded course for each method, so 5 courses. Each follows your 5 pillars, and they go through it in their own time.",w:"Film it once",a:"Buy online"},
+ {n:"25 woman masterclass",p:"$3,333",t:"8 weeks",d:"One group for each method, so 5 separate groups of 25. They open one at a time. You go through the method live, and they can ask questions, get support and stay accountable. The course is included.",w:"1 hour a week per group",a:"Apply, then a sales call"},
+ {n:"1:1",p:"$8,888",t:"12 weeks",d:"10 women in total across all five methods, each coached 1 to 1. You go through their method, fully personalised to them. If one method doesn't fit, you build them a custom confidence plan. The course is included.",w:"1 hour a week per client",a:"Apply, then a sales call"}
 ];
 let ladderI=2;
 function ladderViz(i){
   const seats=n=>Array.from({length:n},()=>"<i></i>").join("");
-  if(i===1)return `<span class="lviz"><span class="lcap">3 courses</span>${[1,2,3].map(n=>`<span class="lcourse">Method ${n}</span>`).join("")}</span>`;
-  if(i===2)return `<span class="lviz"><span class="lcap">3 groups of 25</span><span class="lgroups">${[1,2,3].map(n=>`<span class="lgroup"><span class="lseats">${seats(25)}</span><small>Method ${n}</small></span>`).join("")}</span></span>`;
-  if(i===3)return `<span class="lviz"><span class="lcap">10 women, each 1 to 1</span><span class="lones">${seats(10)}</span></span>`;
+  if(i===1)return `<span class="lviz"><span class="lcap">5 courses</span>${M5.map(m=>`<span class="lcourse">${esc(m.n)}</span>`).join("")}</span>`;
+  if(i===2)return `<span class="lviz"><span class="lcap">5 groups of 25</span>${M5.map(m=>`<span class="lrow"><span>${esc(m.n)}</span><b>25</b></span>`).join("")}</span>`;
+  if(i===3)return `<span class="lviz"><span class="lcap">10 women across all five</span><span class="lones">${seats(10)}</span></span>`;
   return "";
 }
 function drawLadder(){
-  $("#ladder").innerHTML=LADDER.map((o,i)=>`<button class="lstep${i===ladderI?" on":""}" data-l="${i}" style="--h:${[120,250,310,370][i]}px">${ladderViz(i)}<span class="lname">${esc(o.n)}</span><span class="lprice">${o.p}${o.u?`<small> ${o.u}</small>`:""}</span></button>`).join("");
+  $("#ladder").innerHTML=LADDER.map((o,i)=>`<button class="lstep${i===ladderI?" on":""}" data-l="${i}" style="--h:${[120,300,330,360][i]}px">${ladderViz(i)}<span class="lname">${esc(o.n)}</span><span class="lprice">${o.p}${o.u?`<small> ${o.u}</small>`:""}</span></button>`).join("");
   const o=LADDER[ladderI];
   $("#ladderOut").innerHTML=`<h3>${esc(o.n)}: ${o.p}${o.u?" "+o.u:""}</h3><p>${esc(o.d)}</p><div class="kv"><b>Length</b><span>${esc(o.t)}</span><b>How they join</b><span>${esc(o.a)}</span><b>Your time</b><span>${esc(o.w)}</span></div>`;
 }
@@ -616,8 +628,8 @@ $("#ladder").addEventListener("click",e=>{const b=e.target.closest("[data-l]");i
 
 /* three circles */
 function drawGroups(){
-  if(S.groups.join()==="20,20,20")S.groups=[25,0,0];
-  $("#groups").innerHTML=S.groups.map((n,i)=>`<div class="note stack" style="gap:10px"><h3>${esc(mTitle(i))}</h3><p class="small" style="font-weight:600;color:var(--cherry)">${i===0?"Open first":"Coming soon, with a waitlist"}</p><div class="seats" aria-hidden="true">${Array.from({length:25},(_,k)=>`<i class="${k<n?"on":""}"></i>`).join("")}</div><label class="small" for="g${i}"><b class="gn">${n}</b> of 25 women</label><input type="range" id="g${i}" data-gi="${i}" min="0" max="25" value="${n}"></div>`).join("");
+  if(!Array.isArray(S.groups)||S.groups.length!==5)S.groups=[25,0,0,0,0];
+  $("#groups").innerHTML=S.groups.map((n,i)=>`<div class="note stack" style="gap:10px"><h3>${esc(mTitle(i))}</h3><p class="small" style="font-weight:600;color:var(--cherry)">${i===0?"Open first":"Waitlist"}</p><div class="seats" aria-hidden="true">${Array.from({length:25},(_,k)=>`<i class="${k<n?"on":""}"></i>`).join("")}</div><label class="small" for="g${i}"><b class="gn">${n}</b> of 25 women</label><input type="range" id="g${i}" data-gi="${i}" min="0" max="25" value="${n}"></div>`).join("");
   drawGStats();
 }
 function drawGStats(){
@@ -628,7 +640,7 @@ $("#groups").addEventListener("input",e=>{const i=e.target.dataset.gi;if(i==null
 
 /* three courses */
 function drawCourses(){
-  $("#courses").innerHTML=S.methods.map((m,i)=>{return `<div class="note stack" style="gap:8px"><h3>${esc(mTitle(i))}</h3><p class="small">${m.res?"Helps them get "+esc(m.res)+".":"Recorded course"}</p></div>`}).join("");
+  $("#courses").innerHTML=M5.map((m,i)=>`<div class="note stack" style="gap:10px"><h3>${esc(mTitle(i))}</h3><ol class="cpill">${PILLARS.map(p=>`<li>${p[0]}</li>`).join("")}</ol></div>`).join("");
 }
 
 /* summary */
@@ -636,7 +648,6 @@ function exportText(){
   const L=[];const push=(t,v)=>{if(v&&String(v).trim())L.push(t+": "+v)};
   L.push("THE OFFER WORKBOOK");
   const labels={q_dm:"Most common DM",q_best:"Best mentee results",q_self:"Who you were before",q_pain:"Most urgent problem",cost:"Cost of staying stuck",d_date:"Next workshop"};
-  S.methods.forEach((m,i)=>{L.push("");L.push("METHOD "+(i+1)+": "+(m.name||"not named"));push("Promise",promiseText(m));push("Short",shortText(m));});
   L.push("");[0,1,2].forEach(i=>push("Outcome "+(i+1),S.a["out"+i]));Object.keys(labels).forEach(k=>push(labels[k],S.a[k]));
   L.push("Masterclass price: "+money(PRICE)+" per woman");
   L.push("Masterclass groups: "+S.groups.map((n,i)=>mTitle(i)+" "+n).join(", "));
@@ -661,7 +672,7 @@ function drawTitles(){$$("[data-mt]").forEach(el=>el.textContent=mTitle(+el.data
 function syncAll(){
   drawDateChips();
   drawLadder();
-  drawBuild();drawFlips();drawTitles();
+  drawM5();drawPillars();drawFlips();drawTitles();
   drawLayer();drawSpec();drawGroups();drawCourses();
 }
 function onEnter(){}
