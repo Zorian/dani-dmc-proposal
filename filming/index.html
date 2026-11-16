@@ -167,7 +167,6 @@ footer{padding:40px 0 calc(40px + env(safe-area-inset-bottom,0px));border-top:1p
       <a href="#content">Content</a>
       <a href="#hooks">Hooks</a>
       <a href="#testimonials">Testimonials</a>
-      <a href="#checklist">Checklist</a>
     </div>
   </div>
 </nav>
@@ -367,48 +366,11 @@ footer{padding:40px 0 calc(40px + env(safe-area-inset-bottom,0px));border-top:1p
   </div>
 </section>
 
-<!-- CHECKLIST -->
-<section class="block" id="checklist">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Checklist</h2>
-      <p>Tick things off as you go. Your ticks stay on this device.</p>
-    </div>
-    <p class="progress" id="prog"><span>0</span> of 12 done</p>
-    <ul class="check" id="check">
-      <li><label><input type="checkbox"><span>Pick your 2 favourite VSL hooks</span></label></li>
-      <li><label><input type="checkbox"><span>Decide how much of your story to share</span></label></li>
-      <li><label><input type="checkbox"><span>Pick the reveal video ending</span></label></li>
-      <li><label><input type="checkbox"><span>Know which Confidence Type you were</span></label></li>
-      <li><label><input type="checkbox"><span>3 or 4 outfits ready</span></label></li>
-      <li><label><input type="checkbox"><span>Notebook and highlighter for B-roll</span></label></li>
-      <li><label><input type="checkbox"><span>VSL filmed</span></label></li>
-      <li><label><input type="checkbox"><span>6 reveal videos filmed</span></label></li>
-      <li><label><input type="checkbox"><span>Content bank filmed</span></label></li>
-      <li><label><input type="checkbox"><span>Bonus hooks filmed</span></label></li>
-      <li><label><input type="checkbox"><span>B-roll filmed</span></label></li>
-      <li><label><input type="checkbox"><span>Testimonial message sent to past clients</span></label></li>
-    </ul>
-  </div>
-</section>
 
 <footer><div class="wrap">The Confidence Rebirth ☆</div></footer>
 
 <script>
 (function(){
-  var KEY="rebirth-filming-check";
-  var boxes=[].slice.call(document.querySelectorAll("#check input"));
-  var prog=document.querySelector("#prog span");
-  var saved=[];
-  try{saved=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){}
-  boxes.forEach(function(b,i){b.checked=!!saved[i];b.addEventListener("change",update)});
-  function update(){
-    var s=boxes.map(function(b){return b.checked});
-    prog.textContent=s.filter(Boolean).length;
-    try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}
-  }
-  update();
-
   var btn=document.getElementById("copybtn");
   btn.addEventListener("click",function(){
     var t=document.getElementById("msgtext").innerText;
